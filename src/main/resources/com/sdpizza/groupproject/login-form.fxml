@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.HelloController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <VBox alignment="CENTER" layoutX="154.0" prefHeight="258.0" prefWidth="349.0">
+               <children>
+                  <Label text="Login">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <Label text="Username" />
+                  <TextField fx:id="usernameField" promptText="Username" />
+                  <Label text="Password" />
+                  <PasswordField fx:id="passwordField" promptText="Password" />
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="Login" />
+                  <AnchorPane />
+                  <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
+               </children>
+            </VBox>
+            <VBox layoutX="154.0" layoutY="-234.0" prefHeight="200.0" prefWidth="100.0" />
+         </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </AnchorPane>
+   </children>
+</VBox>
