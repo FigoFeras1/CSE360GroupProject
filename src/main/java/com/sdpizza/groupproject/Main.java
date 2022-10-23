@@ -15,9 +15,15 @@ public class Main extends Application {
                 new FXMLLoader(
                     Main.class.getResource("login-form.fxml")
                 );
+        /* Setting the controller for the application here
+           NOTE: You may run into weird behavior if you are using the
+           SceneBuilder (i.e., the fields aren't being recognized)
+           or you may get an error that the controller is already defined;
+           Just go into the fxml file and remove the fx:controller attribute */
         fxmlLoader.setController(controller);
 
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        /* Adding event handlers to the scene */
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         scene.setOnKeyPressed(controller::keyPressed);
 
         stage.setTitle("Login");

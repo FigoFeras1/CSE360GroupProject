@@ -1,25 +1,37 @@
 package com.sdpizza.groupproject;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
 
 public class Controller {
     @FXML
-    private Label welcomeText, loginText;
+    private Label welcomeText;
 
     @FXML
+    @SuppressWarnings("unused")
+    private Label loginText;
+
+    @FXML
+    @SuppressWarnings("unused")
     private Button loginButton;
 
     @FXML
-    private CheckBox hiCheckBox;
+    @SuppressWarnings("unused")
+    private TextField idField;
 
     @FXML
-    private TextField usernameField;
-
-    @FXML
+    @SuppressWarnings("unused")
     private PasswordField passwordField;
 
     @FXML
@@ -28,50 +40,62 @@ public class Controller {
     }
 
     @FXML
-    protected void onHelloButtonCheck() {
-        if (hiCheckBox.isSelected()) {
-            welcomeText.setText("Welcome to JavaFX Application!");
-        } else {
-            welcomeText.setText("");
-        }
-    }
-
-    @FXML
     protected void login() {
-        boolean fieldsFilled = (usernameField.getCharacters().length() > 0
+        boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled) ? Color.BLACK : Color.RED;
-        if (fieldsFilled) {
-            loginText.setText("Login Successful!");
-            loginText.setTextFill(Color.color(0, 1, 0));
-        } else {
-            loginText.setText("Please enter username and password");
-            loginText.setTextFill(Color.color(1, 0, 0));
-        }
-        usernameField.setBorder(Border.stroke(borderColor));
+        Color borderColor = (fieldsFilled ? Color.BLACK : Color.RED);
+
+        idField.setBorder(Border.stroke(borderColor));
         passwordField.setBorder(Border.stroke(borderColor));
 
-        loginText.setVisible(true);
+        /* TODO: Add another if statement that checks the id and password */
+        if (!fieldsFilled) {
+            loginText.setText("Please enter your ASUID and password");
+            loginText.setTextFill(borderColor);
+            loginText.setVisible(true);
+            return;
+        }
+
+        /* View switching code */
+        try {
+            /* Which view to display */
+            URL location = getClass().getResource("hello-view.fxml");
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(location));
+            ((Stage) loginButton
+                        .getScene()
+                        .getWindow())
+                        .setScene(new Scene(root, 750, 500));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
     }
 
+    /* Use this function if you need specific behavior for a keyPressed event */
     @FXML
     protected void keyPressed(KeyEvent event) {
         switch (event.getCode()) {
             case ENTER:
-                if (!usernameField.isFocused()
-                    && usernameField.getCharacters().length() == 0)
+                if (!idField.isFocused()
+                    && idField.getCharacters().length() == 0)
                 {
-                    usernameField.requestFocus();
-                } else if (passwordField.getCharacters().length() > 0) {
-                    login();
-                } else {
-                    passwordField.requestFocus();
+                    idField.requestFocus();
                 }
+                else if (passwordField.getCharacters().length() > 0)
+                    login();
+                else
+                    passwordField.requestFocus();
 
                 break;
             case TAB:
             default: break;
         }
+    }
+
+    enum Message {
+        SUCCESS,
+        FAILURE,
     }
 
 }

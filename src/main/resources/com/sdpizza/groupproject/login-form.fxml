@@ -21,8 +21,8 @@
                         <Font size="40.0" />
                      </font>
                   </Label>
-                  <Label text="Username" />
-                  <TextField fx:id="usernameField" promptText="Username" />
+                  <Label text="ASU ID" />
+                  <TextField fx:id="idField" promptText="ASU ID" />
                   <Label text="Password" />
                   <PasswordField fx:id="passwordField" promptText="Password" />
                   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="Login" />
