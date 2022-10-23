@@ -7,13 +7,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login-form.fxml"));
+        Controller controller = new Controller();
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(
+                    Main.class.getResource("login-form.fxml")
+                );
+        fxmlLoader.setController(controller);
+
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        scene.setOnKeyPressed(controller::keyPressed);
+
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
