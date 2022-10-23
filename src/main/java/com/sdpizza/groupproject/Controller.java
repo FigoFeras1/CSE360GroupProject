@@ -79,6 +79,7 @@ public class Controller {
         }
     }
 
+    /* Use this method to transition through views */
     private void loadView(String name) {
         try {
             /* Which view to display */
