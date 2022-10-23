@@ -5,7 +5,7 @@ plugins {
     id 'org.beryx.jlink' version '2.25.0'
 }
 
-group 'com.group25'
+group 'com.sdpizza'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -24,12 +24,12 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.group25.cse360groupproject'
-    mainClass = 'com.group25.cse360groupproject.HelloApplication'
+    mainModule = 'com.sdpizza.groupproject'
+    mainClass = 'com.sdpizza.groupproject.HelloApplication'
 }
 
 javafx {
-    version = '17.0.2'
+    version = '19'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
