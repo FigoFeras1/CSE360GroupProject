@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.HomeClass">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
    <children>
       <Rectangle fill="#ff7348" height="50.0" smooth="false" stroke="#ff7348" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="1024.0" />
       <Button layoutX="811.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" text="Login" />
@@ -21,32 +21,32 @@
       <Rectangle fill="#ff7348" height="386.0" layoutX="-10.0" layoutY="382.0" smooth="false" stroke="#ff7348" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="1034.0" />
       <ImageView fitHeight="90.0" fitWidth="361.0" layoutX="-1.0" layoutY="683.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Media/SeekPng.com_city-skyline-png_236380%20(1).png" />
+            <Image url="@../media/skyline.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="81.0" fitWidth="344.0" layoutX="680.0" layoutY="687.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Media/SeekPng.com_city-skyline-png_236380%20(1).png" />
+            <Image url="@../media/skyline.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="78.0" fitWidth="323.0" layoutX="360.0" layoutY="692.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Media/SeekPng.com_city-skyline-png_236380%20(1).png" />
+            <Image url="@../media/skyline.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="181.0" fitWidth="361.0" layoutX="150.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Media/2-25804_pepperoni-pizza-png-transparent-image-pepperoni-pizza-with.png" />
+            <Image url="@../media/pepperoni-pizza.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="173.0" fitWidth="353.0" layoutX="495.0" layoutY="335.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Media/7-2-pizza-free-png-image.png" />
+            <Image url="@../media/basil-pizza.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="211.0" fitWidth="361.0" layoutX="343.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Media/pizza_PNG43981.png" />
+            <Image url="@../media/veggie-pizza.png" />
          </image>
       </ImageView>
    </children>
