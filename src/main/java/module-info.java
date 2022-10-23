@@ -1,4 +1,4 @@
-module com.group25.cse360groupproject {
+module com.sdpizza.groupproject {
     requires javafx.controls;
     requires javafx.fxml;
 
