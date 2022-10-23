@@ -40,7 +40,7 @@ public class Controller {
     protected void login() {
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.BLACK : Color.RED);
+        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
 
         idField.setBorder(Border.stroke(borderColor));
         passwordField.setBorder(Border.stroke(borderColor));
@@ -54,19 +54,8 @@ public class Controller {
         }
 
         /* View switching code */
-        try {
-            /* Which view to display */
-            URL location = getClass().getResource("hello-view.fxml");
+        loadView("home-view.fxml");
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(location));
-            ((Stage) loginButton
-                        .getScene()
-                        .getWindow())
-                        .setScene(new Scene(root, 750, 500));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println(e.getMessage());
-        }
     }
 
     /* Use this function if you need specific behavior for a keyPressed event */
@@ -87,6 +76,22 @@ public class Controller {
                 break;
             case TAB:
             default: break;
+        }
+    }
+
+    private void loadView(String name) {
+        try {
+            /* Which view to display */
+            URL location = getClass().getResource(name);
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(location));
+            ((Stage) loginButton
+                        .getScene()
+                        .getWindow())
+                        .setScene(new Scene(root, 750, 500));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 
