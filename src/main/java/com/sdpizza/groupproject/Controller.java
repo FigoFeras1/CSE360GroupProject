@@ -16,11 +16,8 @@ import java.util.Objects;
 
 public class Controller {
     @FXML
-    private Label welcomeText;
-
-    @FXML
     @SuppressWarnings("unused")
-    private Label loginText;
+    private Label welcomeText, loginText;
 
     @FXML
     @SuppressWarnings("unused")
@@ -68,7 +65,7 @@ public class Controller {
                         .setScene(new Scene(root, 750, 500));
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
@@ -93,9 +90,10 @@ public class Controller {
         }
     }
 
+    /* May want to start using this in the future */
+    @SuppressWarnings("unused")
     enum Message {
         SUCCESS,
         FAILURE,
     }
-
 }
