@@ -15,7 +15,6 @@
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
             <VBox alignment="CENTER" layoutX="154.0" prefHeight="258.0" prefWidth="349.0">
-               @SuppressWarnings("unused")
                <children>
                   <Label text="Login">
                      <font>

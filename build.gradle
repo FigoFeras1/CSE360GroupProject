@@ -25,7 +25,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'com.sdpizza.groupproject'
-    mainClass = 'com.sdpizza.groupproject.HelloApplication'
+    mainClass = 'com.sdpizza.groupproject.Main'
 }
 
 javafx {
