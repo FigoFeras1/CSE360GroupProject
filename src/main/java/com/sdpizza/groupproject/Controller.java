@@ -17,15 +17,15 @@ import java.util.Objects;
 public class Controller {
     @FXML
     @SuppressWarnings("unused")
-    private Label welcomeText, loginText;
+    private Label welcomeText, loginText, registerText;
 
     @FXML
     @SuppressWarnings("unused")
-    private Button loginButton, homeLoginButton, orderCancelButton, orderConfirmButton, orderStatusButton;
+    private Button loginButton, registerButton, homeLoginButton, homeRegisterButton, orderCancelButton, orderConfirmButton, orderStatusButton;
 
     @FXML
     @SuppressWarnings("unused")
-    private TextField idField;
+    private TextField idField, firstField, lastField;
 
 
     @FXML
@@ -59,8 +59,36 @@ public class Controller {
     }
 
     @FXML
+    protected void register() {
+        boolean fieldsFilled = (idField.getCharacters().length() > 0
+                && passwordField.getCharacters().length() > 0);
+        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
+
+        firstField.setBorder(Border.stroke(borderColor));
+        lastField.setBorder(Border.stroke(borderColor));
+        idField.setBorder(Border.stroke(borderColor));
+        passwordField.setBorder(Border.stroke(borderColor));
+
+        /* TODO: Add another if statement that checks the id and password */
+        if (!fieldsFilled) {
+            registerText.setText("Enter Full Name, ASUID, and password");
+            registerText.setTextFill(borderColor);
+            registerText.setVisible(true);
+            return;
+        }
+
+        /* View switching code */
+        loadView("home-view.fxml",registerButton.getScene());
+    }
+
+    @FXML
     protected void homeLogin() {
         loadView("login-form.fxml", homeLoginButton.getScene());
+    }
+
+    @FXML
+    protected void homeRegister() {
+        loadView("register-form.fxml", homeRegisterButton.getScene());
     }
 
     @FXML
