@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
+    <children>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <VBox alignment="CENTER" layoutX="126.0" layoutY="71.0" prefHeight="258.0" prefWidth="349.0">
+                    <children>
+                        <Label text="Order Status" />
+                        <Label text="Large Pepperoni with Extra Cheese" />
+                        <AnchorPane />
+                        <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
+                        <Button fx:id="orderCancelButton" mnemonicParsing="false" onAction="#orderCancel" text="Go Home" />
+                    </children>
+                </VBox>
+                <VBox layoutX="154.0" layoutY="-234.0" prefHeight="200.0" prefWidth="100.0" />
+            </children>
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+        </AnchorPane>
+    </children>
+</VBox>

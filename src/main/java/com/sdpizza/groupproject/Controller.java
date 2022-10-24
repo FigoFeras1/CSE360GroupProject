@@ -21,11 +21,12 @@ public class Controller {
 
     @FXML
     @SuppressWarnings("unused")
-    private Button loginButton, homeLoginButton;
+    private Button loginButton, homeLoginButton, orderCancelButton, orderConfirmButton, orderStatusButton;
 
     @FXML
     @SuppressWarnings("unused")
     private TextField idField;
+
 
     @FXML
     @SuppressWarnings("unused")
@@ -62,6 +63,14 @@ public class Controller {
         loadView("login-form.fxml", homeLoginButton.getScene());
     }
 
+    @FXML
+    protected void orderCancel() { loadView( "home-view.fxml",orderCancelButton.getScene()); }
+
+    @FXML
+    protected void orderConfirm() { loadView( "OrderConfirmation.fxml",orderConfirmButton.getScene()); }
+
+    @FXML
+    protected void orderStatus() { loadView( "OrderStatus.fxml",orderStatusButton.getScene()); }
     /* Use this function if you need specific behavior for a keyPressed event */
     @FXML
     protected void keyPressed(KeyEvent event) {
