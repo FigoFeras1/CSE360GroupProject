@@ -1,5 +1,7 @@
 package com.sdpizza.groupproject;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +23,7 @@ public class Controller {
 
     @FXML
     @SuppressWarnings("unused")
-    private Button loginButton;
+    private Button loginButton, homeLoginButton;
 
     @FXML
     @SuppressWarnings("unused")
@@ -54,8 +56,12 @@ public class Controller {
         }
 
         /* View switching code */
-        loadView("home-view.fxml");
+        loadView("home-view.fxml",loginButton);
+    }
 
+    @FXML
+    protected void homeLogin() {
+        loadView("login-form.fxml",homeLoginButton);
     }
 
     /* Use this function if you need specific behavior for a keyPressed event */
@@ -80,13 +86,13 @@ public class Controller {
     }
 
     /* Use this method to transition through views */
-    private void loadView(String name) {
+    private void loadView(String name, Button button) {
         try {
             /* Which view to display */
             URL location = getClass().getResource(name);
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(location));
-            ((Stage) loginButton
+            ((Stage) button
                         .getScene()
                         .getWindow())
                         .setScene(new Scene(root, 750, 500));
@@ -96,6 +102,7 @@ public class Controller {
         }
     }
 
+    
     /* May want to start using this in the future */
     @SuppressWarnings("unused")
     enum Message {

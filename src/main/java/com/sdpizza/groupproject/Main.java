@@ -13,7 +13,7 @@ public class Main extends Application {
         Controller controller = new Controller();
         FXMLLoader fxmlLoader =
                 new FXMLLoader(
-                    Main.class.getResource("login-form.fxml")
+                    Main.class.getResource("home-view.fxml")
                 );
         /* Setting the controller for the application here
            NOTE: You may run into weird behavior if you are using the
