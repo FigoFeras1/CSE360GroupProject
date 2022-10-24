@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    Controller controller;
     @Override
     public void start(Stage stage) throws IOException {
-        Controller controller = new Controller();
         FXMLLoader fxmlLoader =
                 new FXMLLoader(
                     Main.class.getResource("home-view.fxml")
@@ -20,10 +20,11 @@ public class Main extends Application {
            SceneBuilder (i.e., the fields aren't being recognized)
            or you may get an error that the controller is already defined;
            Just go into the fxml file and remove the fx:controller attribute */
-        fxmlLoader.setController(controller);
+//        fxmlLoader.setController(controller);
 
         /* Adding event handlers to the scene */
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        controller = fxmlLoader.getController();
         scene.setOnKeyPressed(controller::keyPressed);
 
         stage.setTitle("Login");

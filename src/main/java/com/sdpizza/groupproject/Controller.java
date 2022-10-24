@@ -1,7 +1,5 @@
 package com.sdpizza.groupproject;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -56,12 +54,12 @@ public class Controller {
         }
 
         /* View switching code */
-        loadView("home-view.fxml",loginButton);
+        loadView("home-view.fxml",loginButton.getScene());
     }
 
     @FXML
     protected void homeLogin() {
-        loadView("login-form.fxml",homeLoginButton);
+        loadView("login-form.fxml", homeLoginButton.getScene());
     }
 
     /* Use this function if you need specific behavior for a keyPressed event */
@@ -86,15 +84,14 @@ public class Controller {
     }
 
     /* Use this method to transition through views */
-    private void loadView(String name, Button button) {
+    private void loadView(String name, Scene scene) {
         try {
             /* Which view to display */
-            URL location = getClass().getResource(name);
+            URL location = Main.class.getResource(name);
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(location));
-            ((Stage) button
-                        .getScene()
-                        .getWindow())
+
+            ((Stage) scene.getWindow())
                         .setScene(new Scene(root, 750, 500));
         } catch (IOException e) {
             e.printStackTrace();

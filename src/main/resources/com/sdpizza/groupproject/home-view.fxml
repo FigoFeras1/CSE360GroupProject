@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
    <children>
       <Rectangle fill="#ff7348" height="50.0" smooth="false" stroke="#ff7348" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="1930.0" />
       <Button fx:id="homeLoginButton" layoutX="1708.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="82.0" onAction="#homeLogin" text="Login" />
