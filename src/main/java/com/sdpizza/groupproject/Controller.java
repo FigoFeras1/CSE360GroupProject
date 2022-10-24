@@ -1,5 +1,6 @@
 package com.sdpizza.groupproject;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,15 +14,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Controller {
     @FXML
     @SuppressWarnings("unused")
-    private Label welcomeText, loginText, registerText;
+    private Label loginText, registerText, statusLabel;
 
     @FXML
     @SuppressWarnings("unused")
-    private Button loginButton, registerButton, homeLoginButton, homeRegisterButton, orderCancelButton, orderConfirmButton, orderStatusButton;
+    private Button loginButton, registerButton, homeLoginButton,
+                   homeRegisterButton, orderCancelButton, orderConfirmButton,
+                   orderStatusButton;
 
     @FXML
     @SuppressWarnings("unused")
@@ -33,9 +37,7 @@ public class Controller {
     private PasswordField passwordField;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private ProgressBar statusProgressBar;
 
     @FXML
     protected void login() {
@@ -55,7 +57,7 @@ public class Controller {
         }
 
         /* View switching code */
-        loadView("orders.fxml",loginButton.getScene());
+        loadView(loginButton, "orders.fxml");
     }
 
     @FXML
@@ -78,27 +80,33 @@ public class Controller {
         }
 
         /* View switching code */
-        loadView("login-form.fxml",registerButton.getScene());
+        loadView(registerButton, "login-form.fxml");
     }
 
     @FXML
     protected void homeLogin() {
-        loadView("login-form.fxml", homeLoginButton.getScene());
+        loadView(homeLoginButton, "login-form.fxml");
     }
 
     @FXML
     protected void homeRegister() {
-        loadView("register-form.fxml", homeRegisterButton.getScene());
+        loadView(homeRegisterButton, "register-form.fxml");
     }
 
     @FXML
-    protected void orderCancel() { loadView( "home-view.fxml",orderCancelButton.getScene()); }
+    protected void orderCancel() {
+        loadView( orderCancelButton, "home-view.fxml");
+    }
 
     @FXML
-    protected void orderConfirm() { loadView( "order-confirmation.fxml",orderConfirmButton.getScene()); }
+    protected void orderConfirm() {
+        loadView( orderConfirmButton, "order-confirmation.fxml");
+    }
 
     @FXML
-    protected void orderStatus() { loadView( "order-status.fxml",orderStatusButton.getScene()); }
+    protected void orderStatus() {
+        loadView( orderStatusButton, "order-status.fxml");
+    }
     /* Use this function if you need specific behavior for a keyPressed event */
     @FXML
     protected void keyPressed(KeyEvent event) {
@@ -121,22 +129,57 @@ public class Controller {
     }
 
     /* Use this method to transition through views */
-    private void loadView(String name, Scene scene) {
+    private void loadView(Button button, String name) {
         try {
             /* Which view to display */
             URL location = Main.class.getResource(name);
-
             Parent root = FXMLLoader.load(Objects.requireNonNull(location));
 
-            ((Stage) scene.getWindow())
-                        .setScene(new Scene(root, 750, 500));
+            Scene scene = new Scene(root, 750, 500);
+            ((Stage) button.getScene().getWindow()).setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println(e.getMessage());
         }
     }
 
-    
+    @FXML
+    protected void status() {
+        Thread thread = new Thread(new NotificationDaemon());
+        thread.setDaemon(true);
+        thread.start();
+    }
+
+    public class NotificationDaemon implements Runnable {
+
+        @Override
+        public synchronized void run() {
+            AtomicReference<Double> progress =
+                    new AtomicReference<>(statusProgressBar.getProgress());
+
+            while (progress.get() <= 1) {
+                Platform.runLater(
+                        () -> statusProgressBar
+                                .setProgress(
+                                        progress.updateAndGet(v -> v + 0.33)
+                                )
+                );
+
+                synchronized (this) {
+                    try {
+                        //noinspection BusyWait
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        System.err.println(e.getMessage());
+
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     /* May want to start using this in the future */
     @SuppressWarnings("unused")
     enum Message {

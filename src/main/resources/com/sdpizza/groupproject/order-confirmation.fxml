@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
     <children>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
             <children>
@@ -19,9 +22,10 @@
                         <Label text="Large Pepperoni with Extra Cheese" />
                         <AnchorPane />
                         <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
+                  <Label text="Please Enter Your ASU ID" />
                   <TextField prefHeight="25.0" prefWidth="316.0" promptText="ASU ID" />
-                  <Button fx:id="orderCancelButton" mnemonicParsing="false" text="Cancel" onAction="#orderCancel" />
-                  <Button fx:id="orderStatusButton" mnemonicParsing="false" text="Confirm" onAction="#orderStatus" />
+                  <Button fx:id="orderCancelButton" mnemonicParsing="false" onAction="#orderCancel" text="Cancel" />
+                  <Button fx:id="orderStatusButton" mnemonicParsing="false" onAction="#orderStatus" text="Confirm" />
                     </children>
                 </VBox>
                 <VBox layoutX="154.0" layoutY="-234.0" prefHeight="200.0" prefWidth="100.0" />

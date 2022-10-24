@@ -8,10 +8,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-    Controller controller;
+    public static Controller controller;
+    public static FXMLLoader fxmlLoader;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader =
+        fxmlLoader =
                 new FXMLLoader(
                     Main.class.getResource("home-view.fxml")
                 );

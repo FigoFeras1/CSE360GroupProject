@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
     <children>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
             <children>
-                <VBox alignment="CENTER" layoutX="126.0" layoutY="71.0" prefHeight="258.0" prefWidth="349.0">
+                <VBox alignment="CENTER" layoutX="126.0" layoutY="54.0" onMouseEntered="#status" prefHeight="258.0" prefWidth="349.0">
                     <children>
                         <Label text="Order Status">
                             <font>
                                 <Font size="40.0" />
                             </font>
                         </Label>
+                  <Label fx:id="statusLabel" text="Processing Your Order..." />
+                  <ProgressBar fx:id="statusProgressBar" prefWidth="200.0" progress="0.34" />
                         <Label text="Large Pepperoni with Extra Cheese" />
                         <AnchorPane />
                         <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
                         <Button fx:id="orderCancelButton" mnemonicParsing="false" onAction="#orderCancel" text="Go Home" />
+                  <Button mnemonicParsing="false" text="Cancel Order" />
                     </children>
                 </VBox>
                 <VBox layoutX="154.0" layoutY="-234.0" prefHeight="200.0" prefWidth="100.0" />
