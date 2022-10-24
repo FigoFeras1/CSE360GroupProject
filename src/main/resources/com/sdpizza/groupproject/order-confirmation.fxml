@@ -3,6 +3,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
     <children>
@@ -10,11 +11,17 @@
             <children>
                 <VBox alignment="CENTER" layoutX="126.0" layoutY="71.0" prefHeight="258.0" prefWidth="349.0">
                     <children>
-                        <Label text="Order Status" />
+                        <Label text="Confirm Order">
+                            <font>
+                                <Font size="40.0" />
+                            </font>
+                        </Label>
                         <Label text="Large Pepperoni with Extra Cheese" />
                         <AnchorPane />
                         <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
-                        <Button fx:id="orderCancelButton" mnemonicParsing="false" onAction="#orderCancel" text="Go Home" />
+                  <TextField prefHeight="25.0" prefWidth="316.0" promptText="ASU ID" />
+                  <Button fx:id="orderCancelButton" mnemonicParsing="false" text="Cancel" onAction="#orderCancel" />
+                  <Button fx:id="orderStatusButton" mnemonicParsing="false" text="Confirm" onAction="#orderStatus" />
                     </children>
                 </VBox>
                 <VBox layoutX="154.0" layoutY="-234.0" prefHeight="200.0" prefWidth="100.0" />

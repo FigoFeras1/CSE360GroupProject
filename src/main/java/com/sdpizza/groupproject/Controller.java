@@ -55,7 +55,7 @@ public class Controller {
         }
 
         /* View switching code */
-        loadView("home-view.fxml",loginButton.getScene());
+        loadView("orders.fxml",loginButton.getScene());
     }
 
     @FXML
@@ -78,7 +78,7 @@ public class Controller {
         }
 
         /* View switching code */
-        loadView("home-view.fxml",registerButton.getScene());
+        loadView("login-form.fxml",registerButton.getScene());
     }
 
     @FXML
@@ -95,10 +95,10 @@ public class Controller {
     protected void orderCancel() { loadView( "home-view.fxml",orderCancelButton.getScene()); }
 
     @FXML
-    protected void orderConfirm() { loadView( "OrderConfirmation.fxml",orderConfirmButton.getScene()); }
+    protected void orderConfirm() { loadView( "order-confirmation.fxml",orderConfirmButton.getScene()); }
 
     @FXML
-    protected void orderStatus() { loadView( "OrderStatus.fxml",orderStatusButton.getScene()); }
+    protected void orderStatus() { loadView( "order-status.fxml",orderStatusButton.getScene()); }
     /* Use this function if you need specific behavior for a keyPressed event */
     @FXML
     protected void keyPressed(KeyEvent event) {
