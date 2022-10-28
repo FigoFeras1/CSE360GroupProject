@@ -9,17 +9,17 @@ public class OrderRepository implements Repository<Order> {
     }
 
     @Override
-    public void add(Order model) {
+    public void add(Order order) {
 
     }
 
     @Override
-    public Order update(Order model) {
+    public Order update(Order order) {
         return null;
     }
 
     @Override
-    public void remove(Order model) {
+    public void remove(Order order) {
 
     }
 }

@@ -2,7 +2,9 @@ package com.sdpizza.groupproject;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,13 +25,18 @@ public class Main extends Application {
            Just go into the fxml file and remove the fx:controller attribute */
 //        fxmlLoader.setController(controller);
 
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         /* Adding event handlers to the scene */
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), screenBounds.getWidth(), screenBounds.getHeight());
         controller = fxmlLoader.getController();
         scene.setOnKeyPressed(controller::keyPressed);
 
         stage.setTitle("Login");
         stage.setScene(scene);
+        stage.setX(screenBounds.getMinX());
+        stage.setY(screenBounds.getMinY());
+        stage.setWidth(screenBounds.getWidth());
+        stage.setHeight(screenBounds.getHeight());
         stage.show();
     }
 

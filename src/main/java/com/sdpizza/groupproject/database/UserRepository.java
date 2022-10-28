@@ -14,7 +14,7 @@ public class UserRepository implements Repository<User> {
     }
 
     @Override
-    public User update(User model) {
+    public User update(User user) {
         return null;
     }
 

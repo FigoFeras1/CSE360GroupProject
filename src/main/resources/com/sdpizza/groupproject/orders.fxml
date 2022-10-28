@@ -1,40 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
     <children>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="400.0" prefWidth="600.0">
             <children>
-                <Label text="Order Menu">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="171.0" text="Order Menu">
                     <font>
                         <Font size="40.0" />
                     </font>
                 </Label>
-            <RadioButton layoutX="39.0" layoutY="118.0" mnemonicParsing="false" text="Small">
-               <toggleGroup>
-                  <ToggleGroup fx:id="SizeToggle" />
-               </toggleGroup></RadioButton>
-            <RadioButton layoutX="39.0" layoutY="144.0" mnemonicParsing="false" text="Medium" toggleGroup="$SizeToggle" />
-            <RadioButton layoutX="39.0" layoutY="172.0" mnemonicParsing="false" text="Large" toggleGroup="$SizeToggle" />
-            <RadioButton layoutX="136.0" layoutY="118.0" mnemonicParsing="false" text="Cheese">
-               <toggleGroup>
-                  <ToggleGroup fx:id="BaseToggle" />
-               </toggleGroup></RadioButton>
-            <RadioButton layoutX="136.0" layoutY="144.0" mnemonicParsing="false" text="Pepperoni" toggleGroup="$BaseToggle" />
-            <RadioButton layoutX="136.0" layoutY="172.0" mnemonicParsing="false" text="Vegan" toggleGroup="$BaseToggle" />
-            <CheckBox layoutX="245.0" layoutY="118.0" mnemonicParsing="false" text="Extra Cheese" />
-            <CheckBox layoutX="245.0" layoutY="144.0" mnemonicParsing="false" text="Mushrooms" />
-            <CheckBox layoutX="245.0" layoutY="172.0" mnemonicParsing="false" text="Olives" />
-            <CheckBox layoutX="245.0" layoutY="200.0" mnemonicParsing="false" text="Onions" />
-            <TextField layoutX="15.0" layoutY="87.0" prefHeight="25.0" prefWidth="98.0" text="Select Your Size" />
-            <TextField layoutX="121.0" layoutY="87.0" prefHeight="25.0" prefWidth="105.0" text="Select Your Base" />
-            <TextField layoutX="230.0" layoutY="87.0" prefHeight="25.0" prefWidth="133.0" text="Select Your Toppings" />
-            <Button fx:id="orderCancelButton" layoutX="372.0" layoutY="260.0" mnemonicParsing="false" onAction="#orderCancel" text="Cancel" />
-            <Button fx:id="orderConfirmButton" layoutX="440.0" layoutY="260.0" mnemonicParsing="false" onAction="#orderConfirm" text="Checkout" />
+            <AnchorPane layoutX="130.0" layoutY="107.0" prefHeight="107.0" prefWidth="337.0">
+               <children>
+                  <RadioButton layoutY="35.0" mnemonicParsing="false" text="Small">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="SizeToggle" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton layoutY="53.0" mnemonicParsing="false" text="Medium" toggleGroup="$SizeToggle" />
+                  <RadioButton layoutY="71.0" mnemonicParsing="false" text="Large" toggleGroup="$SizeToggle" />
+                  <RadioButton layoutX="75.0" layoutY="35.0" mnemonicParsing="false" text="Cheese">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="BaseToggle" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton layoutX="75.0" layoutY="53.0" mnemonicParsing="false" text="Pepperoni" toggleGroup="$BaseToggle" />
+                  <RadioButton layoutX="71.0" layoutY="80.0" mnemonicParsing="false" text="Vegan" toggleGroup="$BaseToggle" />
+                  <CheckBox layoutX="163.0" layoutY="35.0" mnemonicParsing="false" text="Extra Cheese" />
+                  <CheckBox layoutX="163.0" layoutY="53.0" mnemonicParsing="false" text="Mushrooms" />
+                  <CheckBox layoutX="163.0" layoutY="71.0" mnemonicParsing="false" text="Olives" />
+                  <CheckBox layoutX="163.0" layoutY="89.0" mnemonicParsing="false" text="Onions" />
+                  <Label text="Size">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="75.0" text="Base">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="163.0" text="Toppings">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <Button fx:id="orderCancelButton" layoutX="300.0" layoutY="260.0" mnemonicParsing="false" onAction="#orderCancel" text="Cancel" />
+            <Button fx:id="orderConfirmButton" layoutX="211.0" layoutY="260.0" mnemonicParsing="false" onAction="#orderConfirm" text="Checkout" />
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
