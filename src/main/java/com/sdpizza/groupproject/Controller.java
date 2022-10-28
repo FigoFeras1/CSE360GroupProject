@@ -23,6 +23,7 @@ public class Controller {
     @FXML
     @SuppressWarnings("unused")
     private Label loginText, registerText, statusLabel;
+    // comment
 
     @FXML
     @SuppressWarnings("unused")
