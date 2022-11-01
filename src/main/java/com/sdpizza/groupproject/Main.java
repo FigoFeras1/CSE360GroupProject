@@ -1,5 +1,7 @@
 package com.sdpizza.groupproject;
 
+import com.sdpizza.groupproject.database.DatabaseConnection;
+import com.sdpizza.groupproject.database.UserRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -31,7 +33,7 @@ public class Main extends Application {
         controller = fxmlLoader.getController();
         scene.setOnKeyPressed(controller::keyPressed);
 
-        stage.setTitle("Login");
+        stage.setTitle("SunDevil Pizza"); /* All rights reserved TM */
         stage.setScene(scene);
         stage.setX(screenBounds.getMinX());
         stage.setY(screenBounds.getMinY());
@@ -40,7 +42,9 @@ public class Main extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
+        DatabaseConnection.init();
+        new UserRepository().get(10);
         launch();
     }
 }

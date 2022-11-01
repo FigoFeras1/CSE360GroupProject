@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users
 (
-    id          int PRIMARY KEY UNIQUE AUTO_INCREMENT,
+    id          int PRIMARY KEY UNIQUE,
     first_name  varchar(32) NOT NULL,
     last_name   varchar(32) NOT NULL,
     password    varchar(64) NOT NULL,
@@ -15,14 +15,18 @@ CREATE TABLE IF NOT EXISTS saved_orders
 (
     id          int PRIMARY KEY UNIQUE AUTO_INCREMENT,
     items       json NOT NULL,
-    order_date  DATE NOT NULL
+    order_date  DATE NOT NULL,
+    customer_id int,
+    FOREIGN KEY (customer_id) references users(id)
 );
 
 CREATE TABLE IF NOT EXISTS pending_orders
 (
     id          int PRIMARY KEY UNIQUE AUTO_INCREMENT,
     items       json NOT NULL,
-    order_date  DATE NOT NULL
+    order_date  DATE NOT NULL,
+    customer_id int,
+    FOREIGN KEY (customer_id) references users(id)
 );
 
 
@@ -30,5 +34,7 @@ CREATE TABLE IF NOT EXISTS processed_orders
 (
     id          int PRIMARY KEY UNIQUE AUTO_INCREMENT,
     items       json NOT NULL,
-    order_date  DATE NOT NULL
+    order_date  DATE NOT NULL,
+    customer_id int,
+    FOREIGN KEY  (customer_id) references users(id)
 );

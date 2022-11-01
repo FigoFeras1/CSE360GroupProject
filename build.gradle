@@ -16,8 +16,8 @@ ext {
     junitVersion = '5.8.2'
 }
 
-sourceCompatibility = '11'
-targetCompatibility = '11'
+//sourceCompatibility = '11'
+//targetCompatibility = '11'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -37,6 +37,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     implementation 'com.h2database:h2:2.1.214'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
 }
 
 test {

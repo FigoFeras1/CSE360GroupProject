@@ -62,9 +62,7 @@ public class Controller {
            useful for similar use-cases, where you want a function to run or a
            specific element to have a certain property as soon as the FXML is
            loaded */
-        if (statusProgressBar != null) {
-            status();
-        }
+        if (statusProgressBar != null) status();
     }
 
     @FXML
@@ -237,6 +235,8 @@ public class Controller {
                         break;
                     }
                     updateProgress(i, max);
+
+                    /* This controls how long it takes between increments (ms) */
                     Thread.sleep(1500);
                 }
                 return null;
