@@ -1,12 +1,19 @@
 package com.sdpizza.groupproject.database;
 
-import com.sdpizza.groupproject.model.Model;
+import com.sdpizza.groupproject.entity.Entity;
+import com.sdpizza.groupproject.entity.model.Model;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 
-public class ModelResolver  {
+public class ModelResolver <T extends Entity> {
 
     private ModelResolver() {}
+
+    /* Alternate Resolve? */
+    public T resolve(ResultSet resultSet) {
+
+        return null;
+    }
 
     public static Model resolve(ResultSet resultSet,
                                 Class<? extends Model> clazz) {

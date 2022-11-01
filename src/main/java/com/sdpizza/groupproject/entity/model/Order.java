@@ -1,4 +1,5 @@
-package com.sdpizza.groupproject.model;
+package com.sdpizza.groupproject.entity.model;
+
 
 public class Order extends Model {
     public enum Type {

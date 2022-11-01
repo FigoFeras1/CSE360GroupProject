@@ -1,7 +1,7 @@
 package com.sdpizza.groupproject.database;
 
-import com.sdpizza.groupproject.model.Order;
-import com.sdpizza.groupproject.model.User;
+import com.sdpizza.groupproject.entity.model.Order;
+import com.sdpizza.groupproject.entity.model.User;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -11,12 +11,7 @@ public class UserRepository implements Repository<User> {
                     "FROM users WHERE id = ?";
     @Override
     public User get(long id) {
-        ResultSet resultSet = DatabaseConnection.execute(SELECT_USER, id);
-        try {
-            System.out.println(resultSet.isClosed());
-        } catch(Exception e) {
-
-        }
+        ResultSet resultSet = DatabaseConnection.read(SELECT_USER, id);
         return ((User) ModelResolver.resolve(resultSet, User.class));
     }
     public List<Order> getOrders(long id, Order.Type orderType) {

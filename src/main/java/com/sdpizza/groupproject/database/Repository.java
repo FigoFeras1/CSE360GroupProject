@@ -1,7 +1,6 @@
 package com.sdpizza.groupproject.database;
 
-import com.sdpizza.groupproject.model.Model;
-import com.sdpizza.groupproject.model.User;
+import com.sdpizza.groupproject.entity.model.Model;
 
 public interface Repository<T extends Model> {
     T get(long id);

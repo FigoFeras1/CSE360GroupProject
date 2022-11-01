@@ -1,6 +1,6 @@
 package com.sdpizza.groupproject.database;
 
-import com.sdpizza.groupproject.model.Order;
+import com.sdpizza.groupproject.entity.model.Order;
 
 public class OrderRepository implements Repository<Order> {
     @Override

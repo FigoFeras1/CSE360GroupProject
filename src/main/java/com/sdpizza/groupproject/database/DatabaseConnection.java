@@ -1,7 +1,5 @@
 package com.sdpizza.groupproject.database;
 
-import com.sdpizza.groupproject.model.Model;
-
 import java.sql.*;
 import java.util.List;
 
@@ -27,10 +25,12 @@ public class DatabaseConnection {
         return connection;
     }
 
-    /* TODO: Make different methods for the different SQL */
-    /* TODO: Figure out if I want to use ConnectionPool */
-    public static ResultSet execute(String query, Object... values) {
+    public static boolean create() { return false; }
 
+    /* TODO: Figure out if I want to use ConnectionPool */
+    public static ResultSet read(String query, Object... values) {
+
+        ResultSet resultSet;
         try(PreparedStatement pstmt =
                     connection.prepareStatement(query))
         {
@@ -39,9 +39,9 @@ public class DatabaseConnection {
                 pstmt.setObject(i, values[i - 1]);
             }
 
-            ResultSet resultSet = pstmt.executeQuery();
+            resultSet = pstmt.executeQuery();
             int columnCount = resultSet.getMetaData().getColumnCount();
-            List<Model> models;
+            List<List<Object>> rows;
             while (resultSet.next()) {
                 for (int i = 1; i <= columnCount; ++i) {
                 }
@@ -54,6 +54,9 @@ public class DatabaseConnection {
             return null;
         }
     }
+
+    public static boolean update() { return false; }
+    public static boolean delete() { return false; }
 
     private static void handleException(Exception ex, boolean exit) {
         ex.printStackTrace();
