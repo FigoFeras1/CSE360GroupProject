@@ -43,6 +43,18 @@ public class Controller {
     @FXML
     private ProgressBar statusProgressBar;
 
+    @FXML
+    private ToggleGroup sizeToggle, baseToggle;
+
+    @FXML
+    protected boolean orderTogglesEmpty() {
+        if (sizeToggle.getSelectedToggle() == null || baseToggle.getSelectedToggle() == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /* May come in useful in the future */
     public Controller() {
         super();
