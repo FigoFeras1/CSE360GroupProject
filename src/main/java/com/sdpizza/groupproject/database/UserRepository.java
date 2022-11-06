@@ -11,8 +11,9 @@ public class UserRepository implements Repository<User> {
                     "FROM users WHERE id = ?";
     @Override
     public User get(long id) {
-        ResultSet resultSet = DatabaseConnection.read(SELECT_USER, id);
-        return ((User) ModelResolver.resolve(resultSet, User.class));
+        QueryResult queryResult = DatabaseConnection.read(SELECT_USER, id);
+        return null;
+//        return ((User) EntityResolver.resolve(resultSet, User.class));
     }
     public List<Order> getOrders(long id, Order.Type orderType) {
 

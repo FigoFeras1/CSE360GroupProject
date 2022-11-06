@@ -5,9 +5,9 @@ import com.sdpizza.groupproject.entity.model.Model;
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 
-public class ModelResolver <T extends Entity> {
+public class EntityResolver<T extends Entity> {
 
-    private ModelResolver() {}
+    private EntityResolver() {}
 
     /* Alternate Resolve? */
     public T resolve(ResultSet resultSet) {

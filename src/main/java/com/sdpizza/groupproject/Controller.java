@@ -46,14 +46,6 @@ public class Controller {
     @FXML
     private ToggleGroup sizeToggle, baseToggle;
 
-    @FXML
-    protected boolean orderTogglesEmpty() {
-        if (sizeToggle.getSelectedToggle() == null || baseToggle.getSelectedToggle() == null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     /* May come in useful in the future */
     public Controller() {
@@ -102,7 +94,7 @@ public class Controller {
     @FXML
     protected void register() {
         boolean fieldsFilled = (idField.getCharacters().length() > 0
-                && passwordField.getCharacters().length() > 0);
+                                && passwordField.getCharacters().length() > 0);
         Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
 
         firstField.setBorder(Border.stroke(borderColor));
@@ -194,9 +186,11 @@ public class Controller {
                             node = listIterator.next();
                             if (node instanceof TextField) {
                                 node.requestFocus();
-                            } else if (ButtonBase.class.isAssignableFrom(node.getClass())) {
+                            } else if (ButtonBase.class.isAssignableFrom(
+                                        node.getClass())) {
                                 if (node instanceof ToggleButton) {
-                                    ToggleButton currentToggle = (ToggleButton) node;
+                                    ToggleButton currentToggle =
+                                            (ToggleButton) node;
                                     Node nextNode =
                                             nodes.get(nodes.indexOf(currentToggle) + 1);
                                     if (nextNode instanceof ToggleButton) {
@@ -258,6 +252,14 @@ public class Controller {
         statusProgressBar.progressProperty().bind(task.progressProperty());
         new Thread(task).start();
     }
+
+    @FXML
+    protected void orderTogglesEmpty() {
+        orderConfirmButton.setDisable(sizeToggle.getToggles() == null
+                                      || baseToggle.getSelectedToggle() == null);
+    }
+
+
 
     /* May want to start using this in the future */
     @SuppressWarnings("unused")

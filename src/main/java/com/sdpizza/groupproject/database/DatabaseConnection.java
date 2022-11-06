@@ -1,7 +1,6 @@
 package com.sdpizza.groupproject.database;
 
 import java.sql.*;
-import java.util.List;
 
 public class DatabaseConnection {
     private final static String DRIVER = "org.h2.Driver";
@@ -28,9 +27,8 @@ public class DatabaseConnection {
     public static boolean create() { return false; }
 
     /* TODO: Figure out if I want to use ConnectionPool */
-    public static ResultSet read(String query, Object... values) {
+    public static QueryResult read(String query, Object... values) {
 
-        ResultSet resultSet;
         try(PreparedStatement pstmt =
                     connection.prepareStatement(query))
         {
@@ -39,15 +37,9 @@ public class DatabaseConnection {
                 pstmt.setObject(i, values[i - 1]);
             }
 
-            resultSet = pstmt.executeQuery();
-            int columnCount = resultSet.getMetaData().getColumnCount();
-            List<List<Object>> rows;
-            while (resultSet.next()) {
-                for (int i = 1; i <= columnCount; ++i) {
-                }
-            }
+            ResultSet resultSet = pstmt.executeQuery();
 
-            return resultSet;
+            return (new QueryResult(pstmt.executeQuery()));
         } catch (SQLException ex) {
             handleException(ex, false);
 
@@ -62,6 +54,5 @@ public class DatabaseConnection {
         ex.printStackTrace();
         System.err.println("[ERROR]: " + ex.getMessage());
         if (exit) System.exit(-1);
-
     }
 }

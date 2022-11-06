@@ -21,20 +21,20 @@
                 </Label>
             <AnchorPane layoutX="130.0" layoutY="107.0" prefHeight="107.0" prefWidth="337.0">
                <children>
-                  <RadioButton layoutY="35.0" mnemonicParsing="false" text="Small">
+                  <RadioButton layoutY="35.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Small">
                      <toggleGroup>
                         <ToggleGroup fx:id="sizeToggle" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton layoutY="53.0" mnemonicParsing="false" text="Medium" toggleGroup="$sizeToggle" />
-                  <RadioButton layoutY="71.0" mnemonicParsing="false" text="Large" toggleGroup="$sizeToggle" />
-                  <RadioButton layoutX="75.0" layoutY="35.0" mnemonicParsing="false" text="Cheese">
+                  <RadioButton layoutY="53.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Medium" toggleGroup="$sizeToggle" />
+                  <RadioButton layoutY="71.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Large" toggleGroup="$sizeToggle" />
+                  <RadioButton layoutX="75.0" layoutY="35.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Cheese">
                      <toggleGroup>
                         <ToggleGroup fx:id="baseToggle" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton layoutX="75.0" layoutY="53.0" mnemonicParsing="false" text="Pepperoni" toggleGroup="$baseToggle" />
-                  <RadioButton layoutX="71.0" layoutY="80.0" mnemonicParsing="false" text="Vegan" toggleGroup="$baseToggle" />
+                  <RadioButton layoutX="75.0" layoutY="53.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Pepperoni" toggleGroup="$baseToggle" />
+                  <RadioButton layoutX="71.0" layoutY="80.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Vegan" toggleGroup="$baseToggle" />
                   <CheckBox layoutX="163.0" layoutY="35.0" mnemonicParsing="false" text="Extra Cheese" />
                   <CheckBox layoutX="163.0" layoutY="53.0" mnemonicParsing="false" text="Mushrooms" />
                   <CheckBox layoutX="163.0" layoutY="71.0" mnemonicParsing="false" text="Olives" />
@@ -56,8 +56,8 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Button fx:id="orderCancelButton" disable="#orderTogglesEmpty" layoutX="300.0" layoutY="260.0" mnemonicParsing="false" onAction="#orderCancel" text="Cancel" />
-            <Button fx:id="orderConfirmButton" layoutX="211.0" layoutY="260.0" mnemonicParsing="false" onAction="#orderConfirm" text="Checkout" />
+            <Button fx:id="orderCancelButton" cancelButton="true" disable="#orderTogglesEmpty" layoutX="300.0" layoutY="260.0" mnemonicParsing="false" onAction="#orderCancel" text="Cancel" />
+            <Button fx:id="orderConfirmButton" disable="true" layoutX="211.0" layoutY="260.0" mnemonicParsing="false" onAction="#orderConfirm" text="Checkout" />
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
@@ -65,4 +65,3 @@
         </AnchorPane>
     </children>
 </VBox>
-
