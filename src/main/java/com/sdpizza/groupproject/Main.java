@@ -1,7 +1,6 @@
 package com.sdpizza.groupproject;
 
 import com.sdpizza.groupproject.database.DatabaseConnection;
-import com.sdpizza.groupproject.database.UserRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -44,8 +43,6 @@ public class Main extends Application {
 
     public static void main(String... args) {
         DatabaseConnection.init();
-        UserRepository userRepository = new UserRepository();
-        System.out.println(userRepository.get(10, "password"));
         launch();
     }
 }

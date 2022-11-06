@@ -21,30 +21,25 @@ import java.util.stream.Collectors;
 
 public class Controller {
     @FXML
-    @SuppressWarnings("unused")
     private Label loginText, registerText, statusLabel;
-    // comment
 
     @FXML
-    @SuppressWarnings("unused")
     private Button loginButton, registerButton, homeLoginButton,
                    homeRegisterButton, orderCancelButton, orderConfirmButton,
                    orderStatusButton;
 
     @FXML
-    @SuppressWarnings("unused")
     private TextField idField, firstField, lastField;
 
 
     @FXML
-    @SuppressWarnings("unused")
     private PasswordField passwordField;
 
     @FXML
     private ProgressBar statusProgressBar;
 
     @FXML
-    private ToggleGroup sizeToggle, baseToggle;
+    private ToggleGroup sizeToggleGroup, baseToggleGroup;
 
 
     /* May come in useful in the future */
@@ -206,7 +201,9 @@ public class Controller {
                         }
                     }
                 }
-            case TAB: break;
+            case TAB:
+                System.out.println("TAB");
+                break;
             default: break;
 
         }
@@ -255,8 +252,8 @@ public class Controller {
 
     @FXML
     protected void orderTogglesEmpty() {
-        orderConfirmButton.setDisable(sizeToggle.getToggles() == null
-                                      || baseToggle.getSelectedToggle() == null);
+        orderConfirmButton.setDisable(sizeToggleGroup.getToggles() == null
+                                      || baseToggleGroup.getSelectedToggle() == null);
     }
 
 

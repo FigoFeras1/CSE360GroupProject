@@ -20,8 +20,7 @@ public class OrderRepository implements Repository<Order> {
     }
 
     @Override
-    public boolean remove(Order order) {
+    public void remove(long orderNumber) {
 
-        return false;
     }
 }

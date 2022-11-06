@@ -8,5 +8,5 @@ public interface Repository<T extends Model> {
 
     T update(T model);
 
-    boolean remove(T model);
+    void remove(long id);
 }

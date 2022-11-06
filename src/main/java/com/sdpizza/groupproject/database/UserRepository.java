@@ -5,7 +5,6 @@ import com.sdpizza.groupproject.entity.model.User;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class UserRepository implements Repository<User> {
     private static final String SELECT_USER =
@@ -13,16 +12,34 @@ public class UserRepository implements Repository<User> {
                     "FROM users WHERE id = ? AND password = ? ";
     private static final String INSERT_USER =
             "INSERT INTO users (id, first_name, last_name, password, role) " +
-                    "VALUES (?, ?, ?, ?, ?);";
+                    "VALUES (?, ?, ?, ?, ?) ";
 
+    private static final String DELETE_USER =
+            "DELETE FROM users WHERE id = ? ";
+
+    private static final String UPDATE_USER_PASSWORD =
+            "UPDATE users SET password = ? WHERE id = ? ";
+
+    /**
+     * Queries database for the user with the desired ID. Should only be used to
+     * retrieve user information. If you want to log in the user, use
+     * {@link #get(long, String)}.
+     * @param id User ASUID
+     * @return User object if found in database, null otherwise
+     */
     @Override
     public User get(long id) {
         QueryResult queryResult = DatabaseConnection.read(SELECT_USER, id);
 
         return null;
-//        return ((User) EntityResolver.resolve(resultSet, User.class));
     }
 
+    /**
+     * Queries database for the user with the desired ID and password.
+     * @param id User ASUID
+     * @param password User Password
+     * @return User object if found in database, null otherwise
+     */
     public User get(long id, String password) {
         QueryResult queryResult = DatabaseConnection.read(SELECT_USER, id,
                 password);
@@ -36,6 +53,11 @@ public class UserRepository implements Repository<User> {
         return null;
     }
 
+    /**
+     * Adds user to the database.
+     * @param user user to add
+     * @return True if user was added successfully, false otherwise.
+     */
     @Override
     public boolean add(User user) {
         return DatabaseConnection.create(INSERT_USER, user.toArray());
@@ -43,13 +65,17 @@ public class UserRepository implements Repository<User> {
 
     @Override
     public User update(User user) {
+        DatabaseConnection.update(UPDATE_USER_PASSWORD, user.getPassword());
         return null;
     }
 
+    /**
+     * Removes user with specified ID from the database
+     * @param id ID of user to remove
+     */
     @Override
-    public boolean remove(User user) {
-
-        return false;
+    public void remove(long id) {
+        DatabaseConnection.delete(DELETE_USER, id);
     }
 
     private ResultSet query(String query) {
