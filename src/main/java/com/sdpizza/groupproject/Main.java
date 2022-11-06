@@ -18,7 +18,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         fxmlLoader =
                 new FXMLLoader(
-                    Main.class.getResource("home-view.fxml")
+                    Main.class.getResource("orders.fxml")
                 );
         /* Setting the controller for the application here
            NOTE: You may run into weird behavior if you are using the
