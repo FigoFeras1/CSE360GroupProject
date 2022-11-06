@@ -23,11 +23,6 @@ public class DatabaseConnection {
         System.out.println("Database connected successfully.");
     }
 
-    public static Connection getConnection() {
-        return connection;
-    }
-
-
     public static boolean create(String query, Object... values) {
         boolean success = false;
 
@@ -40,7 +35,6 @@ public class DatabaseConnection {
         }
         catch (SQLException ex) {
             handleException(ex, false);
-
         }
 
         return success;
