@@ -10,7 +10,8 @@ public class EntityResolver<T extends Entity> {
     private EntityResolver() {}
 
     /* Alternate Resolve? */
-    public T resolve(ResultSet resultSet) {
+    public T resolve(QueryResult queryResult) {
+        T model;
 
         return null;
     }
