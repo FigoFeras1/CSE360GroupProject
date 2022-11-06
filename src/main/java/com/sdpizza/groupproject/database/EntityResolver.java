@@ -2,6 +2,9 @@ package com.sdpizza.groupproject.database;
 
 import com.sdpizza.groupproject.entity.Entity;
 import com.sdpizza.groupproject.entity.model.Model;
+import com.sdpizza.groupproject.entity.model.Order;
+import com.sdpizza.groupproject.entity.model.User;
+
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
 
@@ -11,8 +14,6 @@ public class EntityResolver<T extends Entity> {
 
     /* Alternate Resolve? */
     public T resolve(QueryResult queryResult) {
-        T model;
-
         return null;
     }
 

@@ -9,8 +9,9 @@ public class OrderRepository implements Repository<Order> {
     }
 
     @Override
-    public void add(Order order) {
+    public boolean add(Order order) {
 
+        return false;
     }
 
     @Override
@@ -19,7 +20,8 @@ public class OrderRepository implements Repository<Order> {
     }
 
     @Override
-    public void remove(Order order) {
+    public boolean remove(Order order) {
 
+        return false;
     }
 }

@@ -2,13 +2,10 @@ package com.sdpizza.groupproject.database;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class QueryResult {
-    private List<HashMap<String, Object>> results;
+    private ArrayList<HashMap<String, Object>> results;
     private int cursor = -1;
 
     private QueryResult() {}
@@ -22,7 +19,7 @@ public class QueryResult {
             while (resultSet.next()) {
                 HashMap<String, Object> row = new HashMap<>();
                 for (int i = 1; i <= columnCount; ++i) {
-                    row.put(metaData.getColumnName(i), resultSet.getObject(i));
+                    row.put(metaData.getColumnName(i).toLowerCase(), resultSet.getObject(i));
                 }
 
                 results.add(row);
@@ -37,13 +34,13 @@ public class QueryResult {
         return (++cursor <= (results.size() - 1));
     }
 
-    public Map<String, Object> getRowWithColumns() {
+    public HashMap<String, Object> getRowWithColumns() {
         assert(cursor != -1);
         return results.get(cursor);
     }
 
-    public List<Object> getRowValues() {
+    public Collection<Object> getRowValues() {
         assert(cursor != -1);
-        return ((List<Object>) results.get(cursor).values());
+        return (results.get(cursor).values());
     }
 }

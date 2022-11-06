@@ -44,7 +44,8 @@ public class Main extends Application {
 
     public static void main(String... args) {
         DatabaseConnection.init();
-        new UserRepository().get(10);
+        UserRepository userRepository = new UserRepository();
+        System.out.println(userRepository.get(10, "password"));
         launch();
     }
 }
