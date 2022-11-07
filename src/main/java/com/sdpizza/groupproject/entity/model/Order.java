@@ -13,14 +13,14 @@ public class Order extends Model {
     public enum Status {
         PENDING,
         PROCESSED,
-        SAVED;
+        SAVED
     }
     /* This should not be set by anything except the OrderRepository, since the
        table in the database auto-increments the id. */
     private long id;
-    private List<? extends Item> items;
-    private User user;
-    private Status status;
+    private final List<? extends Item> items;
+    private final User user;
+    private final Status status;
 
     public Order(List <? extends Item> items, User user, Status status) {
         this.items = items;

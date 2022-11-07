@@ -1,5 +1,8 @@
-package com.sdpizza.groupproject.database;
+package com.sdpizza.groupproject.database.repository;
 
+import com.sdpizza.groupproject.database.DatabaseConnection;
+import com.sdpizza.groupproject.database.QueryResult;
+import com.sdpizza.groupproject.database.repository.IRepository;
 import com.sdpizza.groupproject.entity.model.Order;
 import com.sdpizza.groupproject.entity.model.User;
 
