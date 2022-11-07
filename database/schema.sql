@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS users
+CREATE SCHEMA IF NOT EXISTS orders;
+CREATE TABLE IF NOT EXISTS public.users
 (
     id          int PRIMARY KEY UNIQUE,
     first_name  varchar(32) NOT NULL,
@@ -11,30 +12,30 @@ CREATE TABLE IF NOT EXISTS users
                                                         ))
 );
 
-CREATE TABLE IF NOT EXISTS saved_orders
+CREATE TABLE IF NOT EXISTS orders.saved
 (
     id          int PRIMARY KEY UNIQUE AUTO_INCREMENT,
     items       json NOT NULL,
     order_date  DATE NOT NULL,
     customer_id int,
-    FOREIGN KEY (customer_id) references users(id)
+    FOREIGN KEY (customer_id) references public.users(id)
 );
 
-CREATE TABLE IF NOT EXISTS pending_orders
+CREATE TABLE IF NOT EXISTS orders.pending
 (
     id          int PRIMARY KEY UNIQUE AUTO_INCREMENT,
     items       json NOT NULL,
     order_date  DATE NOT NULL,
     customer_id int,
-    FOREIGN KEY (customer_id) references users(id)
+    FOREIGN KEY (customer_id) references public.users(id)
 );
 
 
-CREATE TABLE IF NOT EXISTS processed_orders
+CREATE TABLE IF NOT EXISTS orders.processed
 (
     id          int PRIMARY KEY UNIQUE AUTO_INCREMENT,
     items       json NOT NULL,
     order_date  DATE NOT NULL,
     customer_id int,
-    FOREIGN KEY  (customer_id) references users(id)
+    FOREIGN KEY  (customer_id) references public.users(id)
 );

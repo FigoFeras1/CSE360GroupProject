@@ -143,6 +143,7 @@ public class Controller {
                action and possibly moves onto another JavaFX Node. I will be
                fixing this up later, so don't worry about the functionality not
                being complete. */
+            /* TODO: Figure out what the hell this is does again and fix it */
             case ENTER:
                 Object eventSource = event.getSource();
 

@@ -5,6 +5,8 @@ import java.sql.ResultSetMetaData;
 import java.util.*;
 
 public class QueryResult {
+    private String table;
+    private String schema;
     private ArrayList<HashMap<String, Object>> results;
     private int cursor = -1;
 
@@ -14,6 +16,8 @@ public class QueryResult {
         results = new ArrayList<>();
         try {
             ResultSetMetaData metaData = resultSet.getMetaData();
+            schema = metaData.getSchemaName(1);
+            table = metaData.getTableName(1);
             int columnCount = metaData.getColumnCount();
 
             while (resultSet.next()) {
@@ -42,5 +46,23 @@ public class QueryResult {
     public Collection<Object> getRowValues() {
         assert(cursor != -1);
         return (results.get(cursor).values());
+    }
+
+    public String getTableName() {
+        return table;
+    }
+
+    public String getSchemaName() {
+        return schema;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder strBuilder = new StringBuilder();
+        for (HashMap<String, Object> map : results) {
+            strBuilder.append(map.toString());
+        }
+
+        return strBuilder.toString();
     }
 }

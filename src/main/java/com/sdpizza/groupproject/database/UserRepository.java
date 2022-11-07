@@ -2,14 +2,13 @@ package com.sdpizza.groupproject.database;
 
 import com.sdpizza.groupproject.entity.model.Order;
 import com.sdpizza.groupproject.entity.model.User;
-import java.sql.ResultSet;
+
 import java.util.HashMap;
 import java.util.List;
 
-public class UserRepository implements Repository<User> {
+public class UserRepository implements IRepository<User> {
     private static final String SELECT_USER =
-            "SELECT id, first_name, last_name, password, role " +
-                    "FROM users WHERE id = ? AND password = ? ";
+            "SELECT * FROM users WHERE id = ? AND password = ? ";
     private static final String INSERT_USER =
             "INSERT INTO users (id, first_name, last_name, password, role) " +
                     "VALUES (?, ?, ?, ?, ?) ";
@@ -20,6 +19,9 @@ public class UserRepository implements Repository<User> {
     private static final String UPDATE_USER_PASSWORD =
             "UPDATE users SET password = ? WHERE id = ? ";
 
+    private static final String SELECT_USER_ORDERS =
+            "SELECT * FROM ORDERS.$ WHERE CUSTOMER_ID = ? ";
+
     /**
      * Queries database for the user with the desired ID. Should only be used to
      * retrieve user information. If you want to log in the user, use
@@ -28,6 +30,7 @@ public class UserRepository implements Repository<User> {
      * @return User object if found in database, null otherwise
      */
     @Override
+    @Deprecated
     public User get(long id) {
         QueryResult queryResult = DatabaseConnection.read(SELECT_USER, id);
 
@@ -49,7 +52,13 @@ public class UserRepository implements Repository<User> {
     }
 
     public List<Order> getOrders(long id, Order.Type orderType) {
+        QueryResult queryResult =
+                DatabaseConnection.read(
+                        SELECT_USER_ORDERS
+                                .replace("$", orderType.toString()), id);
 
+        assert queryResult != null;
+        System.out.println(queryResult.getTableName());
         return null;
     }
 
@@ -65,22 +74,19 @@ public class UserRepository implements Repository<User> {
 
     @Override
     public User update(User user) {
-        DatabaseConnection.update(UPDATE_USER_PASSWORD, user.getPassword());
+        DatabaseConnection.update(UPDATE_USER_PASSWORD, user.getPassword(),
+                                  user.getID());
         return null;
     }
 
     /**
      * Removes user with specified ID from the database
      * @param id ID of user to remove
+     * @return true if the removal is "success"
      */
     @Override
-    public void remove(long id) {
-        DatabaseConnection.delete(DELETE_USER, id);
-    }
-
-    private ResultSet query(String query) {
-
-        return null;
+    public boolean remove(long id) {
+        return DatabaseConnection.delete(DELETE_USER, id);
     }
 
     /* TODO: Make this better */

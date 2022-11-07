@@ -1,6 +1,7 @@
 package com.sdpizza.groupproject.database;
 
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
+import org.h2.tools.Script;
 
 import java.sql.*;
 
@@ -8,7 +9,8 @@ public class DatabaseConnection {
     private final static String DRIVER = "org.h2.Driver";
     private final static String USER = "admin";
     private final static String PASSWORD = "password";
-    private final static String URL = "jdbc:h2:./database/db/sdpizza;AUTO_SERVER=TRUE";
+    private final static String URL =
+            "jdbc:h2:./database/db/sdpizza;AUTO_SERVER=TRUE";
     private static Connection connection;
 
     public static void init() {
@@ -35,7 +37,7 @@ public class DatabaseConnection {
         boolean success = false;
 
         try (PreparedStatement pstmt = prepareStatement(query, values)) {
-            success = pstmt.execute();
+            success = (pstmt.executeUpdate() >= 1);
             connection.commit();
         } catch (JdbcSQLIntegrityConstraintViolationException ex) {
             System.err.println(ex.getMessage());
@@ -65,7 +67,14 @@ public class DatabaseConnection {
         }
     }
 
-    public static void update(String query, Object... values) {
+    /**
+     * Updates rows in database given the query String and an array of
+     * @param query
+     * @param values
+     * @return
+     */
+
+    public static boolean update(String query, Object... values) {
         boolean success = false;
         try (PreparedStatement pstmt = prepareStatement(query, values)) {
             success = (pstmt.executeUpdate() >= 1);
@@ -74,15 +83,16 @@ public class DatabaseConnection {
             ex.printStackTrace();
         }
 
-//        return success;
+        return success;
     }
 
     /**
      * Deletes rows from database specified in query.
      * @param query Parameterized SQL query to execute in PreparedStatement
      * @param values Parameters for the query String
+     * @return true if 1 or more rows were affected, false otherwise
      */
-    public static void delete(String query, Object... values) {
+    public static boolean delete(String query, Object... values) {
         boolean success = false;
         try (PreparedStatement pstmt = prepareStatement(query, values)) {
             success = (pstmt.executeUpdate() >= 1);
@@ -91,7 +101,7 @@ public class DatabaseConnection {
             ex.printStackTrace();
         }
 
-//        return success;
+        return success;
     }
 
     public static void close() {
@@ -101,6 +111,13 @@ public class DatabaseConnection {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void dumpSQL() {
+        try {
+            Script.process(connection, "./database/dump.sql",
+                   "", "");
+        } catch (SQLException ex) { ex.printStackTrace(); }
     }
 
     /**
@@ -122,6 +139,7 @@ public class DatabaseConnection {
 
         return pstmt;
     }
+
 
     private static void handleException(Exception ex, boolean exit) {
         ex.printStackTrace();

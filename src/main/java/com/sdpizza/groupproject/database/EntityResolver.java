@@ -1,19 +1,32 @@
 package com.sdpizza.groupproject.database;
 
+import com.sdpizza.groupproject.database.annotations.Column;
 import com.sdpizza.groupproject.entity.Entity;
 import com.sdpizza.groupproject.entity.model.Model;
-import com.sdpizza.groupproject.entity.model.Order;
-import com.sdpizza.groupproject.entity.model.User;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
-public class EntityResolver<T extends Entity> {
+public class EntityResolver {
+    private final Class<? extends Entity> clazz;
 
-    private EntityResolver() {}
+    public EntityResolver(Class<? extends Entity> clazz) {
+        this.clazz = clazz;
+    }
 
     /* Alternate Resolve? */
-    public T resolve(QueryResult queryResult) {
+    public <E extends Entity> E resolve(QueryResult queryResult) {
+        List<Field> fields =
+                Arrays.stream(clazz.getDeclaredFields())
+                        .filter(f -> f.isAnnotationPresent(Column.class))
+                        .collect(Collectors.toList());
+        for (Field field : fields) {
+            System.out.println(field.getAnnotation(Column.class).value());
+        }
+
         return null;
     }
 
@@ -53,5 +66,4 @@ public class EntityResolver<T extends Entity> {
 
         return model;
     }
-
 }

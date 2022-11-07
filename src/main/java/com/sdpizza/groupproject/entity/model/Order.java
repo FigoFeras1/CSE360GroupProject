@@ -1,22 +1,21 @@
 package com.sdpizza.groupproject.entity.model;
 
 
+import com.sdpizza.groupproject.entity.item.Item;
+
+import java.util.List;
+
 public class Order extends Model {
     public enum Type {
-        PENDING("pending"),
-        PROCESSED("processed"),
-        SAVED("saved");
-
-        private final String name;
-
-        Type(String name) {
-            this.name = name;
-        }
+        PENDING,
+        PROCESSED,
+        SAVED;
     }
     private long id;
+    private List<? extends Item> items;
 
     @Override
     public long getID() {
-        return -1;
+        return id;
     }
 }

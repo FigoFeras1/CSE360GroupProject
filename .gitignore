@@ -38,3 +38,4 @@ bin/
 ### Mac OS ###
 .DS_Store
 /.idea/
+database/db/sdpizza.trace.db
