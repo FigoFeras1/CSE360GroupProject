@@ -23,7 +23,8 @@ public class QueryResult {
             while (resultSet.next()) {
                 HashMap<String, Object> row = new HashMap<>();
                 for (int i = 1; i <= columnCount; ++i) {
-                    row.put(metaData.getColumnName(i).toLowerCase(), resultSet.getObject(i));
+                    row.put(metaData.getColumnName(i).toLowerCase(),
+                            resultSet.getObject(i));
                 }
 
                 results.add(row);

@@ -1,5 +1,6 @@
 package com.sdpizza.groupproject.database;
 
+import com.sdpizza.groupproject.entity.item.Item;
 import com.sdpizza.groupproject.entity.item.Pizza;
 import com.sdpizza.groupproject.entity.model.User;
 import com.sdpizza.groupproject.entity.model.Order;
@@ -8,10 +9,14 @@ import org.junit.jupiter.api.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/* TODO: Split this up into multiple classes and make all tests actually test the application. */
+/* Me and this class are both in shambles rn */
+/* NOTE: Anything disabled is probably broken */
 public class DatabaseTest {
     private final User user =
             new User(10, "feras", "a", "password",
@@ -20,6 +25,7 @@ public class DatabaseTest {
             new User(0, "admin", "admin", "password",
                      User.Role.CUSTOMER);
     private final UserRepository userRepository = new UserRepository();
+    private final OrderRepository orderRepository = new OrderRepository();
 
     @BeforeAll
     @Disabled
@@ -29,6 +35,7 @@ public class DatabaseTest {
 
 
     @Test
+    @Disabled
     @DisplayName("Successful Database Delete")
     void successfulDatabaseDelete() {
         userRepository.remove(user.getID());
@@ -52,6 +59,7 @@ public class DatabaseTest {
 
 
     @Test
+    @Disabled
     @DisplayName("Successful Database Insert")
     void successfulDatabaseInsert() {
         userRepository.add(user);
@@ -97,7 +105,7 @@ public class DatabaseTest {
     @Test
     @DisplayName("Select User Orders")
     void selectUserOrders() {
-        userRepository.getOrders(10, Order.Type.SAVED);
+        userRepository.getOrders(10, Order.Status.SAVED);
         assert(true);
     }
 
@@ -107,6 +115,16 @@ public class DatabaseTest {
         DatabaseConnection.dumpSQL();
     }
 
+    @Test
+    @DisplayName("Create Order")
+    void createOrder() {
+        Pizza pizza = new Pizza(Pizza.Size.LARGE, Pizza.Base.CHEESE,
+                Pizza.Topping.MUSHROOMS, Pizza.Topping.ONIONS);
+        ArrayList<Pizza> items = new ArrayList<>();
+        items.add(pizza);
+        Order order = new Order(items, user, Order.Status.PENDING);
+        orderRepository.add(order);
+    }
 
     @Test
     @Disabled

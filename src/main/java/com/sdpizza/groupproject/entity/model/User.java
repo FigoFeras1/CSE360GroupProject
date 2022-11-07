@@ -14,18 +14,18 @@ public class User extends Model {
         CHEF,
     }
 
-    @Column("id")
+    @Column("ID")
     private long id;
-    @Column("first_name")
+    @Column("FIRST_NAME")
     private String firstName;
 
-    @Column("last_name")
+    @Column("LAST_NAME")
     private String lastName;
 
-    @Column("password")
+    @Column("PASSWORD")
     private String password;
 
-    @Column("role")
+    @Column("ROLE")
     private Role role;
 
     public User(long id, String firstName, String lastName, String password,

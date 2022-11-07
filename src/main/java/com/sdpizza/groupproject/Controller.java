@@ -2,6 +2,7 @@ package com.sdpizza.groupproject;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -63,6 +64,11 @@ public class Controller {
            specific element to have a certain property as soon as the FXML is
            loaded */
         if (statusProgressBar != null) status();
+    }
+
+    @FXML
+    public void exitApplication(ActionEvent event) {
+        Platform.exit();
     }
 
     @FXML
@@ -236,11 +242,10 @@ public class Controller {
                     Platform.runLater(
                             () -> statusLabel.setText(String.valueOf(finalI))
                     );
-                    if (isCancelled()) {
-                        break;
-                    }
-                    updateProgress(i, max);
 
+                    if (isCancelled()) break;
+
+                    updateProgress(i, max);
                     /* This controls how long it takes between increments (ms) */
                     Thread.sleep(1500);
                 }

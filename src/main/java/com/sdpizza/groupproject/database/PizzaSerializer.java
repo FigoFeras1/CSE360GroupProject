@@ -6,6 +6,7 @@ import com.sdpizza.groupproject.entity.item.Pizza;
 
 import java.io.IOException;
 
+/* TODO: Turn this into ItemSerializer */
 public class PizzaSerializer {
     private PizzaSerializer() {}
 

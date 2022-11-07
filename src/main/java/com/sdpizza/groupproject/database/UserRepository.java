@@ -51,11 +51,11 @@ public class UserRepository implements IRepository<User> {
         return create(queryResult);
     }
 
-    public List<Order> getOrders(long id, Order.Type orderType) {
+    public List<Order> getOrders(long id, Order.Status orderStatus) {
         QueryResult queryResult =
                 DatabaseConnection.read(
                         SELECT_USER_ORDERS
-                                .replace("$", orderType.toString()), id);
+                                .replace("$", orderStatus.toString()), id);
 
         assert queryResult != null;
         System.out.println(queryResult.getTableName());
@@ -82,7 +82,7 @@ public class UserRepository implements IRepository<User> {
     /**
      * Removes user with specified ID from the database
      * @param id ID of user to remove
-     * @return true if the removal is "success"
+     * @return true if the removal is a "success"
      */
     @Override
     public boolean remove(long id) {
