@@ -20,6 +20,8 @@ import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+
 public class Controller {
     @FXML
     private Label loginText, registerText, statusLabel;
