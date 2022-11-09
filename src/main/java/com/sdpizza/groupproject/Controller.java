@@ -27,8 +27,8 @@ public class Controller {
     private Label loginText, registerText, statusLabel;
 
     @FXML
-    private Button loginButton, registerButton, homeLoginButton,
-                   homeRegisterButton, orderCancelButton, orderConfirmButton,
+    private Button loginButton, registerButton, homeLoginButton, homeLogoutButton,
+                   homeRegisterButton, orderCancelButton, orderConfirmButton, homeOrderButton,
                    orderStatusButton;
 
     @FXML
@@ -129,7 +129,7 @@ public class Controller {
 
     @FXML
     protected void orderCancel() {
-        loadView( orderCancelButton, "home-view.fxml");
+        loadView( orderCancelButton, "home-view_anon-user.fxml");
     }
 
     @FXML
@@ -141,6 +141,11 @@ public class Controller {
     protected void orderStatus() {
         loadView( orderStatusButton, "order-status.fxml");
     }
+
+    @FXML
+    protected void homeLogout() { loadView( homeLogoutButton, "home-view_anon-user");}
+
+    /* Insert potential "order button from home" event here */
 
     /* Use this function if you need specific behavior for a keyPressed event */
     @FXML
