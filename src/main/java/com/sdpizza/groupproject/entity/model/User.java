@@ -57,7 +57,7 @@ public class User extends Model {
         return id;
     }
 
-    private void setID(long id) { this.id = id; }
+    public void setID(long id) { this.id = id; }
 
     public String getFirstName() {
         return firstName;

@@ -19,10 +19,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
+import com.sdpizza.groupproject.entity.model.User;
 
 
 
 public class Controller {
+
+    @FXML
+    private User activeUser;
+
+    @FXML
+    private UserController uCTLR;
+
     @FXML
     private Label loginText, registerText, statusLabel;
 
@@ -75,6 +83,8 @@ public class Controller {
 
     @FXML
     protected void login() {
+
+        /*
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
         Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
@@ -82,16 +92,24 @@ public class Controller {
         idField.setBorder(Border.stroke(borderColor));
         passwordField.setBorder(Border.stroke(borderColor));
 
-        /* TODO: Add another if statement that checks the id and password */
+        // TODO: Add another if statement that checks the id and password
         if (!fieldsFilled) {
             loginText.setText("Please enter your ASUID and password");
             loginText.setTextFill(borderColor);
             loginText.setVisible(true);
             return;
         }
+        */
+
+
+        activeUser = uCTLR.login();
+
 
         /* View switching code */
-        loadView(loginButton, "orders.fxml");
+        if(activeUser != null){
+            loadView(loginButton, "orders.fxml");
+        }
+
     }
 
     @FXML
