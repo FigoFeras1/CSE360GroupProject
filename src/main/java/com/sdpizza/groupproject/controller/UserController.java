@@ -1,4 +1,4 @@
-package com.sdpizza.groupproject;
+package com.sdpizza.groupproject.controller;
 
 import com.sdpizza.groupproject.database.repository.UserRepository;
 import javafx.application.Platform;

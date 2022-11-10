@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1186.0" prefWidth="1890.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.Controller">
+<AnchorPane prefHeight="1186.0" prefWidth="1890.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
    <children>
       <Button fx:id="homeLoginButton" layoutX="1125.0" layoutY="71.0" mnemonicParsing="false" onAction="#homeLogin" prefHeight="76.0" prefWidth="114.0" text="Login" />
       <Rectangle fill="#ff7348" height="50.0" smooth="false" stroke="#ff7348" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="0.0" width="1985.0" />

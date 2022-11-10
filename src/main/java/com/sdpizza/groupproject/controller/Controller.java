@@ -1,5 +1,7 @@
-package com.sdpizza.groupproject;
+package com.sdpizza.groupproject.controller;
 
+import com.sdpizza.groupproject.Main;
+import com.sdpizza.groupproject.controller.UserController;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -167,7 +169,7 @@ public class Controller {
 
     /* Use this function if you need specific behavior for a keyPressed event */
     @FXML
-    protected void keyPressed(KeyEvent event) {
+    public void keyPressed(KeyEvent event) {
         switch (event.getCode()) {
             /* The code here is generalizing the behavior of enter so that
                it either moves from an empty box to another or fires the button

@@ -1,5 +1,6 @@
 package com.sdpizza.groupproject;
 
+import com.sdpizza.groupproject.controller.Controller;
 import com.sdpizza.groupproject.database.DatabaseConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
