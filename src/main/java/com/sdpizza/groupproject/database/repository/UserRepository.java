@@ -2,14 +2,13 @@ package com.sdpizza.groupproject.database.repository;
 
 import com.sdpizza.groupproject.database.DatabaseConnection;
 import com.sdpizza.groupproject.database.QueryResult;
-import com.sdpizza.groupproject.database.repository.IRepository;
 import com.sdpizza.groupproject.entity.model.Order;
 import com.sdpizza.groupproject.entity.model.User;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class UserRepository implements IRepository<User> {
+public class UserRepository {
     private static final String SELECT_USER =
             "SELECT * FROM users WHERE id = ? AND password = ? ";
     private static final String INSERT_USER =
@@ -26,29 +25,13 @@ public class UserRepository implements IRepository<User> {
             "SELECT * FROM ORDERS.$ WHERE CUSTOMER_ID = ? ";
 
     /**
-     * Queries database for the user with the desired ID. Should only be used to
-     * retrieve user information. If you want to log in the user, use
-     * {@link #get(long, String)}.
-     * @param id User ASUID
-     * @return User object if found in database, null otherwise
-     */
-    @Override
-    @Deprecated
-    public User get(long id) {
-        QueryResult queryResult = DatabaseConnection.read(SELECT_USER, id);
-
-        return null;
-    }
-
-    /**
      * Queries database for the user with the desired ID and password.
-     * @param id User ASUID
-     * @param password User Password
+     * @param user object containing the ASUID and password
      * @return User object if found in database, null otherwise
      */
-    public User get(long id, String password) {
-        QueryResult queryResult = DatabaseConnection.read(SELECT_USER, id,
-                password);
+    public User get(User user) {
+        QueryResult queryResult = DatabaseConnection.read(SELECT_USER, user.getID(),
+                user.getPassword());
 
         assert queryResult != null;
         return create(queryResult);
@@ -70,16 +53,13 @@ public class UserRepository implements IRepository<User> {
      * @param user user to add
      * @return True if user was added successfully, false otherwise.
      */
-    @Override
     public boolean add(User user) {
         return DatabaseConnection.create(INSERT_USER, user.toArray());
     }
 
-    @Override
-    public User update(User user) {
-        DatabaseConnection.update(UPDATE_USER_PASSWORD, user.getPassword(),
-                                  user.getID());
-        return null;
+    public boolean update(User user) {
+        return DatabaseConnection.update(UPDATE_USER_PASSWORD, user.getPassword(),
+                                         user.getID());
     }
 
     /**
@@ -87,9 +67,8 @@ public class UserRepository implements IRepository<User> {
      * @param id ID of user to remove
      * @return true if the removal is a "success"
      */
-    @Override
-    public boolean remove(long id) {
-        return DatabaseConnection.delete(DELETE_USER, id);
+    public boolean remove(User user) {
+        return DatabaseConnection.delete(DELETE_USER, user.getID());
     }
 
     /* TODO: Make this better */
@@ -97,7 +76,7 @@ public class UserRepository implements IRepository<User> {
         if (queryResult.nextRow()) {
             HashMap<String, Object> values = queryResult.getRowWithColumns();
 
-            long id = Long.valueOf((Integer) values.get("id"));
+            long id = Long.parseLong((String) values.get("id"));
             String first_name = values.get("first_name").toString();
             String last_name = values.get("last_name").toString();
             String password = values.get("password").toString();

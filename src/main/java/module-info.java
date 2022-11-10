@@ -8,8 +8,13 @@ module com.sdpizza.groupproject {
     requires com.fasterxml.jackson.databind;
 
 
-    opens com.sdpizza.groupproject to javafx.fxml;
-    exports com.sdpizza.groupproject;
+    opens com.sdpizza.groupproject to javafx.fxml, com.fasterxml.jackson.databind;
+    exports com.sdpizza.groupproject to com.fasterxml.jackson.databind;
     exports com.sdpizza.groupproject.entity.item
             to com.fasterxml.jackson.databind;
+    exports com.sdpizza.groupproject.entity.model
+            to com.fasterxml.jackson.databind;
+    exports com.sdpizza.groupproject.database
+            to com.fasterxml.jackson.databind;
+    exports com.sdpizza.groupproject.database.serializer to com.fasterxml.jackson.databind;
 }

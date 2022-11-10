@@ -24,7 +24,7 @@ public class QueryResult {
                 HashMap<String, Object> row = new HashMap<>();
                 for (int i = 1; i <= columnCount; ++i) {
                     row.put(metaData.getColumnName(i).toLowerCase(),
-                            resultSet.getObject(i));
+                            resultSet.getString(i));
                 }
 
                 results.add(row);
@@ -33,6 +33,10 @@ public class QueryResult {
             ex.printStackTrace();
             System.out.println(ex.getMessage());
         }
+    }
+
+    public List<HashMap<String, Object>> getResults() {
+        return results;
     }
 
     public boolean nextRow() {

@@ -1,17 +1,20 @@
 package com.sdpizza.groupproject.database;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sdpizza.groupproject.database.repository.OrderRepository;
 import com.sdpizza.groupproject.database.repository.UserRepository;
+import com.sdpizza.groupproject.database.serializer.ItemSerializer;
+import com.sdpizza.groupproject.entity.item.Item;
 import com.sdpizza.groupproject.entity.item.Pizza;
 import com.sdpizza.groupproject.entity.model.User;
 import com.sdpizza.groupproject.entity.model.Order;
 import org.junit.jupiter.api.*;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,22 +42,22 @@ public class DatabaseTest {
     @Disabled
     @DisplayName("Successful Database Delete")
     void successfulDatabaseDelete() {
-        userRepository.remove(user.getID());
-        assertNull(userRepository.get(user.getID(), user.getPassword()));
+        userRepository.remove(user);
+        assertNull(userRepository.get(user));
     }
 
     @Test
     @DisplayName("Successful Database Read")
     void successfulDatabaseRead() {
-        User user = userRepository.get(admin.getID(),
-                                       admin.getPassword());
+        User user = userRepository.get(admin);
         assert(Arrays.equals(admin.toArray(), user.toArray()));
     }
 
     @Test
     @DisplayName("Failed Database Read")
     void failedDatabaseRead() {
-        User user = userRepository.get(-1, "password");
+        User nonexistentUser = new User(-1, "", "", "", User.Role.CUSTOMER);
+        User user = userRepository.get(nonexistentUser);
         assertNull(user);
     }
 
@@ -64,7 +67,7 @@ public class DatabaseTest {
     @DisplayName("Successful Database Insert")
     void successfulDatabaseInsert() {
         userRepository.add(user);
-        assertNotNull(userRepository.get(user.getID(), user.getPassword()));
+        assertNotNull(userRepository.get(user));
     }
 
     @Test
@@ -76,7 +79,7 @@ public class DatabaseTest {
 
         userRepository.update(user);
 
-        User newUser = userRepository.get(user.getID(), user.getPassword());
+        User newUser = userRepository.get(user);
         user.setPassword(oldPassword);
         userRepository.update(user);
         assertEquals(newUser.getPassword(), newPassword);
@@ -87,18 +90,18 @@ public class DatabaseTest {
     void pizzaSerialization() {
         Pizza pizza = new Pizza(Pizza.Size.LARGE, Pizza.Base.CHEESE,
                                 Pizza.Topping.MUSHROOMS, Pizza.Topping.ONIONS);
-        String json = PizzaSerializer.serialize(pizza);
+        String json = ItemSerializer.serialize(pizza);
         System.out.println(json);
         assertEquals(1,1);
     }
 
     @Test
-    @DisplayName("Pizza Deserialization")
+    @Disabled
     void pizzaDeserialization() {
         Pizza pizza = new Pizza(Pizza.Size.LARGE, Pizza.Base.CHEESE,
                 Pizza.Topping.MUSHROOMS, Pizza.Topping.ONIONS);
-        String json = PizzaSerializer.serialize(pizza);
-        pizza = PizzaSerializer.deserialize(json);
+        String json = ItemSerializer.serialize(pizza);
+        pizza = ItemSerializer.deserialize(json);
         System.out.println(pizza);
         assertEquals(1,1);
     }
@@ -123,11 +126,27 @@ public class DatabaseTest {
                 Pizza.Topping.MUSHROOMS, Pizza.Topping.ONIONS);
         Pizza pizza0 = new Pizza(Pizza.Size.SMALL, Pizza.Base.VEGAN,
                 Pizza.Topping.OLIVES, Pizza.Topping.PINEAPPLE);
-        ArrayList<Pizza> items = new ArrayList<>();
+        pizza0.setQuantity(3);
+        pizza.setQuantity(2);
+        List<Item> items = new ArrayList<>();
         items.add(pizza);
         items.add(pizza0);
         Order order = new Order(items, user, Order.Status.PENDING);
         orderRepository.add(order);
+    }
+    @Test
+    void test() throws IOException {
+        List<Item> items = new ArrayList<>();
+        Pizza pizza0 = new Pizza(2, Pizza.Size.SMALL, Pizza.Base.VEGAN, Pizza.Topping.ONIONS,
+                  Pizza.Topping.MUSHROOMS);
+        Pizza pizza1 = new Pizza(3, Pizza.Size.XLARGE, Pizza.Base.CHEESE,
+                  Pizza.Topping.PINEAPPLE, Pizza.Topping.EXTRA_CHEESE);
+        items.add(pizza0);
+        items.add(pizza1);
+        Order order = new Order(items, user, Order.Status.PENDING);
+        String json = ItemSerializer.serializeOrder(order);
+        ObjectMapper objMapper = new ObjectMapper();
+        order = objMapper.readValue(json, Order.class);
     }
 
     @Test

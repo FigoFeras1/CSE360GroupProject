@@ -1,6 +1,5 @@
 package com.sdpizza.groupproject.database;
 
-import com.sdpizza.groupproject.database.QueryResult;
 import com.sdpizza.groupproject.database.annotations.Column;
 import com.sdpizza.groupproject.entity.Entity;
 import com.sdpizza.groupproject.entity.model.Model;
