@@ -25,8 +25,8 @@ public class OrderDeserializer extends StdDeserializer<Order> {
     public static Order deserialize(String json) {
         ObjectMapper objMapper = new ObjectMapper();
         Order order = new Order();
-        json = json.substring(1);
-        json = json.replace("\\", "");
+        /* TODO: Find a way not to do this */
+        json = json.substring(1).replace("\\", "");
 
         try { order = objMapper.readValue(json, Order.class); }
         catch (Exception ex) { ex.printStackTrace(); }
@@ -38,9 +38,8 @@ public class OrderDeserializer extends StdDeserializer<Order> {
     throws IOException {
         ObjectMapper objMapper = new ObjectMapper();
         List<Item> items = new ArrayList<>();
-        JsonNode rootNode =  parser.getCodec().readTree(parser);
-        JsonNode itemsNode = rootNode.get("items");
-        Iterator<JsonNode> it = itemsNode.elements();
+        Iterator<JsonNode> it =
+                ((JsonNode) parser.getCodec().readTree(parser).get("items")).elements();
 
         while (it.hasNext()) {
             items.add(objMapper.readValue(it.next().toString(), Item.class));

@@ -42,42 +42,66 @@ public class OrderRepository {
     public Order get(Order order) {
         Order newOrder = null;
         QueryResult queryResult =
-                DatabaseConnection.read(SELECT_ORDER.replace("$", order.getStatus().toString()),
-                                        order.getID());
+                DatabaseConnection.read(queryString(SELECT_ORDER, order.getStatus()));
 
         assert queryResult != null;
         if (queryResult.nextRow()) {
             HashMap<String, Object> results = queryResult.getRowWithColumns();
+            String items = results.get("items").toString();
             newOrder =
                     new Order(
-                              OrderDeserializer.deserialize(results.get("items").toString()).getItems(),
+                              OrderDeserializer.deserialize(items).getItems(),
                               order.getUser(),
                               order.getStatus());
             newOrder.setID(Long.parseLong(results.get("id").toString()));
         }
+
         return newOrder;
     }
+
+    /**
+     * Returns orders based on status alone
+     * @param status status of orders to be returned
+     * @return list of orders
+     */
     public List<Order> get(Order.Status status) {
-        QueryResult queryResult
-                = DatabaseConnection.read(SELECT_ORDER_BY_STATUS.replace("$", status.toString()));
+        QueryResult queryResult =
+                DatabaseConnection.read(queryString(SELECT_ORDER_BY_STATUS, status));
+
         assert queryResult != null;
         return orderList(queryResult);
     }
 
+    /**
+     * Gets orders based on the user
+     * @param userID ID of the customer that placed the order
+     * @param status status of the order
+     * @return list of orders from that user
+     */
     public List<Order> get(long userID, Order.Status status) {
-        QueryResult queryResult
-                = DatabaseConnection.read(SELECT_ORDER_BY_USER.replace("$",
-                                          status.toString()), userID);
+        QueryResult queryResult =
+                DatabaseConnection.read(queryString(SELECT_ORDER_BY_USER, status),
+                                        userID);
+
         assert queryResult != null;
         return orderList(queryResult);
     }
 
+    /**
+     * Adds order to the database. Once the order is added successfully,
+     * this method sets the order object's ID to the number in the database.
+     * This ID will and must remain the same throughout all different status' of
+     * the order, and therefore must be preserved
+     * @param order order object that must contain the status and user
+     * @return true if the order is inserted "successfully", else false
+     */
     public boolean add(Order order) {
         String itemJSON = OrderSerializer.serialize(order);
+
         if (order.getID() == -1) {
             long generatedKey =
                     DatabaseConnection.create(
-                            INSERT_ORDER.replace("$", order.getStatus().toString()),
+                            queryString(INSERT_ORDER, order.getStatus()),
                             itemJSON,
                             java.time.LocalDate.now().toString(),
                             order.getUser().getID()
@@ -89,7 +113,7 @@ public class OrderRepository {
 
         long generatedKey =
                 DatabaseConnection.create(
-                        INSERT_ORDER_WITH_ID.replace("$", order.getStatus().toString()),
+                        queryString(INSERT_ORDER_WITH_ID, order.getStatus()),
                         order.getID(),
                         itemJSON,
                         java.time.LocalDate.now().toString(),
@@ -99,16 +123,21 @@ public class OrderRepository {
         return (generatedKey == -1);
     }
 
-    /* Updating the status of the order */
-/*
-    public Order update(Order order, Order.Status newStatus) {
-    }
-*/
+    /* public Order update(Order order, Order.Status newStatus) {} */
 
+    /**
+     * Deletes order from the database
+     * @param order order with status and id to remove
+     * @return true if the order was deleted "successfully", else false
+     */
     public boolean remove(Order order) {
-        return DatabaseConnection.delete(
-                DELETE_ORDER.replace("$", order.getStatus().toString()),
-                order.getID());
+        return DatabaseConnection.delete(queryString(DELETE_ORDER, order.getStatus()),
+                                         order.getID());
+    }
+
+    /* Helper methods */
+    private String queryString(String query, Order.Status status) {
+        return query.replace("$", status.toString());
     }
 
     private List<Order> orderList(QueryResult queryResult) {
@@ -128,12 +157,5 @@ public class OrderRepository {
         }
 
         return orders;
-
-//        return queryResult.getResults()
-//                .stream()
-//                .map(r -> ItemSerializer.deserialize(r.get("items")
-//                        .toString()))
-//                .map(Order.class::cast)
-//                .collect(Collectors.toList());
     }
 }

@@ -11,9 +11,10 @@ import com.sdpizza.groupproject.entity.item.Pizza;
 import com.sdpizza.groupproject.entity.model.Order;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
+/* TODO: Loot and nuke */
+@Deprecated
 public class ItemSerializer extends StdSerializer<Item>{
     /* Should NOT be used */
     @Deprecated

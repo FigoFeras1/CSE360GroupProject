@@ -38,11 +38,10 @@ public class DatabaseConnection {
 
         try (PreparedStatement pstmt = prepareStatement(query, values)) {
             pstmt.executeUpdate();
-            ResultSet rs = pstmt.getGeneratedKeys();
-            if (rs.next()) {
-                generatedKey = rs.getLong(1);
-            }
             connection.commit();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) generatedKey = rs.getLong(1);
         } catch (JdbcSQLIntegrityConstraintViolationException ex) {
             System.err.println(ex.getMessage());
         } catch (SQLException ex) {
@@ -59,11 +58,8 @@ public class DatabaseConnection {
      * @return QueryResult object which holds column names and values, or null
      */
     public static QueryResult read(String query, Object... values) {
-
         try (PreparedStatement pstmt = prepareStatement(query, values)) {
-            ResultSet resultSet = pstmt.executeQuery();
-
-            return (new QueryResult(resultSet));
+            return (new QueryResult(pstmt.executeQuery()));
         } catch (SQLException ex) {
             handleException(ex, false);
 

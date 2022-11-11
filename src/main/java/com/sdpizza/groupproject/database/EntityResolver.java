@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/* TODO: Fix this up and use it */
 public class EntityResolver {
     private final Class<? extends Entity> clazz;
 
