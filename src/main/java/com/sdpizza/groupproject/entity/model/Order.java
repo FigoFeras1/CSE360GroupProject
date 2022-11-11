@@ -10,15 +10,15 @@ import com.sdpizza.groupproject.database.serializer.OrderSerializer;
 import com.sdpizza.groupproject.entity.item.Item;
 
 import java.util.List;
-import java.util.Map;
 
 @JsonSerialize(using = OrderSerializer.class)
 @JsonDeserialize(using = OrderDeserializer.class)
 public class Order extends Model {
 
+
     /* Pending is order placed, but not being made,
-       Processed is order being made by chef
-       Saved is completed order */
+           Processed is order being made by chef
+           Saved is completed order */
     public enum Status {
         PENDING,
         PROCESSED,
@@ -52,12 +52,16 @@ public class Order extends Model {
     public long getID() {
         return id;
     }
+    public void setID(long id) { this.id = id; }
 
     @JsonIgnore
-    public Object getType() {
+    public Status getType() {
         return status;
     }
 
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
     public List<Item> getItems() {
         return items;
     }

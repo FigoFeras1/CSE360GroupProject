@@ -1,7 +1,6 @@
 package com.sdpizza.groupproject.database.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -9,7 +8,6 @@ import com.sdpizza.groupproject.entity.item.Item;
 import com.sdpizza.groupproject.entity.model.Order;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class OrderSerializer extends StdSerializer<Order> {
     public OrderSerializer() {
@@ -18,6 +16,15 @@ public class OrderSerializer extends StdSerializer<Order> {
 
     public OrderSerializer(Class<Order> t) {
         super(t);
+    }
+
+    public static String serialize(Order order) {
+        ObjectMapper objMapper = new ObjectMapper();
+        String json = null;
+        try { json = objMapper.writeValueAsString(order); }
+        catch (Exception ex) { ex.printStackTrace(); }
+
+        return json;
     }
 
     @Override

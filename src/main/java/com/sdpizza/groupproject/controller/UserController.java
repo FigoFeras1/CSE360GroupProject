@@ -1,34 +1,11 @@
 package com.sdpizza.groupproject.controller;
 
 import com.sdpizza.groupproject.database.repository.UserRepository;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Border;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import com.sdpizza.groupproject.database.DatabaseConnection;
-import com.sdpizza.groupproject.database.QueryResult;
-import com.sdpizza.groupproject.entity.model.Order;
 import com.sdpizza.groupproject.entity.model.User;
-
-import java.util.HashMap;
-import java.util.List;
-import com.sdpizza.groupproject.database.repository.UserRepository;
 
 public class UserController {
 
@@ -79,7 +56,7 @@ public class UserController {
 
                 User user = new User();
                 user.setPassword(passwordField.getText());
-                Long varLong=Long.parseLong(idField.getText());
+                long varLong=Long.parseLong(idField.getText());
                 user.setID(varLong);
 
                 activeUser = null;
