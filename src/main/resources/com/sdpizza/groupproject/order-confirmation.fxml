@@ -24,7 +24,7 @@
             <children>
                 <VBox alignment="CENTER" layoutX="126.0" prefHeight="258.0" prefWidth="349.0" spacing="6.0">
                     <children>
-                        <Label text="Large Pepperoni with Extra Cheese" />
+                        <Label fx:id="pizzasInOrder"/>
                         <AnchorPane />
                         <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
                   <Label text="Please Enter Your ASU ID" />

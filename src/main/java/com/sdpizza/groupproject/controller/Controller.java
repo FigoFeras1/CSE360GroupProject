@@ -35,7 +35,7 @@ public class Controller {
     private UserController uCTLR;
 
     @FXML
-    private Label loginText, registerText, statusLabel;
+    private Label loginText, pizzasInOrder, registerText, statusLabel;
 
     @FXML
     private Button loginButton, adminLoginButton, registerButton, homeLoginButton, homeLogoutButton,
@@ -54,6 +54,12 @@ public class Controller {
 
     @FXML
     private ToggleGroup sizeToggleGroup, baseToggleGroup;
+
+    @FXML
+    private Slider quantitySlider;
+
+    @FXML
+    private static String pizzaOptions;
 
 
     /* May come in useful in the future */
@@ -162,7 +168,9 @@ public class Controller {
 
     @FXML
     protected void orderConfirm() {
+        getPizzaInfo();
         loadView( orderConfirmButton, "order-confirmation.fxml");
+        pizzasInOrder.setText(pizzaOptions); //TODO: This line causes problems
     }
 
     @FXML
@@ -264,6 +272,13 @@ public class Controller {
             e.printStackTrace();
             System.err.println(e.getMessage());
         }
+    }
+
+    /* TODO: This method will collect info and present it on order confirmation page */
+    public void getPizzaInfo() {
+        pizzaOptions = "No pizzas :("; /* Flush out pizza options */
+        /*Toggle size = sizeToggleGroup.getSelectedToggle();
+        pizzaOptions = size.toString();*/
     }
 
     @FXML
