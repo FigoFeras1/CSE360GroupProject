@@ -29,16 +29,15 @@ public class OrderSerializer extends StdSerializer<Order> {
 
     @Override
     public void serialize(Order order, JsonGenerator gen, SerializerProvider provider) throws IOException {
-//        gen.writeStartObject();
-//        gen.writeFieldName("items");
+        gen.writeStartObject();
+        gen.writeFieldName("items");
         gen.writeStartArray();
+
         for (Item item : order.getItems()) {
             gen.writeObject(item);
-//            gen.writeNumberField("quantity", entry.getValue());
         }
-        gen.writeEndArray();
 
-//        gen.writeObjectField(order.getItems().toString());
-//        gen.writeEndObject();
+        gen.writeEndArray();
+        gen.writeEndObject();
     }
 }

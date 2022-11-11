@@ -27,7 +27,7 @@ public class Order extends Model {
     /* This should not be set by anything except the OrderRepository, since the
        table in the database auto-increments the id. */
     @JsonIgnore
-    private long id;
+    private long id = -1;
 
     @JsonProperty
     private List<Item> items;
@@ -40,9 +40,9 @@ public class Order extends Model {
 
     public Order() {}
     public Order(List<Item> items, User user, Status status) {
-        this.items = items;
-        this.user = user;
-        this.status = status;
+        setItems(items);
+        setUser(user);
+        setStatus(status);
     }
 
     public void add(Item item) {
@@ -55,9 +55,10 @@ public class Order extends Model {
     public void setID(long id) { this.id = id; }
 
     @JsonIgnore
-    public Status getType() {
+    public Status getStatus() {
         return status;
     }
+    public void setStatus(Status status) { this.status = status; }
 
     public void setItems(List<Item> items) {
         this.items = items;
@@ -69,4 +70,5 @@ public class Order extends Model {
     public User getUser() {
         return user;
     }
+    public void setUser(User user) { this.user = user; }
 }

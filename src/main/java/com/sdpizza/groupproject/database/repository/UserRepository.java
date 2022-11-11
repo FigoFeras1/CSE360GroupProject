@@ -37,6 +37,7 @@ public class UserRepository {
         return create(queryResult);
     }
 
+    @Deprecated
     public List<Order> getOrders(long id, Order.Status orderStatus) {
         QueryResult queryResult =
                 DatabaseConnection.read(
@@ -54,7 +55,7 @@ public class UserRepository {
      * @return True if user was added successfully, false otherwise.
      */
     public boolean add(User user) {
-        return DatabaseConnection.create(INSERT_USER, user.toArray());
+        return (DatabaseConnection.create(INSERT_USER, user.toArray()) != -1);
     }
 
     public boolean update(User user) {
@@ -64,7 +65,7 @@ public class UserRepository {
 
     /**
      * Removes user with specified ID from the database
-     * @param id ID of user to remove
+     * @param user user with ID to remove
      * @return true if the removal is a "success"
      */
     public boolean remove(User user) {

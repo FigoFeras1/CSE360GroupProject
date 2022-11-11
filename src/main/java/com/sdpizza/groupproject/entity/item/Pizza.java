@@ -2,13 +2,8 @@ package com.sdpizza.groupproject.entity.item;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.sdpizza.groupproject.database.serializer.ItemSerializer;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //@JsonSerialize(using = ItemSerializer.class)
 public class Pizza extends Item {
@@ -45,6 +40,17 @@ public class Pizza extends Item {
         setBase(base);
         this.toppings = List.of(toppings);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pizza pizza = (Pizza) o;
+        return (size == pizza.size
+                && base == pizza.base
+                && Objects.equals(toppings, pizza.toppings));
+    }
+
     public Pizza(int quantity, Size size, Base base, Topping... toppings) {
         setQuantity(quantity);
         setSize(size);

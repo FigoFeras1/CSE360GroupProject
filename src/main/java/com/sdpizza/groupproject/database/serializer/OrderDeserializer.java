@@ -10,6 +10,7 @@ import com.sdpizza.groupproject.entity.model.Order;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class OrderDeserializer extends StdDeserializer<Order> {
@@ -24,6 +25,9 @@ public class OrderDeserializer extends StdDeserializer<Order> {
     public static Order deserialize(String json) {
         ObjectMapper objMapper = new ObjectMapper();
         Order order = new Order();
+        json = json.substring(1);
+        json = json.replace("\\", "");
+
         try { order = objMapper.readValue(json, Order.class); }
         catch (Exception ex) { ex.printStackTrace(); }
 
@@ -33,14 +37,15 @@ public class OrderDeserializer extends StdDeserializer<Order> {
     public Order deserialize(JsonParser parser, DeserializationContext ctx)
     throws IOException {
         ObjectMapper objMapper = new ObjectMapper();
-        JsonNode node = parser.getCodec().readTree(parser);
         List<Item> items = new ArrayList<>();
-        int i = 0;
-        while (true) {
-            JsonNode curr = node.get(i++);
-            if (curr == null) break;
-            items.add(objMapper.readValue(curr.toString(), Item.class));
+        JsonNode rootNode =  parser.getCodec().readTree(parser);
+        JsonNode itemsNode = rootNode.get("items");
+        Iterator<JsonNode> it = itemsNode.elements();
+
+        while (it.hasNext()) {
+            items.add(objMapper.readValue(it.next().toString(), Item.class));
         }
+
         Order order = new Order();
         order.setItems(items);
 

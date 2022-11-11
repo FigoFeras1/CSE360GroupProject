@@ -33,11 +33,15 @@ public class DatabaseConnection {
      * @param values Parameters for the query String
      * @return True if row inserted successfully, false otherwise
      */
-    public static boolean create(String query, Object... values) {
-        boolean success = false;
+    public static long create(String query, Object... values) {
+        long generatedKey = -1;
 
         try (PreparedStatement pstmt = prepareStatement(query, values)) {
-            success = (pstmt.executeUpdate() >= 1);
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                generatedKey = rs.getLong(1);
+            }
             connection.commit();
         } catch (JdbcSQLIntegrityConstraintViolationException ex) {
             System.err.println(ex.getMessage());
@@ -45,7 +49,7 @@ public class DatabaseConnection {
             handleException(ex, false);
         }
 
-        return success;
+        return generatedKey;
     }
 
     /**
@@ -69,9 +73,9 @@ public class DatabaseConnection {
 
     /**
      * Updates rows in database given the query String and an array of
-     * @param query
-     * @param values
-     * @return
+     * @param query Parameterized SQL query to execute in PreparedStatement
+     * @param values Parameters for the query String
+     * @return QueryResult object which holds column names and values, or null
      */
 
     public static boolean update(String query, Object... values) {
@@ -131,7 +135,7 @@ public class DatabaseConnection {
     private static PreparedStatement prepareStatement(String query,
                                                       Object... values)
     throws SQLException {
-        PreparedStatement pstmt = connection.prepareStatement(query);
+        PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         for (int i = 1; i <= values.length; ++i) {
             pstmt.setObject(i, values[i - 1]);

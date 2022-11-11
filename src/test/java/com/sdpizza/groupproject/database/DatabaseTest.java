@@ -32,7 +32,6 @@ public class DatabaseTest {
     private final OrderRepository orderRepository = new OrderRepository();
 
     @BeforeAll
-    @Disabled
     public static void init() {
         DatabaseConnection.init();
     }

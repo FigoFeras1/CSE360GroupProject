@@ -1,15 +1,15 @@
 package com.sdpizza.groupproject.database.repository;
 
 import com.sdpizza.groupproject.database.DatabaseConnection;
-import com.sdpizza.groupproject.database.serializer.ItemSerializer;
 import com.sdpizza.groupproject.database.QueryResult;
 import com.sdpizza.groupproject.database.serializer.OrderDeserializer;
 import com.sdpizza.groupproject.database.serializer.OrderSerializer;
 import com.sdpizza.groupproject.entity.model.Order;
+import com.sdpizza.groupproject.entity.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OrderRepository {
     /* Bruh this is the same as the UserRepository */
@@ -42,7 +42,7 @@ public class OrderRepository {
     public Order get(Order order) {
         Order newOrder = null;
         QueryResult queryResult =
-                DatabaseConnection.read(SELECT_ORDER.replace("$", order.getType().toString()),
+                DatabaseConnection.read(SELECT_ORDER.replace("$", order.getStatus().toString()),
                                         order.getID());
 
         assert queryResult != null;
@@ -52,8 +52,8 @@ public class OrderRepository {
                     new Order(
                               OrderDeserializer.deserialize(results.get("items").toString()).getItems(),
                               order.getUser(),
-                              order.getType());
-            newOrder.setID((Integer) results.get("id"));
+                              order.getStatus());
+            newOrder.setID(Long.parseLong(results.get("id").toString()));
         }
         return newOrder;
     }
@@ -61,9 +61,7 @@ public class OrderRepository {
         QueryResult queryResult
                 = DatabaseConnection.read(SELECT_ORDER_BY_STATUS.replace("$", status.toString()));
         assert queryResult != null;
-        List<Order> orders = orderList(queryResult);
-        System.out.println(orders);
-        return orders;
+        return orderList(queryResult);
     }
 
     public List<Order> get(long userID, Order.Status status) {
@@ -71,29 +69,34 @@ public class OrderRepository {
                 = DatabaseConnection.read(SELECT_ORDER_BY_USER.replace("$",
                                           status.toString()), userID);
         assert queryResult != null;
-//        results.forEach(i -> items.add(i.get("items")));
-//        for (HashMap<String, Object> m : results) {
-//            items.add(m.get("items"));
-//        }
-//        for (Object item : items) {
-//            order = OrderDeserializer.deserialize(item.toString());
-//        }
-//        items.forEach(i -> ItemSerializer.deserialize((String) i));
-//        return orders;
-
-        List<Order> orders = orderList(queryResult);
-        System.out.println(orders);
-        return orders;
+        return orderList(queryResult);
     }
 
     public boolean add(Order order) {
         String itemJSON = OrderSerializer.serialize(order);
+        if (order.getID() == -1) {
+            long generatedKey =
+                    DatabaseConnection.create(
+                            INSERT_ORDER.replace("$", order.getStatus().toString()),
+                            itemJSON,
+                            java.time.LocalDate.now().toString(),
+                            order.getUser().getID()
+                    );
+            order.setID(generatedKey);
 
-        return DatabaseConnection.create(
-                INSERT_ORDER.replace("$", order.getType().toString()),
-                itemJSON,
-                java.time.LocalDate.now().toString(),
-                order.getUser().getID());
+            return (generatedKey != -1);
+        }
+
+        long generatedKey =
+                DatabaseConnection.create(
+                        INSERT_ORDER_WITH_ID.replace("$", order.getStatus().toString()),
+                        order.getID(),
+                        itemJSON,
+                        java.time.LocalDate.now().toString(),
+                        order.getUser().getID()
+                );
+
+        return (generatedKey == -1);
     }
 
     /* Updating the status of the order */
@@ -104,16 +107,33 @@ public class OrderRepository {
 
     public boolean remove(Order order) {
         return DatabaseConnection.delete(
-                DELETE_ORDER.replace("$", order.getType().toString()),
+                DELETE_ORDER.replace("$", order.getStatus().toString()),
                 order.getID());
     }
 
     private List<Order> orderList(QueryResult queryResult) {
-        return queryResult.getResults()
-                .stream()
-                .map(r -> ItemSerializer.deserialize(r.get("items")
-                        .toString()))
-                .map(Order.class::cast)
-                .collect(Collectors.toList());
+        List<Order> orders = new ArrayList<>();
+        while (queryResult.nextRow()) {
+            HashMap<String, Object> row = queryResult.getRowWithColumns();
+
+            User user = new User();
+            user.setID(Long.parseLong(row.get("customer_id").toString()));
+
+            Order order = OrderDeserializer.deserialize(row.get("items").toString());
+            order.setID(Long.parseLong(row.get("id").toString()));
+            order.setUser(user);
+            order.setStatus(Order.Status.valueOf(queryResult.getTableName()));
+
+            orders.add(order);
+        }
+
+        return orders;
+
+//        return queryResult.getResults()
+//                .stream()
+//                .map(r -> ItemSerializer.deserialize(r.get("items")
+//                        .toString()))
+//                .map(Order.class::cast)
+//                .collect(Collectors.toList());
     }
 }
