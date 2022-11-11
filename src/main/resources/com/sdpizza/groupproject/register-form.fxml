@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;">
          <children>
-            <VBox alignment="CENTER" layoutX="126.0" layoutY="71.0" prefHeight="258.0" prefWidth="349.0">
+            <Label text="Register" textFill="#ffc627">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="600.0">
+         <children>
+            <VBox alignment="CENTER" layoutX="126.0" layoutY="10.0" prefHeight="258.0" prefWidth="349.0">
                <children>
-                  <Label text="Register">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </Label>
                   <Label text="First Name" />
                   <TextField fx:id="firstField" promptText="First Name" />
                   <Label text="Last Name" />
@@ -35,5 +43,6 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </AnchorPane>
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="41.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;" />
    </children>
 </VBox>

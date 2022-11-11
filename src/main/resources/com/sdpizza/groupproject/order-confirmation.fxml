@@ -7,21 +7,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
     <children>
-      <Rectangle fill="#8c1d40" height="44.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="601.0" />
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <VBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;">
+         <children>
+                  <Label alignment="CENTER" text="Confirm Order" textFill="#ffc627">
+                      <font>
+                          <Font size="40.0" />
+                      </font>
+                  </Label>
+         </children>
+      </VBox>
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="600.0">
             <children>
-                <VBox alignment="CENTER" layoutX="126.0" layoutY="71.0" prefHeight="258.0" prefWidth="349.0" spacing="6.0">
+                <VBox alignment="CENTER" layoutX="126.0" prefHeight="258.0" prefWidth="349.0" spacing="6.0">
                     <children>
-                        <Label text="Confirm Order">
-                            <font>
-                                <Font size="40.0" />
-                            </font>
-                        </Label>
                         <Label text="Large Pepperoni with Extra Cheese" />
                         <AnchorPane />
                         <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />

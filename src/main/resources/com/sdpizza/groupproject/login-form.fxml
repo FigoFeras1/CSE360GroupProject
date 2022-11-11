@@ -7,6 +7,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -25,7 +26,7 @@
       </VBox>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="352.0" prefWidth="600.0">
          <children>
-            <VBox alignment="CENTER" layoutX="126.0" layoutY="71.0" onKeyPressed="#keyPressed" prefHeight="258.0" prefWidth="349.0">
+            <VBox alignment="CENTER" layoutX="126.0" layoutY="71.0" onKeyPressed="#keyPressed" prefHeight="258.0" prefWidth="349.0" spacing="5.0">
                <children>
                   <Label text="Login">
                      <font>
@@ -36,7 +37,15 @@
                   <TextField fx:id="idField" promptText="ASU ID" />
                   <Label text="Password" />
                   <PasswordField fx:id="passwordField" promptText="Password" />
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="Login" />
+                  <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="303.0" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Admin Login" />
+                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="Login" />
+                     </children>
+                     <padding>
+                        <Insets right="36.0" />
+                     </padding>
+                  </HBox>
                   <AnchorPane />
                   <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
                </children>

@@ -23,6 +23,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import com.sdpizza.groupproject.entity.model.User;
 
+import static javafx.scene.paint.Color.RED;
 
 
 public class Controller {
@@ -37,7 +38,7 @@ public class Controller {
     private Label loginText, registerText, statusLabel;
 
     @FXML
-    private Button loginButton, registerButton, homeLoginButton, homeLogoutButton,
+    private Button loginButton, adminLoginButton, registerButton, homeLoginButton, homeLogoutButton,
                    homeRegisterButton, orderCancelButton, orderConfirmButton, homeOrderButton,
                    orderStatusButton;
 
@@ -86,10 +87,10 @@ public class Controller {
     @FXML
     protected void login() {
 
-        /*
+
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
+        Color borderColor = (fieldsFilled ? Color.GREY : RED);
 
         idField.setBorder(Border.stroke(borderColor));
         passwordField.setBorder(Border.stroke(borderColor));
@@ -101,11 +102,17 @@ public class Controller {
             loginText.setVisible(true);
             return;
         }
-        */
 
+        try {
+            int value = Integer.parseInt(idField.getText());
+        } catch (NumberFormatException e) {
+            loginText.setText("Invalid ASUID");
+            loginText.setTextFill(RED);
+            loginText.setVisible(true);
+            return;
+        }
 
         activeUser = uCTLR.login();
-
 
         /* View switching code */
         if(activeUser != null){
@@ -118,7 +125,7 @@ public class Controller {
     protected void register() {
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
+        Color borderColor = (fieldsFilled ? Color.GREY : RED);
 
         firstField.setBorder(Border.stroke(borderColor));
         lastField.setBorder(Border.stroke(borderColor));
@@ -132,6 +139,7 @@ public class Controller {
             registerText.setVisible(true);
             return;
         }
+
 
         /* View switching code */
         loadView(registerButton, "login-form.fxml");
