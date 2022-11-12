@@ -20,9 +20,10 @@ public class Order extends Model {
            Processed is order being made by chef
            Saved is completed order */
     public enum Status {
-        PENDING,
-        PROCESSED,
-        SAVED
+        ACCEPTED,
+        READY_TO_COOK,
+        COOKING,
+        READY
     }
     /* This should not be set by anything except the OrderRepository, since the
        table in the database auto-increments the id. */
@@ -38,10 +39,14 @@ public class Order extends Model {
     @JsonIgnore
     private Status status;
 
+    @JsonIgnore
+    private float cost;
+
     public Order() {}
-    public Order(List<Item> items, User user, Status status) {
+    public Order(List<Item> items, User user, float cost, Status status) {
         setItems(items);
         setUser(user);
+        setCost(cost);
         setStatus(status);
     }
 
@@ -71,4 +76,12 @@ public class Order extends Model {
         return user;
     }
     public void setUser(User user) { this.user = user; }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
 }

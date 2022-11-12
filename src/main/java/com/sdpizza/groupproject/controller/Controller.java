@@ -34,7 +34,8 @@ public class Controller {
     private UserController uCTLR;
 
     @FXML
-    private Label loginText, pizzasInOrder, registerText, statusLabel;
+    private Label loginText, pizzasInOrder, registerText, statusLabel,
+                  quantitySpinnerLabel;
 
     @FXML
     private Button loginButton, adminLoginButton, registerButton, homeLoginButton, homeLogoutButton,
@@ -55,7 +56,7 @@ public class Controller {
     private ToggleGroup sizeToggleGroup, baseToggleGroup;
 
     @FXML
-    private Slider quantitySlider;
+    private Spinner<Integer> quantitySpinner;
 
     @FXML
     private static String pizzaOptions = "Test";
@@ -83,6 +84,7 @@ public class Controller {
            loaded */
         if (statusProgressBar != null) status();
         if (pizzasInOrder != null) pizzasInOrder.setText(pizzaOptions);
+        if (quantitySpinner != null) initQuantitySpinner();
     }
 
     @FXML
@@ -307,6 +309,32 @@ public class Controller {
     protected void orderTogglesEmpty() {
         orderConfirmButton.setDisable((sizeToggleGroup.getSelectedToggle() == null
                                       || baseToggleGroup.getSelectedToggle() == null));
+    }
+
+    protected void initQuantitySpinner() {
+        final int quantityMin = 1;
+        final int quantityMax = 100;
+        quantitySpinner.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(quantityMin,
+                                                                   quantityMax,
+                                                                   quantityMin)
+        );
+
+        quantitySpinner.valueProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (!oldValue.equals(newValue)) {
+                        if (newValue.compareTo(quantityMin) < 0
+                            || newValue.compareTo(quantityMax) > 0)
+                        {
+                            quantitySpinner.setBorder(Border.stroke(Color.RED));
+                            quantitySpinnerLabel.setText("min: 1,\nmax: 100");
+                            quantitySpinnerLabel.setTextFill(RED);
+                            quantitySpinner.getValueFactory().setValue(oldValue);
+                        } else {
+                            quantitySpinner.commitValue();
+                        }
+                    }
+        });
     }
 
 

@@ -24,12 +24,12 @@ public class OrderRepository {
             "SELECT * FROM ORDERS.$ ";
 
     private static final String INSERT_ORDER =
-            "INSERT INTO ORDERS.$ (ITEMS, ORDER_DATE, CUSTOMER_ID)" +
-                    "VALUES (?, ?, ?) ";
+            "INSERT INTO ORDERS.$ (ITEMS, ORDER_DATE, COST, CUSTOMER_ID)" +
+                    " VALUES (?, ?, ?, ?) ";
 
     private static final String INSERT_ORDER_WITH_ID =
-            "INSERT INTO ORDERS.$ (ID, ITEMS, ORDER_DATE, CUSTOMER_ID)" +
-                    "VALUES (?, ?, ?, ?) ";
+            "INSERT INTO ORDERS.$ (ID, ITEMS, ORDER_DATE, COST, CUSTOMER_ID)" +
+                    " VALUES (?, ?, ?, ?, ?) ";
 
     private static final String DELETE_ORDER =
             "DELETE FROM ORDERS.$ WHERE ID = ?";
@@ -42,7 +42,8 @@ public class OrderRepository {
     public Order get(Order order) {
         Order newOrder = null;
         QueryResult queryResult =
-                DatabaseConnection.read(queryString(SELECT_ORDER, order.getStatus()));
+                DatabaseConnection.read(queryString(SELECT_ORDER, order.getStatus()),
+                                        order.getID());
 
         assert queryResult != null;
         if (queryResult.nextRow()) {
@@ -52,6 +53,7 @@ public class OrderRepository {
                     new Order(
                               OrderDeserializer.deserialize(items).getItems(),
                               order.getUser(),
+                              Float.parseFloat(results.get("cost").toString()),
                               order.getStatus());
             newOrder.setID(Long.parseLong(results.get("id").toString()));
         }
@@ -97,13 +99,15 @@ public class OrderRepository {
      */
     public boolean add(Order order) {
         String itemJSON = OrderSerializer.serialize(order);
+        long generatedKey = 0;
 
         if (order.getID() == -1) {
-            long generatedKey =
+            generatedKey =
                     DatabaseConnection.create(
                             queryString(INSERT_ORDER, order.getStatus()),
                             itemJSON,
                             java.time.LocalDate.now().toString(),
+                            order.getCost(),
                             order.getUser().getID()
                     );
             order.setID(generatedKey);
@@ -111,12 +115,13 @@ public class OrderRepository {
             return (generatedKey != -1);
         }
 
-        long generatedKey =
+        generatedKey =
                 DatabaseConnection.create(
                         queryString(INSERT_ORDER_WITH_ID, order.getStatus()),
                         order.getID(),
                         itemJSON,
                         java.time.LocalDate.now().toString(),
+                        order.getCost(),
                         order.getUser().getID()
                 );
 
@@ -151,6 +156,7 @@ public class OrderRepository {
             Order order = OrderDeserializer.deserialize(row.get("items").toString());
             order.setID(Long.parseLong(row.get("id").toString()));
             order.setUser(user);
+            order.setCost(Float.parseFloat(row.get("cost").toString()));
             order.setStatus(Order.Status.valueOf(queryResult.getTableName()));
 
             orders.add(order);

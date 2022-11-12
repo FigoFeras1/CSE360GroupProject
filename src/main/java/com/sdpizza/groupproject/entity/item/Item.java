@@ -19,6 +19,7 @@ public abstract class Item extends Entity {
 
     private final ItemType type = null;
     private int quantity = 1;
+    private float cost = 0.00f;
 
     public Item() {}
 
@@ -33,5 +34,13 @@ public abstract class Item extends Entity {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
     }
 }

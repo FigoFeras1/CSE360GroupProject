@@ -13,20 +13,21 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class OrderDatabaseTests {
     private final OrderRepository orderRepository = new OrderRepository();
     private final User user =
-            new User(10, "feras", "a", "password",
+            new User(1000000000L, "feras", "a", "password",
                     User.Role.CUSTOMER);
 
     @BeforeAll
-    public static void init() {
+    protected static void init() {
         DatabaseConnection.init();
     }
 
     @Test
-    public void createOrder() {
+    protected void createOrder() {
         List<Item> items = new ArrayList<>();
         items.add(new Pizza(4, Pizza.Size.MEDIUM, Pizza.Base.CHEESE,
                             Pizza.Topping.EXTRA_CHEESE,
@@ -34,9 +35,10 @@ public class OrderDatabaseTests {
         items.add(new Pizza(1, Pizza.Size.XLARGE, Pizza.Base.CHEESE,
                             Pizza.Topping.EXTRA_CHEESE));
 
-        Order order = new Order(items, user, Order.Status.PENDING);
+        Order order = new Order(items, user, 45.33f, Order.Status.ACCEPTED);
         orderRepository.add(order);
         Order queriedOrder = orderRepository.get(order);
+        assertNotNull(queriedOrder);
 
         Iterator<Item> itemIterator = items.iterator();
         Iterator<Item> queriedIterator = queriedOrder.getItems().iterator();
@@ -44,13 +46,15 @@ public class OrderDatabaseTests {
         assertEquals(order.getID(), queriedOrder.getID());
         assertEquals(order.getStatus(), queriedOrder.getStatus());
         assertEquals(order.getUser().getID(), queriedOrder.getUser().getID());
+        assertEquals(order.getCost(), queriedOrder.getCost());
+
         while (itemIterator.hasNext() && queriedIterator.hasNext()) {
             assertEquals(itemIterator.next(), queriedIterator.next());
         }
     }
 
     @Test
-    public void switchStatus() {
+    protected void switchStatus() {
         List<Item> items = new ArrayList<>();
         items.add(new Pizza(2, Pizza.Size.SMALL, Pizza.Base.CHEESE,
                 Pizza.Topping.OLIVES,
@@ -58,21 +62,27 @@ public class OrderDatabaseTests {
         items.add(new Pizza(2, Pizza.Size.SMALL, Pizza.Base.CHEESE,
                 Pizza.Topping.MUSHROOMS));
 
-        Order order = new Order(items, user, Order.Status.PENDING);
+        Order order = new Order(items, user, 20.57f, Order.Status.ACCEPTED);
         orderRepository.add(order);
 
+        /* Delete order from database */
         orderRepository.remove(order);
-        order.setStatus(Order.Status.PROCESSED);
+
+        /* Change order status and re-insert into database */
+        order.setStatus(Order.Status.READY_TO_COOK);
         orderRepository.add(order);
 
         Order queriedOrder = orderRepository.get(order);
+        assertNotNull(queriedOrder);
 
         Iterator<Item> itemIterator = items.iterator();
         Iterator<Item> queriedIterator = queriedOrder.getItems().iterator();
 
-        assertEquals(queriedOrder.getStatus(), Order.Status.PROCESSED);
+        assertEquals(queriedOrder.getStatus(), Order.Status.READY_TO_COOK);
         assertEquals(order.getID(), queriedOrder.getID());
         assertEquals(order.getUser().getID(), queriedOrder.getUser().getID());
+        assertEquals(order.getCost(), queriedOrder.getCost());
+
         while (itemIterator.hasNext() && queriedIterator.hasNext()) {
             assertEquals(itemIterator.next(), queriedIterator.next());
         }

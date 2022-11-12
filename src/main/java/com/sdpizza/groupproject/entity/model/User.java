@@ -3,6 +3,7 @@ package com.sdpizza.groupproject.entity.model;
 
 import com.sdpizza.groupproject.database.annotations.Column;
 
+
 public class User extends Model {
     public User() {}
 
@@ -39,6 +40,18 @@ public class User extends Model {
         return new Object[]{ id, firstName, lastName, password, role.toString() };
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+        return (id == user.id
+                && firstName.equals(user.firstName)
+                && lastName.equals(user.lastName)
+                && password.equals(user.password)
+                && role == user.role);
+    }
 
     @Override
     public String toString() {

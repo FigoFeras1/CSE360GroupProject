@@ -36,7 +36,6 @@ public class UserController {
         @FXML
         private ToggleGroup sizeToggleGroup, baseToggleGroup;
 
-
         @FXML
         protected User login() {
                 boolean fieldsFilled = (idField.getCharacters().length() > 0

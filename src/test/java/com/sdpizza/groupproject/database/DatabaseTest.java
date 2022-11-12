@@ -5,10 +5,8 @@ import com.sdpizza.groupproject.database.repository.UserRepository;
 import com.sdpizza.groupproject.entity.item.Item;
 import com.sdpizza.groupproject.entity.item.Pizza;
 import com.sdpizza.groupproject.entity.model.User;
-import com.sdpizza.groupproject.entity.model.Order;
 import org.junit.jupiter.api.*;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -123,8 +121,6 @@ public class DatabaseTest {
         List<Item> items = new ArrayList<>();
         items.add(pizza);
         items.add(pizza0);
-        Order order = new Order(items, user, Order.Status.PENDING);
-        orderRepository.add(order);
     }
     @Test
     void test() {
