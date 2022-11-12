@@ -305,8 +305,8 @@ public class Controller {
 
     @FXML
     protected void orderTogglesEmpty() {
-        orderConfirmButton.setDisable(sizeToggleGroup.getToggles() == null
-                                      || baseToggleGroup.getSelectedToggle() == null);
+        orderConfirmButton.setDisable((sizeToggleGroup.getSelectedToggle() == null
+                                      || baseToggleGroup.getSelectedToggle() == null));
     }
 
 
