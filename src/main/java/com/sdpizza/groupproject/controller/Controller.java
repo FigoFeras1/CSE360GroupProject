@@ -27,18 +27,18 @@ import static javafx.scene.paint.Color.RED;
 
 public class Controller {
 
-    private static User activeUser=null;
-    private static User tempUser=new User();
+    private static User activeUser = null;
+    private static User tempUser = new User();
 
-    private UserController userController=new UserController();
+    private UserController userController = new UserController();
 
     @FXML
     private Label loginText, pizzasInOrder, registerText, statusLabel,
                   quantitySpinnerLabel;
 
     @FXML
-    private Button loginButton, adminLoginButton, registerButton, homeLoginButton, homeLogoutButton,
-                   homeRegisterButton, orderCancelButton, orderConfirmButton, homeOrderButton,
+    private Button loginButton, adminLoginButton, registerButton, homeLoginButton,
+                   homeLogoutButton, homeRegisterButton, orderCancelButton, orderConfirmButton, homeOrderButton,
                    orderStatusButton;
 
     @FXML
@@ -133,7 +133,8 @@ public class Controller {
         activeUser=userController.login(varLong,pass);
 
         /* View switching code */
-        if(activeUser != null && activeUser.getRole()==User.Role.CUSTOMER) loadView(loginButton, "orders.fxml");
+        if(activeUser != null && activeUser.getRole()==User.Role.CUSTOMER)
+            loadView(loginButton, "orders.fxml");
         else {
             loginText.setText("Failed to login.");
             loginText.setTextFill(RED);
