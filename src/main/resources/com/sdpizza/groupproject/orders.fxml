@@ -26,20 +26,20 @@
             <children>
             <AnchorPane layoutX="116.0" layoutY="106.0" prefHeight="107.0" prefWidth="337.0">
                <children>
-                  <RadioButton layoutY="35.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Small">
+                  <RadioButton fx:id="small" layoutY="35.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Small">
                      <toggleGroup>
                         <ToggleGroup fx:id="sizeToggleGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton layoutY="53.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Medium" toggleGroup="$sizeToggleGroup" />
-                  <RadioButton layoutY="71.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Large" toggleGroup="$sizeToggleGroup" />
-                  <RadioButton layoutX="75.0" layoutY="35.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Cheese">
+                  <RadioButton fx:id="medium" layoutY="53.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Medium" toggleGroup="$sizeToggleGroup" />
+                  <RadioButton fx:id="large" layoutY="71.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Large" toggleGroup="$sizeToggleGroup" />
+                  <RadioButton fx:id="cheese" layoutX="75.0" layoutY="35.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Cheese">
                      <toggleGroup>
                         <ToggleGroup fx:id="baseToggleGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton layoutX="75.0" layoutY="53.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Pepperoni" toggleGroup="$baseToggleGroup" />
-                  <RadioButton layoutX="75.0" layoutY="71.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Vegan" toggleGroup="$baseToggleGroup" />
+                  <RadioButton fx:id="pepperoni" layoutX="75.0" layoutY="53.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Pepperoni" toggleGroup="$baseToggleGroup" />
+                  <RadioButton fx:id="vegan" layoutX="75.0" layoutY="71.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Vegan" toggleGroup="$baseToggleGroup" />
                   <CheckBox layoutX="163.0" layoutY="35.0" mnemonicParsing="false" text="Extra Cheese" />
                   <CheckBox layoutX="163.0" layoutY="53.0" mnemonicParsing="false" text="Mushrooms" />
                   <CheckBox layoutX="163.0" layoutY="71.0" mnemonicParsing="false" text="Olives" />

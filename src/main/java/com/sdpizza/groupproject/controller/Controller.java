@@ -52,6 +52,9 @@ public class Controller {
     private ProgressBar statusProgressBar;
 
     @FXML
+    private RadioButton small, medium, large, cheese, pepperoni, vegan;
+
+    @FXML
     private ToggleGroup sizeToggleGroup, baseToggleGroup;
 
     @FXML
@@ -84,6 +87,14 @@ public class Controller {
         if (statusProgressBar != null) status();
         if (pizzasInOrder != null) pizzasInOrder.setText(pizzaOptions);
         if (quantitySpinner != null) initQuantitySpinner();
+        if (sizeToggleGroup != null && baseToggleGroup != null) {
+            small.setToggleGroup(sizeToggleGroup);
+            medium.setToggleGroup(sizeToggleGroup);
+            large.setToggleGroup(sizeToggleGroup);
+            cheese.setToggleGroup(baseToggleGroup);
+            pepperoni.setToggleGroup(baseToggleGroup);
+            vegan.setToggleGroup(baseToggleGroup);
+        };
     }
 
     @FXML
@@ -372,9 +383,15 @@ public class Controller {
 
     /* TODO: This method will collect info and present it on order confirmation page */
     public void getPizzaInfo() {
-        pizzaOptions = "No pizzas :("; /* Flush out pizza options */
-        /*Toggle size = sizeToggleGroup.getSelectedToggle();
-        pizzaOptions = size.toString();*/
+        pizzaOptions = "No pizzas :("; /* Display this if all else fails */
+        Toggle size = sizeToggleGroup.getSelectedToggle();
+        if (size != null) {
+            pizzaOptions = size.toString();
+            Toggle base = baseToggleGroup.getSelectedToggle();
+            if (base != null) {
+                pizzaOptions += " " + base.toString();
+            }
+        }
     }
 
     @FXML
