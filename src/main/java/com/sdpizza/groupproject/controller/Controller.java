@@ -122,7 +122,7 @@ public class Controller {
         activeUser=userController.login(varLong,pass);
 
         /* View switching code */
-        if(activeUser != null) loadView(loginButton, "orders.fxml");
+        if(activeUser != null && activeUser.getRole()==User.Role.CUSTOMER) loadView(loginButton, "orders.fxml");
         else {
             loginText.setText("Failed to login.");
             loginText.setTextFill(RED);
@@ -175,6 +175,45 @@ public class Controller {
             registerText.setText("Failed to register.");
             registerText.setTextFill(RED);
             registerText.setVisible(true);
+        }
+    }
+
+    @FXML
+    protected void adminLogin() {
+        boolean fieldsFilled = (idField.getCharacters().length() > 0
+                && passwordField.getCharacters().length() > 0);
+        Color borderColor = (fieldsFilled ? Color.GREY : RED);
+
+        idField.setBorder(Border.stroke(borderColor));
+        passwordField.setBorder(Border.stroke(borderColor));
+
+        // TODO: Add another if statement that checks the id and password
+        if (!fieldsFilled) {
+            loginText.setText("Please enter your ASUID and password");
+            loginText.setTextFill(borderColor);
+            loginText.setVisible(true);
+            return;
+        }
+
+        try {
+            int value = Integer.parseInt(idField.getText());
+            System.out.println(value);
+        } catch (NumberFormatException e) {
+            loginText.setText("Invalid ID");
+            loginText.setTextFill(RED);
+            loginText.setVisible(true);
+            return;
+        }
+        long varLong=Long.parseLong(idField.getText());
+        String pass=passwordField.getText();
+        activeUser=userController.login(varLong,pass);
+
+        /* View switching code */
+        if(activeUser != null && activeUser.getRole()!=User.Role.CUSTOMER) loadView(adminLoginButton, "admin-home.fxml");
+        else {
+            loginText.setText("Failed to login as admin.");
+            loginText.setTextFill(RED);
+            loginText.setVisible(true);
         }
     }
 
