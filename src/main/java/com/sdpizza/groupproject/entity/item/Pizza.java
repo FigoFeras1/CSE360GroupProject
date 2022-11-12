@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
 
-//@JsonSerialize(using = ItemSerializer.class)
 public class Pizza extends Item {
     public enum Base {
         CHEESE,
@@ -94,16 +93,5 @@ public class Pizza extends Item {
 
     public void setToppings(Topping... toppings) {
         this.toppings = List.of(toppings);
-    }
-
-    @Override
-    public Map<String, Object> getJsonFields() {
-        Map<String, Object> fields = new HashMap<>();
-
-        fields.put("size", size);
-        fields.put("base", base);
-        fields.put("toppings", toppings);
-
-        return fields;
     }
 }

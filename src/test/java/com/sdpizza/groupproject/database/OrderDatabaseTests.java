@@ -76,6 +76,5 @@ public class OrderDatabaseTests {
         while (itemIterator.hasNext() && queriedIterator.hasNext()) {
             assertEquals(itemIterator.next(), queriedIterator.next());
         }
-
     }
 }

@@ -1,7 +1,6 @@
 package com.sdpizza.groupproject.controller;
 
 import com.sdpizza.groupproject.Main;
-import com.sdpizza.groupproject.controller.UserController;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -59,7 +58,7 @@ public class Controller {
     private Slider quantitySlider;
 
     @FXML
-    private static String pizzaOptions;
+    private static String pizzaOptions = "Test";
 
 
     /* May come in useful in the future */
@@ -83,6 +82,7 @@ public class Controller {
            specific element to have a certain property as soon as the FXML is
            loaded */
         if (statusProgressBar != null) status();
+        if (pizzasInOrder != null) pizzasInOrder.setText(pizzaOptions);
     }
 
     @FXML
@@ -92,8 +92,6 @@ public class Controller {
 
     @FXML
     protected void login() {
-
-
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
         Color borderColor = (fieldsFilled ? Color.GREY : RED);
@@ -111,6 +109,7 @@ public class Controller {
 
         try {
             int value = Integer.parseInt(idField.getText());
+            System.out.println(value);
         } catch (NumberFormatException e) {
             loginText.setText("Invalid ASUID");
             loginText.setTextFill(RED);
@@ -118,10 +117,9 @@ public class Controller {
             return;
         }
 
-        activeUser = uCTLR.login();
 
         /* View switching code */
-        if(activeUser != null){
+        if(activeUser == null){
             loadView(loginButton, "orders.fxml");
         }
 
@@ -163,14 +161,13 @@ public class Controller {
 
     @FXML
     protected void orderCancel() {
-        loadView( orderCancelButton, "home-view_anon-user.fxml");
+        loadView( orderCancelButton, "anon-home.fxml");
     }
 
     @FXML
     protected void orderConfirm() {
         getPizzaInfo();
-        loadView( orderConfirmButton, "order-confirmation.fxml");
-        pizzasInOrder.setText(pizzaOptions); //TODO: This line causes problems
+        loadView(orderConfirmButton, "order-confirmation.fxml");
     }
 
     @FXML
@@ -179,7 +176,7 @@ public class Controller {
     }
 
     @FXML
-    protected void homeLogout() { loadView( homeLogoutButton, "home-view_anon-user");}
+    protected void homeLogout() { loadView( homeLogoutButton, "anon-home.fxml");}
 
     /* Insert potential "order button from home" event here */
 
@@ -193,7 +190,7 @@ public class Controller {
                fixing this up later, so don't worry about the functionality not
                being complete. */
             /* TODO: Figure out what the hell this is does again and fix it */
-            case ENTER:
+            case ESCAPE:
                 Object eventSource = event.getSource();
 
                 if (eventSource instanceof Pane) {

@@ -4,9 +4,7 @@ package com.sdpizza.groupproject.entity.model;
 import com.sdpizza.groupproject.database.annotations.Column;
 
 public class User extends Model {
-    public User() {
-
-    }
+    public User() {}
 
     public enum Role {
         CUSTOMER,

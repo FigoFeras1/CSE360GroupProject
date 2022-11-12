@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.sdpizza.groupproject.entity.Entity;
 
-import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@class")
@@ -28,8 +27,6 @@ public abstract class Item extends Entity {
         return type;
     }
 
-    @JsonIgnore
-    public abstract Map<String, Object> getJsonFields();
     public int getQuantity() {
         return quantity;
     }

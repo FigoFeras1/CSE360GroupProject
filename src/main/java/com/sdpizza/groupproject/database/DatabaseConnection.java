@@ -73,7 +73,6 @@ public class DatabaseConnection {
      * @param values Parameters for the query String
      * @return QueryResult object which holds column names and values, or null
      */
-
     public static boolean update(String query, Object... values) {
         boolean success = false;
         try (PreparedStatement pstmt = prepareStatement(query, values)) {
@@ -104,6 +103,9 @@ public class DatabaseConnection {
         return success;
     }
 
+    /**
+     * Closes database connection
+     */
     public static void close() {
         try {
             connection.close();
@@ -131,7 +133,8 @@ public class DatabaseConnection {
     private static PreparedStatement prepareStatement(String query,
                                                       Object... values)
     throws SQLException {
-        PreparedStatement pstmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement pstmt =
+                connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
         for (int i = 1; i <= values.length; ++i) {
             pstmt.setObject(i, values[i - 1]);

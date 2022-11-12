@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS public.users
     last_name   varchar(32) NOT NULL,
     password    varchar(64) NOT NULL,
     role        varchar(16) NOT NULL DEFAULT 'customer',
-    CHECK (id >= 0000000000 AND id <= 9999999999),
+--     CHECK (id >= 0000000000 AND id <= 9999999999),
     CONSTRAINT valid_account_type CHECK (lower(role) in ('customer',
                                                          'customer service',
                                                          'chef'
