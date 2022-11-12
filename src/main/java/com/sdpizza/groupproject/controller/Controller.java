@@ -27,11 +27,10 @@ import static javafx.scene.paint.Color.RED;
 
 public class Controller {
 
-    @FXML
-    private User activeUser;
+    private static User activeUser=null;
+    private static User tempUser=new User();
 
-    @FXML
-    private UserController uCTLR;
+    private UserController userController=new UserController();
 
     @FXML
     private Label loginText, pizzasInOrder, registerText, statusLabel,
@@ -43,7 +42,7 @@ public class Controller {
                    orderStatusButton;
 
     @FXML
-    private TextField idField, firstField, lastField;
+    private TextField idField, firstField, lastField, confirmField;
 
 
     @FXML
@@ -118,13 +117,17 @@ public class Controller {
             loginText.setVisible(true);
             return;
         }
-
+        long varLong=Long.parseLong(idField.getText());
+        String pass=passwordField.getText();
+        activeUser=userController.login(varLong,pass);
 
         /* View switching code */
-        if(activeUser == null){
-            loadView(loginButton, "orders.fxml");
+        if(activeUser != null) loadView(loginButton, "orders.fxml");
+        else {
+            loginText.setText("Failed to login.");
+            loginText.setTextFill(RED);
+            loginText.setVisible(true);
         }
-
     }
 
     @FXML
@@ -146,9 +149,33 @@ public class Controller {
             return;
         }
 
+        try {
+            int value = Integer.parseInt(idField.getText());
+            System.out.println(value);
+        } catch (NumberFormatException e) {
+            registerText.setText("Enter valid ID");
+            registerText.setTextFill(RED);
+            registerText.setVisible(true);
+            return;
+        }
 
+        long longval=Long.parseLong(idField.getText());
+        String first=firstField.getText();
+        String last=lastField.getText();
+        String pass=passwordField.getText();
+        tempUser.setFirstName(first);
+        tempUser.setLastName(last);
+        tempUser.setPassword(pass);
+        tempUser.setID(longval);
+        tempUser.setRole(User.Role.CUSTOMER);
+        boolean regCheck=userController.register(tempUser);
         /* View switching code */
-        loadView(registerButton, "login-form.fxml");
+        if(regCheck) loadView(registerButton, "login-form.fxml");
+        else {
+            registerText.setText("Failed to register.");
+            registerText.setTextFill(RED);
+            registerText.setVisible(true);
+        }
     }
 
     @FXML
@@ -174,7 +201,38 @@ public class Controller {
 
     @FXML
     protected void orderStatus() {
-        loadView( orderStatusButton, "order-status.fxml");
+        boolean fieldsFilled = (confirmField.getCharacters().length() > 0);
+        Color borderColor = (fieldsFilled ? Color.GREY : RED);
+
+        confirmField.setBorder(Border.stroke(borderColor));
+
+        // TODO: Add another if statement that checks the id and password
+        if(!fieldsFilled) {
+            loginText.setText("Please enter your ASUID");
+            loginText.setTextFill(borderColor);
+            loginText.setVisible(true);
+            return;
+        }
+
+        try {
+            int value = Integer.parseInt(confirmField.getText());
+            System.out.println(value);
+        } catch (NumberFormatException e) {
+            loginText.setText("Invalid ASUID");
+            loginText.setTextFill(RED);
+            loginText.setVisible(true);
+            return;
+        }
+        long varLong=Long.parseLong(confirmField.getText());
+        boolean idCheck=userController.checkID(varLong,activeUser);
+
+        /* View switching code */
+        if(idCheck) loadView(orderStatusButton, "order-status.fxml");
+        else {
+            loginText.setText("Failed to login.");
+            loginText.setTextFill(RED);
+            loginText.setVisible(true);
+        }
     }
 
     @FXML
