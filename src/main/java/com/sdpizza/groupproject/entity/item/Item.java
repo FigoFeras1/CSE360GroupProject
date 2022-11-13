@@ -1,6 +1,5 @@
 package com.sdpizza.groupproject.entity.item;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -23,10 +22,10 @@ public abstract class Item extends Entity {
 
     public Item() {}
 
-    @JsonIgnore
-    public ItemType getType() {
-        return type;
-    }
+//    @JsonIgnore
+//    public ItemType getType() {
+//        return type;
+//    }
 
     public int getQuantity() {
         return quantity;

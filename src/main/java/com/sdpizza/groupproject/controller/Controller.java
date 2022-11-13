@@ -1,6 +1,8 @@
 package com.sdpizza.groupproject.controller;
 
 import com.sdpizza.groupproject.Main;
+import com.sdpizza.groupproject.controller.util.ControllerUtils;
+import com.sdpizza.groupproject.entity.item.Pizza;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -27,19 +29,19 @@ import static javafx.scene.paint.Color.RED;
 
 public class Controller {
 
-    private static User activeUser = null;
-    private static User tempUser = new User();
+    public static User activeUser = null;
 
-    private UserController userController = new UserController();
+    private final UserController userController = new UserController();
 
     @FXML
     private Label loginText, pizzasInOrder, registerText, statusLabel,
                   quantitySpinnerLabel;
 
+    @SuppressWarnings("unused")
     @FXML
     private Button loginButton, adminLoginButton, registerButton, homeLoginButton,
-                   homeLogoutButton, homeRegisterButton, orderCancelButton, orderConfirmButton, homeOrderButton,
-                   orderStatusButton;
+                   homeLogoutButton, homeRegisterButton, orderCancelButton,
+                   orderConfirmButton, homeOrderButton, orderStatusButton;
 
     @FXML
     private TextField idField, firstField, lastField, confirmField;
@@ -62,6 +64,7 @@ public class Controller {
 
     @FXML
     private CheckBox extraCheese, mushrooms, olives, onions;
+    private static final ArrayList<CheckBox> toppingChoices = new ArrayList<>();
 
     @FXML
     private static String pizzaOptions = "Test";
@@ -91,8 +94,15 @@ public class Controller {
         if (pizzasInOrder != null) pizzasInOrder.setText(pizzaOptions);
         if (quantitySpinner != null) initQuantitySpinner();
         if (sizeToggleGroup != null && baseToggleGroup != null) initToggleGroups();
+        if (extraCheese != null) {
+            toppingChoices.add(extraCheese);
+            toppingChoices.add(mushrooms);
+            toppingChoices.add(olives);
+            toppingChoices.add(onions);
+        }
     }
 
+    @SuppressWarnings("unused")
     @FXML
     public void exitApplication(ActionEvent event) {
         Platform.exit();
@@ -149,79 +159,48 @@ public class Controller {
         idField.setBorder(Border.stroke(borderColor));
         passwordField.setBorder(Border.stroke(borderColor));
 
-        /* TODO: Add another if statement that checks the id and password */
         if (!fieldsFilled) {
-            registerText.setText("Enter Full Name, ASUID, and password");
-            registerText.setTextFill(borderColor);
-            registerText.setVisible(true);
+            ControllerUtils.error(registerText, "Enter Full name, ASUID, and password");
             return;
         }
 
-        try {
-            int value = Integer.parseInt(idField.getText());
-            System.out.println(value);
-        } catch (NumberFormatException e) {
-            registerText.setText("Enter valid ID");
-            registerText.setTextFill(RED);
-            registerText.setVisible(true);
-            return;
-        }
+        long id = ControllerUtils.validateASUID(idField, registerText);
+        String first = firstField.getText();
+        String last = lastField.getText();
+        String pass = passwordField.getText();
+        User tempUser = new User(id, first, last, pass, User.Role.CUSTOMER);
 
-        long longval=Long.parseLong(idField.getText());
-        String first=firstField.getText();
-        String last=lastField.getText();
-        String pass=passwordField.getText();
-        tempUser.setFirstName(first);
-        tempUser.setLastName(last);
-        tempUser.setPassword(pass);
-        tempUser.setID(longval);
-        tempUser.setRole(User.Role.CUSTOMER);
-        boolean regCheck=userController.register(tempUser);
         /* View switching code */
-        if(regCheck) loadView(registerButton, "login-form.fxml");
+        if(userController.register(tempUser)) {
+            loadView(registerButton, "login-form.fxml");
+        }
         else {
-            registerText.setText("Failed to register.");
-            registerText.setTextFill(RED);
-            registerText.setVisible(true);
+            ControllerUtils.error(registerText, "Failed to register.");
         }
     }
 
     @FXML
     protected void adminLogin() {
         boolean fieldsFilled = (idField.getCharacters().length() > 0
-                && passwordField.getCharacters().length() > 0);
+                                && passwordField.getCharacters().length() > 0);
         Color borderColor = (fieldsFilled ? Color.GREY : RED);
 
         idField.setBorder(Border.stroke(borderColor));
         passwordField.setBorder(Border.stroke(borderColor));
 
-        // TODO: Add another if statement that checks the id and password
         if (!fieldsFilled) {
-            loginText.setText("Please enter your ASUID and password");
-            loginText.setTextFill(borderColor);
-            loginText.setVisible(true);
+            ControllerUtils.error(loginText, "Please enter your ASUID and password");
             return;
         }
 
-        try {
-            int value = Integer.parseInt(idField.getText());
-            System.out.println(value);
-        } catch (NumberFormatException e) {
-            loginText.setText("Invalid ID");
-            loginText.setTextFill(RED);
-            loginText.setVisible(true);
-            return;
-        }
-        long varLong=Long.parseLong(idField.getText());
-        String pass=passwordField.getText();
-        activeUser=userController.login(varLong,pass);
+        long id = ControllerUtils.validateASUID(idField, loginText);
+        activeUser = userController.login(id, passwordField.getText());
 
         /* View switching code */
-        if(activeUser != null && activeUser.getRole()!=User.Role.CUSTOMER) loadView(adminLoginButton, "admin-home.fxml");
+        if(activeUser != null && activeUser.getRole() != User.Role.CUSTOMER)
+            loadView(adminLoginButton, "admin-home.fxml");
         else {
-            loginText.setText("Failed to login as admin.");
-            loginText.setTextFill(RED);
-            loginText.setVisible(true);
+            ControllerUtils.error(loginText, "Failed to login as admin.");
         }
     }
 
@@ -255,30 +234,13 @@ public class Controller {
 
         // TODO: Add another if statement that checks the id and password
         if(!fieldsFilled) {
-            loginText.setText("Please enter your ASUID");
-            loginText.setTextFill(borderColor);
-            loginText.setVisible(true);
+            ControllerUtils.error(loginText, "Please enter your ASUID");
             return;
         }
 
-        try {
-            int value = Integer.parseInt(confirmField.getText());
-            System.out.println(value);
-        } catch (NumberFormatException e) {
-            loginText.setText("Invalid ASUID");
-            loginText.setTextFill(RED);
-            loginText.setVisible(true);
-            return;
-        }
-        long varLong=Long.parseLong(confirmField.getText());
-        boolean idCheck=userController.checkID(varLong,activeUser);
-
-        /* View switching code */
-        if(idCheck) loadView(orderStatusButton, "order-status.fxml");
-        else {
-            loginText.setText("Failed to login.");
-            loginText.setTextFill(RED);
-            loginText.setVisible(true);
+        long id = ControllerUtils.validateASUID(confirmField, loginText);
+        if (userController.checkID(id, activeUser)) {
+            loadView(orderStatusButton, "order-status.fxml");
         }
     }
 
@@ -288,81 +250,6 @@ public class Controller {
     /* Insert potential "order button from home" event here */
 
     /* Use this function if you need specific behavior for a keyPressed event */
-    @FXML
-    public void keyPressed(KeyEvent event) {
-        switch (event.getCode()) {
-            /* The code here is generalizing the behavior of enter so that
-               it either moves from an empty box to another or fires the button
-               action and possibly moves onto another JavaFX Node. I will be
-               fixing this up later, so don't worry about the functionality not
-               being complete. */
-            /* TODO: Figure out what the hell this is does again and fix it */
-            case ESCAPE:
-                Object eventSource = event.getSource();
-
-                if (eventSource instanceof Pane) {
-                    Pane source = (Pane) eventSource;
-                    /* This gets ALL children, need to figure out how to get
-                       current child + the remaining ones */
-                    List<Node> nodes = source.getChildren()
-                                             .stream()
-                                             .filter(c -> (c instanceof Button
-                                                           || (c instanceof TextField)))
-                                             .collect(Collectors.toList());
-                    Optional<Node> focusedNode = nodes
-                                        .stream()
-                                        .filter(Node::isFocused)
-                                        .findFirst();
-
-                    System.out.println(nodes);
-                    int focusedNodeIndex =
-                            nodes.indexOf(focusedNode.orElse(nodes.get(0)));
-                    ListIterator<Node> listIterator =
-                            nodes.listIterator(focusedNodeIndex);
-                    while (listIterator.hasNext()) {
-                        Node node = listIterator.next();
-                        TextField currentField;
-
-                        if (node instanceof TextField) {
-                            currentField = (TextField) node;
-                            if (!currentField.isFocused()
-                                && currentField.getCharacters().length() == 0)
-                            {
-                                currentField.requestFocus();
-                                break;
-                            }
-
-                            node = listIterator.next();
-                            if (node instanceof TextField) {
-                                node.requestFocus();
-                            } else if (ButtonBase.class.isAssignableFrom(
-                                        node.getClass())) {
-                                if (node instanceof ToggleButton) {
-                                    ToggleButton currentToggle =
-                                            (ToggleButton) node;
-                                    Node nextNode =
-                                            nodes.get(nodes.indexOf(currentToggle) + 1);
-                                    if (nextNode instanceof ToggleButton) {
-                                        ToggleGroup nextToggleGroup =
-                                                ((ToggleButton) nextNode).getToggleGroup();
-                                        nextToggleGroup
-                                                .selectToggle(nextToggleGroup.getToggles().get(0));
-                                    }
-                                }
-                                assert node instanceof Button;
-                                ((Button) node).fire();
-                            }
-                        }
-                    }
-                }
-            case TAB:
-                System.out.println("TAB");
-                break;
-            default: break;
-
-        }
-    }
-
     /* Use this method to transition through views */
     private void loadView(Button button, String name) {
         try {
@@ -381,30 +268,22 @@ public class Controller {
     /* TODO: This method will collect info and present it on order confirmation page */
     public void getPizzaInfo() {
         pizzaOptions = "No pizzas :("; /* Display this if all else fails */
-        pizzaOptions = "" + quantitySpinner.getValue();
         RadioButton size = (RadioButton) sizeToggleGroup.getSelectedToggle();
-        if (size != null) {
-            pizzaOptions += " " + size.getText();
-            RadioButton base = (RadioButton) baseToggleGroup.getSelectedToggle();
-            if (base != null) {
-                pizzaOptions += " " + base.getText() + " Pizza(s)";
-                if (extraCheese.isSelected() || mushrooms.isSelected() || olives.isSelected() || onions.isSelected()) {
-                    pizzaOptions += " with Toppings:";
-                    if (extraCheese.isSelected())
-                        pizzaOptions += " Extra Cheese,";
-                    if (mushrooms.isSelected())
-                        pizzaOptions += " Mushrooms,";
-                    if (olives.isSelected())
-                        pizzaOptions += " Olives,";
-                    if (onions.isSelected())
-                        pizzaOptions += " Onions";
-                }
-            } else {
-                pizzaOptions = "Error: Base was somehow NULL";
-            }
-        } else {
-            pizzaOptions = "Error: Size was somehow NULL";
-        }
+        RadioButton base = (RadioButton) baseToggleGroup.getSelectedToggle();
+
+        Pizza pizza = new Pizza();
+        pizza.setQuantity(quantitySpinner.getValue());
+        pizza.setSize(Pizza.Size.valueOf(size.getText().toUpperCase()));
+        pizza.setBase(Pizza.Base.valueOf(base.getText().toUpperCase()));
+        pizza.setToppings(toppingChoices
+                            .stream()
+                            .filter(CheckBox::isSelected)
+                            .map(s -> s.getText()
+                                       .toUpperCase()
+                                       .replace(" ", "_"))
+                            .map(Pizza.Topping::valueOf)
+                            .collect(Collectors.toList()));
+        pizzaOptions = pizza.toString();
     }
 
     @FXML
@@ -473,12 +352,79 @@ public class Controller {
         });
     }
 
+    @FXML
+    public void keyPressed(KeyEvent event) {
+        switch (event.getCode()) {
+            /* The code here is generalizing the behavior of enter so that
+               it either moves from an empty box to another or fires the button
+               action and possibly moves onto another JavaFX Node. I will be
+               fixing this up later, so don't worry about the functionality not
+               being complete. */
+            /* TODO: Figure out what the hell this is does again and fix it */
+            case ESCAPE:
+                Object eventSource = event.getSource();
 
+                if (eventSource instanceof Pane) {
+                    Pane source = (Pane) eventSource;
+                    /* This gets ALL children, need to figure out how to get
+                       current child + the remaining ones */
+                    List<Node> nodes = source.getChildren()
+                            .stream()
+                            .filter(c -> (c instanceof Button
+                                    || (c instanceof TextField)))
+                            .collect(Collectors.toList());
+                    Optional<Node> focusedNode = nodes
+                            .stream()
+                            .filter(Node::isFocused)
+                            .findFirst();
 
-    /* May want to start using this in the future */
-    @SuppressWarnings("unused")
-    enum Message {
-        SUCCESS,
-        FAILURE,
+                    System.out.println(nodes);
+                    int focusedNodeIndex =
+                            nodes.indexOf(focusedNode.orElse(nodes.get(0)));
+                    ListIterator<Node> listIterator =
+                            nodes.listIterator(focusedNodeIndex);
+                    while (listIterator.hasNext()) {
+                        Node node = listIterator.next();
+                        TextField currentField;
+
+                        if (node instanceof TextField) {
+                            currentField = (TextField) node;
+                            if (!currentField.isFocused()
+                                    && currentField.getCharacters().length() == 0)
+                            {
+                                currentField.requestFocus();
+                                break;
+                            }
+
+                            node = listIterator.next();
+                            if (node instanceof TextField) {
+                                node.requestFocus();
+                            } else if (ButtonBase.class.isAssignableFrom(
+                                    node.getClass())) {
+                                if (node instanceof ToggleButton) {
+                                    ToggleButton currentToggle =
+                                            (ToggleButton) node;
+                                    Node nextNode =
+                                            nodes.get(nodes.indexOf(currentToggle) + 1);
+                                    if (nextNode instanceof ToggleButton) {
+                                        ToggleGroup nextToggleGroup =
+                                                ((ToggleButton) nextNode).getToggleGroup();
+                                        nextToggleGroup
+                                                .selectToggle(nextToggleGroup.getToggles().get(0));
+                                    }
+                                }
+                                assert node instanceof Button;
+                                ((Button) node).fire();
+                            }
+                        }
+                    }
+                }
+            case TAB:
+                System.out.println("TAB");
+                break;
+            default: break;
+
+        }
     }
+
 }

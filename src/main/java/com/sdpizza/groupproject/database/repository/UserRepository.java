@@ -70,7 +70,7 @@ public class UserRepository {
             String first_name = values.get("first_name").toString();
             String last_name = values.get("last_name").toString();
             String password = values.get("password").toString();
-            User.Role role = User.Role.valueOf(values.get("role").toString());
+            User.Role role = User.Role.valueOf(values.get("role").toString().toUpperCase());
 
             return new User(id, first_name, last_name, password, role);
         }

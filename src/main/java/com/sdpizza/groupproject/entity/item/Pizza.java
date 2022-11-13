@@ -4,6 +4,7 @@ package com.sdpizza.groupproject.entity.item;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Pizza extends Item {
     public enum Base {
@@ -59,10 +60,20 @@ public class Pizza extends Item {
 
     @Override
     public String toString() {
-        return "size: " + size
-                + ", base: " + base
-                + ", toppings: " + toppings
-                + ", quantity: " + getQuantity();
+        return "" + getQuantity() + " " + titleCase(size.toString())
+                + " " + titleCase(base.toString())
+                + (getQuantity() > 1 ? " Pizzas" : " Pizza") + " with "
+                + (toppings.stream()
+                           .map(Topping::toString)
+                           .map(Pizza::titleCase)
+                           .map(s -> s.replace("_", " "))
+                           .collect(Collectors.toList())
+                           .toString()
+                           .replaceAll("[\\[\\]]", ""));
+    }
+
+    private static String titleCase(String str) {
+        return (str.charAt(0) + str.substring(1).toLowerCase());
     }
 
     public void setType(ItemType type) {}
@@ -93,5 +104,13 @@ public class Pizza extends Item {
 
     public void setToppings(Topping... toppings) {
         this.toppings = List.of(toppings);
+    }
+
+    public void setToppings(List<Topping> toppings) {
+        this.toppings = toppings;
+    }
+
+    public void addTopping(Topping topping) {
+        toppings.add(topping);
     }
 }
