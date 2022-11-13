@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.IntUnaryOperator;
 import java.util.stream.Collectors;
 import com.sdpizza.groupproject.entity.model.User;
 
@@ -42,7 +43,7 @@ public class Controller {
     @FXML
     private Button loginButton, adminLoginButton, registerButton, homeLoginButton,
                    homeLogoutButton, homeRegisterButton, orderCancelButton,
-                   orderConfirmButton, homeOrderButton, orderStatusButton;
+                   addToCartButton, orderConfirmButton, homeOrderButton, orderStatusButton;
 
     @FXML
     private TextField idField, firstField, lastField, confirmField;
@@ -189,8 +190,15 @@ public class Controller {
 
     @FXML
     protected void orderConfirm() {
-        getPizzaInfo();
         loadView(orderConfirmButton, "order-confirmation.fxml");
+    }
+
+    @FXML
+    protected void addToCart() {
+        getPizzaInfo();
+        orderConfirmButton.setDisable(false);
+        sizeToggleGroup.selectToggle(null);
+        baseToggleGroup.selectToggle(null);
     }
 
     @FXML
@@ -283,8 +291,9 @@ public class Controller {
 
     @FXML
     protected void orderTogglesEmpty() {
-        orderConfirmButton.setDisable((sizeToggleGroup.getSelectedToggle() == null
+        addToCartButton.setDisable((sizeToggleGroup.getSelectedToggle() == null
                                       || baseToggleGroup.getSelectedToggle() == null));
+
     }
 
     protected void initToggleGroups() {
