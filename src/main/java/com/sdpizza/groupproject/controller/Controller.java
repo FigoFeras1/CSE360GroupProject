@@ -117,35 +117,27 @@ public class Controller {
         idField.setBorder(Border.stroke(borderColor));
         passwordField.setBorder(Border.stroke(borderColor));
 
-        // TODO: Add another if statement that checks the id and password
         if (!fieldsFilled) {
-            loginText.setText("Please enter your ASUID and password");
-            loginText.setTextFill(borderColor);
-            loginText.setVisible(true);
+            ControllerUtils.error(loginText, "Please enter your ASUID and password");
             return;
         }
 
-        try {
-            int value = Integer.parseInt(idField.getText());
-            System.out.println(value);
-        } catch (NumberFormatException e) {
-            loginText.setText("Invalid ASUID");
-            loginText.setTextFill(RED);
-            loginText.setVisible(true);
-            return;
-        }
-        long varLong=Long.parseLong(idField.getText());
-        String pass=passwordField.getText();
-        activeUser=userController.login(varLong,pass);
+        long id = ControllerUtils.validateASUID(idField, loginText);
+        String pass = passwordField.getText();
+        activeUser = userController.login(id, pass);
 
         /* View switching code */
-        if(activeUser != null && activeUser.getRole()==User.Role.CUSTOMER)
-            loadView(loginButton, "orders.fxml");
-        else {
-            loginText.setText("Failed to login.");
-            loginText.setTextFill(RED);
-            loginText.setVisible(true);
+        if (activeUser == null) {
+            ControllerUtils.error(loginText, "Login failed.");
+            return;
         }
+
+        String destination = (activeUser.getRole() == User.Role.CUSTOMER
+                              ? "orders.fxml"
+                              : "admin-home.fxml");
+
+
+        loadView(loginButton, destination);
     }
 
     @FXML
@@ -176,31 +168,6 @@ public class Controller {
         }
         else {
             ControllerUtils.error(registerText, "Failed to register.");
-        }
-    }
-
-    @FXML
-    protected void adminLogin() {
-        boolean fieldsFilled = (idField.getCharacters().length() > 0
-                                && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : RED);
-
-        idField.setBorder(Border.stroke(borderColor));
-        passwordField.setBorder(Border.stroke(borderColor));
-
-        if (!fieldsFilled) {
-            ControllerUtils.error(loginText, "Please enter your ASUID and password");
-            return;
-        }
-
-        long id = ControllerUtils.validateASUID(idField, loginText);
-        activeUser = userController.login(id, passwordField.getText());
-
-        /* View switching code */
-        if(activeUser != null && activeUser.getRole() != User.Role.CUSTOMER)
-            loadView(adminLoginButton, "admin-home.fxml");
-        else {
-            ControllerUtils.error(loginText, "Failed to login as admin.");
         }
     }
 
