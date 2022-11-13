@@ -40,10 +40,10 @@
                   </RadioButton>
                   <RadioButton fx:id="pepperoni" layoutX="75.0" layoutY="53.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Pepperoni" toggleGroup="$baseToggleGroup" />
                   <RadioButton fx:id="vegan" layoutX="75.0" layoutY="71.0" mnemonicParsing="false" onAction="#orderTogglesEmpty" text="Vegan" toggleGroup="$baseToggleGroup" />
-                  <CheckBox layoutX="163.0" layoutY="35.0" mnemonicParsing="false" text="Extra Cheese" />
-                  <CheckBox layoutX="163.0" layoutY="53.0" mnemonicParsing="false" text="Mushrooms" />
-                  <CheckBox layoutX="163.0" layoutY="71.0" mnemonicParsing="false" text="Olives" />
-                  <CheckBox layoutX="163.0" layoutY="89.0" mnemonicParsing="false" text="Onions" />
+                  <CheckBox fx:id="extraCheese" layoutX="163.0" layoutY="35.0" mnemonicParsing="false" text="Extra Cheese" />
+                  <CheckBox fx:id="mushrooms" layoutX="163.0" layoutY="53.0" mnemonicParsing="false" text="Mushrooms" />
+                  <CheckBox fx:id="olives" layoutX="163.0" layoutY="71.0" mnemonicParsing="false" text="Olives" />
+                  <CheckBox fx:id="onions" layoutX="163.0" layoutY="89.0" mnemonicParsing="false" text="Onions" />
                   <Label layoutX="75.0" text="Base">
                      <font>
                         <Font size="24.0" />

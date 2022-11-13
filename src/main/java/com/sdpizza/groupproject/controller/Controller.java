@@ -61,6 +61,9 @@ public class Controller {
     private Spinner<Integer> quantitySpinner;
 
     @FXML
+    private CheckBox extraCheese, mushrooms, olives, onions;
+
+    @FXML
     private static String pizzaOptions = "Test";
 
 
@@ -87,14 +90,7 @@ public class Controller {
         if (statusProgressBar != null) status();
         if (pizzasInOrder != null) pizzasInOrder.setText(pizzaOptions);
         if (quantitySpinner != null) initQuantitySpinner();
-        if (sizeToggleGroup != null && baseToggleGroup != null) {
-            small.setToggleGroup(sizeToggleGroup);
-            medium.setToggleGroup(sizeToggleGroup);
-            large.setToggleGroup(sizeToggleGroup);
-            cheese.setToggleGroup(baseToggleGroup);
-            pepperoni.setToggleGroup(baseToggleGroup);
-            vegan.setToggleGroup(baseToggleGroup);
-        };
+        if (sizeToggleGroup != null && baseToggleGroup != null) initToggleGroups();
     }
 
     @FXML
@@ -385,13 +381,29 @@ public class Controller {
     /* TODO: This method will collect info and present it on order confirmation page */
     public void getPizzaInfo() {
         pizzaOptions = "No pizzas :("; /* Display this if all else fails */
-        Toggle size = sizeToggleGroup.getSelectedToggle();
+        pizzaOptions = "" + quantitySpinner.getValue();
+        RadioButton size = (RadioButton) sizeToggleGroup.getSelectedToggle();
         if (size != null) {
-            pizzaOptions = size.toString();
-            Toggle base = baseToggleGroup.getSelectedToggle();
+            pizzaOptions += " " + size.getText();
+            RadioButton base = (RadioButton) baseToggleGroup.getSelectedToggle();
             if (base != null) {
-                pizzaOptions += " " + base.toString();
+                pizzaOptions += " " + base.getText() + " Pizza(s)";
+                if (extraCheese.isSelected() || mushrooms.isSelected() || olives.isSelected() || onions.isSelected()) {
+                    pizzaOptions += " with Toppings:";
+                    if (extraCheese.isSelected())
+                        pizzaOptions += " Extra Cheese,";
+                    if (mushrooms.isSelected())
+                        pizzaOptions += " Mushrooms,";
+                    if (olives.isSelected())
+                        pizzaOptions += " Olives,";
+                    if (onions.isSelected())
+                        pizzaOptions += " Onions";
+                }
+            } else {
+                pizzaOptions = "Error: Base was somehow NULL";
             }
+        } else {
+            pizzaOptions = "Error: Size was somehow NULL";
         }
     }
 
@@ -424,6 +436,15 @@ public class Controller {
     protected void orderTogglesEmpty() {
         orderConfirmButton.setDisable((sizeToggleGroup.getSelectedToggle() == null
                                       || baseToggleGroup.getSelectedToggle() == null));
+    }
+
+    protected void initToggleGroups() {
+        small.setToggleGroup(sizeToggleGroup);
+        medium.setToggleGroup(sizeToggleGroup);
+        large.setToggleGroup(sizeToggleGroup);
+        cheese.setToggleGroup(baseToggleGroup);
+        pepperoni.setToggleGroup(baseToggleGroup);
+        vegan.setToggleGroup(baseToggleGroup);
     }
 
     protected void initQuantitySpinner() {
