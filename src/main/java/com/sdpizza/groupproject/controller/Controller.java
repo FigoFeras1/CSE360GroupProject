@@ -3,6 +3,7 @@ package com.sdpizza.groupproject.controller;
 import com.sdpizza.groupproject.Main;
 import com.sdpizza.groupproject.controller.util.ControllerUtils;
 import com.sdpizza.groupproject.entity.item.Pizza;
+import com.sdpizza.groupproject.entity.model.Order;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -29,7 +30,7 @@ import static javafx.scene.paint.Color.RED;
 
 public class Controller {
 
-    public static User activeUser = null;
+    protected static User activeUser = null;
 
     private final UserController userController = new UserController();
 
@@ -258,22 +259,24 @@ public class Controller {
         Task<Void> task = new Task<>() {
             @Override
             public Void call() throws Exception {
-                final int max = 3;
-                for (int i = 1; i <= max; ++i) {
-                    int finalI = i;
+                List<Order.Status> statuses = List.of(Order.Status.values());
+                final int max = statuses.size() - 1;
+                Order.Status currentStatus = Order.Status.ACCEPTED;
+
+                while (!isCancelled()) {
                     Platform.runLater(
-                            () -> statusLabel.setText(String.valueOf(finalI))
+                            () -> statusLabel.setText(String.valueOf(currentStatus))
                     );
 
-                    if (isCancelled()) break;
-
-                    updateProgress(i, max);
+                    updateProgress(statuses.indexOf(currentStatus), max);
                     /* This controls how long it takes between increments (ms) */
-                    Thread.sleep(1500);
+                    Thread.sleep(5000);
                 }
+
                 return null;
             }
         };
+
         statusProgressBar.progressProperty().bind(task.progressProperty());
         new Thread(task).start();
     }

@@ -7,7 +7,6 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -37,16 +36,8 @@
                   <TextField fx:id="idField" promptText="ASU ID" />
                   <Label text="Password" />
                   <PasswordField fx:id="passwordField" promptText="Password" />
-                  <HBox alignment="TOP_CENTER" prefHeight="64.0" prefWidth="303.0" spacing="15.0">
-                     <children>
-                        <Button fx:id="adminLoginButton" mnemonicParsing="false" onAction="#login" text="Admin Login" />
-                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="Login" />
-                     </children>
-                     <padding>
-                        <Insets right="36.0" />
-                     </padding>
-                  </HBox>
                   <AnchorPane />
+                  <Button fx:id="loginButton" alignment="CENTER" mnemonicParsing="false" onAction="#login" text="Login" />
                   <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
                </children>
             </VBox>
