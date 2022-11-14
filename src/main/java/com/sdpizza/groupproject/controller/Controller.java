@@ -49,7 +49,7 @@ public class Controller {
                    homeLogoutButton, homeRegisterButton, orderCancelButton,
                    logoutButton, orderHistoryButton, orderButton, sendToKitchenButton,
                    addToCartButton, orderConfirmButton, homeOrderButton, orderStatusButton,
-                   csrButton, chefButton, finishButton;
+                   csrButton, chefButton, finishButton, backFromHistoryButton;
 
     @FXML
     private TextField idField, firstField, lastField, confirmField;
@@ -394,6 +394,10 @@ public class Controller {
         acceptedListView.setItems(accepted);
     }
 
+    @FXML
+    protected void backFromHistory() {
+        loadView(backFromHistoryButton, "home-known.fxml");
+    }
     @FXML
     protected void homeLogin() {
         loadView(homeLoginButton, "login-form.fxml");
