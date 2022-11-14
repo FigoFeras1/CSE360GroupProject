@@ -42,7 +42,11 @@ public class Controller {
     @FXML
     private Button loginButton, adminLoginButton, registerButton, homeLoginButton,
                    homeLogoutButton, homeRegisterButton, orderCancelButton,
-                   orderConfirmButton, homeOrderButton, orderStatusButton;
+                   orderConfirmButton, homeOrderButton, orderStatusButton,
+
+                   orderHistoryButton, totalCostOfOrdersButton, orderButton,
+
+                   logoutButton;
 
     @FXML
     private TextField idField, firstField, lastField, confirmField;
@@ -101,13 +105,19 @@ public class Controller {
             toppingChoices.add(olives);
             toppingChoices.add(onions);
         }
+//        if(){
+//
+//
+//        }
     }
+
 
     @SuppressWarnings("unused")
     @FXML
     public void exitApplication(ActionEvent event) {
         Platform.exit();
     }
+
 
     @FXML
     protected void login() {
@@ -186,6 +196,15 @@ public class Controller {
     protected void orderCancel() {
         loadView( orderCancelButton, "anon-home.fxml");
     }
+
+    @FXML
+    protected void logout() {activeUser = null; loadView(logoutButton, "anon-home.fxml"); }
+
+    @FXML
+    protected void placeOrder() {loadView(orderButton, "orders.fxml");}
+
+    @FXML
+    protected void orderHistory() {loadView(orderHistoryButton, "order-history.fxml");}
 
     @FXML
     protected void orderConfirm() {

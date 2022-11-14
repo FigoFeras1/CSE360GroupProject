@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
+    <children>
+        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="1890.0" style="-fx-background-color: #8C1D40;">
+            <children>
+                <VBox alignment="CENTER" prefHeight="80.0" prefWidth="94.0">
+                    <children>
+                        <Text fill="#eaa221" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text=" ASU Poggers Pizza | Customer Info" textAlignment="CENTER">
+                            <font>
+                                <Font name="Bodoni MT Bold" size="40.0" />
+                            </font>
+                        </Text>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+        <VBox prefHeight="364.0" prefWidth="1080.0">
+            <children>
+                <HBox prefHeight="40.0" prefWidth="1080.0">
+                    <children>
+                  <Label prefHeight="67.0" prefWidth="225.0" text="Total Amount Spent This Semester:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="40.0" prefWidth="665.0" text="?">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                    </children>
+                </HBox>
+                <HBox prefHeight="317.0" prefWidth="1080.0">
+               <children>
+                  <Label prefHeight="100.0" prefWidth="225.0" text="Past Order History:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ListView prefHeight="627.0" prefWidth="664.0" />
+               </children>
+                </HBox>
+            </children></VBox>
+      <VBox prefHeight="282.0" prefWidth="1080.0" style="-fx-background-color: #8C1D40;" />
+    </children>
+</VBox>
