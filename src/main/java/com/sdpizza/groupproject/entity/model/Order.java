@@ -50,6 +50,10 @@ public class Order extends Model {
         setStatus(status);
     }
 
+    public String toString() {
+        return "#" + id + ": " + items.toString().replaceAll("[\\[\\]]", "");
+    }
+
     public void add(Item item) {
         items.add(item);
     }

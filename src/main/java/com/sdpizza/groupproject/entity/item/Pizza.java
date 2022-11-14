@@ -62,7 +62,7 @@ public class Pizza extends Item {
     @Override
     @JsonIgnore
     public String toString() {
-        if (toppings.isEmpty()) {
+        if (toppings == null) {
             return "" + getQuantity() + " " + titleCase(size.toString())
                     + " " + titleCase(base.toString())
                     + (getQuantity() > 1 ? " Pizzas" : " Pizza") ;

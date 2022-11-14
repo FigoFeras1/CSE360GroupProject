@@ -5,6 +5,8 @@ import com.sdpizza.groupproject.controller.util.ControllerUtils;
 import com.sdpizza.groupproject.entity.item.Pizza;
 import com.sdpizza.groupproject.entity.model.Order;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.function.IntUnaryOperator;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import com.sdpizza.groupproject.entity.model.User;
 
@@ -34,10 +36,11 @@ public class Controller {
     protected static User activeUser = null;
 
     private final UserController userController = new UserController();
+    private final OrderController orderController = new OrderController();
 
     @FXML
     private Label loginText, pizzasInOrder, registerText, statusLabel,
-                  quantitySpinnerLabel;
+                  quantitySpinnerLabel, costLabel;
 
     @SuppressWarnings("unused")
     @FXML
@@ -72,6 +75,9 @@ public class Controller {
     @FXML
     private static String pizzaOptions = "";
 
+    @FXML
+    private ListView<Order> pastOrderListView, readyToCookList, cookingList;
+
 
     /* May come in useful in the future */
     public Controller() {
@@ -104,6 +110,8 @@ public class Controller {
             toppingChoices.add(onions);
         }
         if (pizzaOptions != null ) pizzaOptions = "";
+        if (pastOrderListView != null) initPastOrders();
+        if (cookingList != null) initChefLists();
     }
 
     @SuppressWarnings("unused")
@@ -137,7 +145,7 @@ public class Controller {
         }
 
         String destination = (activeUser.getRole() == User.Role.CUSTOMER
-                              ? "orders.fxml"
+                              ? "home-known.fxml"
                               : "admin-home.fxml");
 
 
@@ -175,34 +183,6 @@ public class Controller {
         }
     }
 
-    @FXML
-    protected void homeLogin() {
-        loadView(homeLoginButton, "login-form.fxml");
-    }
-
-    @FXML
-    protected void homeRegister() {
-        loadView(homeRegisterButton, "register-form.fxml");
-    }
-
-    @FXML
-    protected void orderCancel() {
-        loadView( orderCancelButton, "anon-home.fxml");
-    }
-
-    @FXML
-    protected void orderConfirm() {
-        loadView(orderConfirmButton, "order-confirmation.fxml");
-    }
-
-    @FXML
-    protected void logout() {activeUser = null; loadView(logoutButton, "anon-home.fxml"); }
-
-    @FXML
-    protected void placeOrder() {loadView(orderButton, "orders.fxml");}
-
-    @FXML
-    protected void orderHistory() {loadView(orderHistoryButton, "order-history.fxml");}
 
     @FXML
     protected void addToCart() {
@@ -257,7 +237,6 @@ public class Controller {
 
     /* TODO: This method will collect info and present it on order confirmation page */
     public void getPizzaInfo() {
-        /*pizzaOptions = "No pizzas :("; /* Display this if all else fails */
         RadioButton size = (RadioButton) sizeToggleGroup.getSelectedToggle();
         RadioButton base = (RadioButton) baseToggleGroup.getSelectedToggle();
 
@@ -273,7 +252,7 @@ public class Controller {
                                        .replace(" ", "_"))
                             .map(Pizza.Topping::valueOf)
                             .collect(Collectors.toList()));
-        pizzaOptions += pizza.toString() + "\n";
+        pizzaOptions += pizza + "\n";
     }
 
     @FXML
@@ -344,6 +323,56 @@ public class Controller {
                     }
         });
     }
+
+    protected void initPastOrders() {
+        ObservableList<Order> orders =
+                FXCollections.observableList(orderController.getOrders(Order.Status.ACCEPTED));
+        pastOrderListView.setItems(orders);
+        float totalCost = orders.stream()
+                                .map(Order::getCost)
+                                .reduce(0f,Float::sum);
+        costLabel.setText(costLabel.getText()
+                                   .replace("?", String.valueOf(totalCost)));
+    }
+
+    protected void initChefLists() {
+        ObservableList<Order> readyToCook =
+                FXCollections.observableList(orderController.getOrders(Order.Status.READY_TO_COOK));
+        ObservableList<Order> cooking =
+                FXCollections.observableList(orderController.getOrders(Order.Status.COOKING));
+
+        readyToCookList.setItems(readyToCook);
+        cookingList.setItems(cooking);
+    }
+
+    @FXML
+    protected void homeLogin() {
+        loadView(homeLoginButton, "login-form.fxml");
+    }
+
+    @FXML
+    protected void homeRegister() {
+        loadView(homeRegisterButton, "register-form.fxml");
+    }
+
+    @FXML
+    protected void orderCancel() {
+        loadView( orderCancelButton, "anon-home.fxml");
+    }
+
+    @FXML
+    protected void orderConfirm() {
+        loadView(orderConfirmButton, "order-confirmation.fxml");
+    }
+
+    @FXML
+    protected void logout() {activeUser = null; loadView(logoutButton, "anon-home.fxml"); }
+
+    @FXML
+    protected void placeOrder() {loadView(orderButton, "orders.fxml");}
+
+    @FXML
+    protected void orderHistory() {loadView(orderHistoryButton, "order-history.fxml");}
 
     @FXML
     public void keyPressed(KeyEvent event) {

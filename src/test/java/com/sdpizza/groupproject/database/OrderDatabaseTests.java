@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -87,5 +88,24 @@ public class OrderDatabaseTests {
         while (itemIterator.hasNext() && queriedIterator.hasNext()) {
             assertEquals(itemIterator.next().toString(), queriedIterator.next().toString());
         }
+    }
+
+    @Test
+    protected void populateDatabase() {
+        Order.Status[] statusOptions = Order.Status.values();
+        Pizza.Size[] sizeOptions = Pizza.Size.values();
+        Pizza.Base[] baseOptions = Pizza.Base.values();
+        Pizza.Topping[] toppingOptions = Pizza.Topping.values();
+
+        Random random = new Random();
+        List<Order> orders = new ArrayList<>();
+
+        for (Order.Status status : statusOptions) {
+            for (int i = 0; i < (random.nextInt(10) + 5); ++i) {
+
+            }
+        }
+
+
     }
 }

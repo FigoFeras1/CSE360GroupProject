@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
+<VBox prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="1890.0" style="-fx-background-color: #8C1D40;">
             <children>
@@ -27,25 +30,21 @@
             <children>
                 <HBox prefHeight="40.0" prefWidth="1080.0">
                     <children>
-                  <Label prefHeight="67.0" prefWidth="225.0" text="Total Amount Spent This Semester:">
+                  <Label fx:id="costLabel" prefHeight="40.0" prefWidth="355.0" text="Total Amount Spent This Semester: $?">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="40.0" prefWidth="665.0" text="?">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
                     </children>
                 </HBox>
-                <HBox prefHeight="317.0" prefWidth="1080.0">
+                <HBox prefHeight="304.0" prefWidth="1080.0">
                <children>
                   <Label prefHeight="100.0" prefWidth="225.0" text="Past Order History:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ListView prefHeight="627.0" prefWidth="664.0" />
+                  <ListView fx:id="pastOrderListView" prefHeight="627.0" prefWidth="664.0" />
                </children>
                 </HBox>
             </children></VBox>

@@ -15,7 +15,6 @@ public class UserController {
                 user.setID(longval);
 
                 Controller.activeUser = userRepository.get(user);
-                System.out.println(Controller.activeUser);
                 return Controller.activeUser;
         }
 

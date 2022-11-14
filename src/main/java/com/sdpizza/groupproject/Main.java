@@ -22,13 +22,14 @@ import java.io.IOException;
 public class Main extends Application {
     public static Controller controller;
     public static FXMLLoader fxmlLoader;
+    public static Rectangle2D screenBounds;
     @Override
     public void start(Stage stage) throws IOException {
 
         stage.setMaximized(true); //Opens Webapp in maximized window rather than full screen
 
         fxmlLoader =
-                new FXMLLoader(Main.class.getResource("home-known.fxml"));
+                new FXMLLoader(Main.class.getResource("order-history.fxml"));
         /* Setting the controller for the application here
            NOTE: You may run into weird behavior if you are using the
            SceneBuilder (i.e., the fields aren't being recognized)
@@ -38,7 +39,7 @@ public class Main extends Application {
         /* fxmlLoader.setController(controller); */
 
         /* Could help with dynamic size issue? */
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        screenBounds = Screen.getPrimary().getVisualBounds();
         /* Adding event handlers to the scene */
         Scene scene = new Scene(fxmlLoader.load(),
                                 screenBounds.getWidth(),
