@@ -343,7 +343,6 @@ public class Controller {
             }
         };
 
-        statusProgressBar.progressProperty().bind(task.progressProperty());
         new Thread(task).start();
     }
 
