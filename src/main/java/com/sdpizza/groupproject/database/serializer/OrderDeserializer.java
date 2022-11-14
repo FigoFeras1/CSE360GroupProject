@@ -27,6 +27,7 @@ public class OrderDeserializer extends StdDeserializer<Order> {
         Order order = new Order();
         /* TODO: Find a way not to do this */
         json = json.substring(1).replace("\\", "");
+        System.out.println(json);
 
         try { order = objMapper.readValue(json, Order.class); }
         catch (Exception ex) { ex.printStackTrace(); }

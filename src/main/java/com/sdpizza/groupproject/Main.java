@@ -28,7 +28,7 @@ public class Main extends Application {
         stage.setMaximized(true); //Opens Webapp in maximized window rather than full screen
 
         fxmlLoader =
-                new FXMLLoader(Main.class.getResource("anon-home.fxml"));
+                new FXMLLoader(Main.class.getResource("home-known.fxml"));
         /* Setting the controller for the application here
            NOTE: You may run into weird behavior if you are using the
            SceneBuilder (i.e., the fields aren't being recognized)

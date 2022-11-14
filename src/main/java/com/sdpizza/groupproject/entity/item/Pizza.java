@@ -2,6 +2,7 @@ package com.sdpizza.groupproject.entity.item;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -59,6 +60,7 @@ public class Pizza extends Item {
     }
 
     @Override
+    @JsonIgnore
     public String toString() {
         if (toppings.isEmpty()) {
             return "" + getQuantity() + " " + titleCase(size.toString())
@@ -108,6 +110,7 @@ public class Pizza extends Item {
         return toppings;
     }
 
+    @JsonSetter
     public void setToppings(Topping... toppings) {
         this.toppings = List.of(toppings);
     }

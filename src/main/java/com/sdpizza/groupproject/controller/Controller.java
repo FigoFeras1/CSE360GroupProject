@@ -43,6 +43,7 @@ public class Controller {
     @FXML
     private Button loginButton, adminLoginButton, registerButton, homeLoginButton,
                    homeLogoutButton, homeRegisterButton, orderCancelButton,
+                   logoutButton, orderHistoryButton, orderButton,
                    addToCartButton, orderConfirmButton, homeOrderButton, orderStatusButton;
 
     @FXML
@@ -193,6 +194,15 @@ public class Controller {
     protected void orderConfirm() {
         loadView(orderConfirmButton, "order-confirmation.fxml");
     }
+
+    @FXML
+    protected void logout() {activeUser = null; loadView(logoutButton, "anon-home.fxml"); }
+
+    @FXML
+    protected void placeOrder() {loadView(orderButton, "orders.fxml");}
+
+    @FXML
+    protected void orderHistory() {loadView(orderHistoryButton, "order-history.fxml");}
 
     @FXML
     protected void addToCart() {

@@ -38,6 +38,7 @@ public class OrderDatabaseTests {
         Order order = new Order(items, user, 45.33f, Order.Status.ACCEPTED);
         orderRepository.add(order);
         Order queriedOrder = orderRepository.get(order);
+        System.out.println(queriedOrder.getItems());
         assertNotNull(queriedOrder);
 
         Iterator<Item> itemIterator = items.iterator();
@@ -49,7 +50,7 @@ public class OrderDatabaseTests {
         assertEquals(order.getCost(), queriedOrder.getCost());
 
         while (itemIterator.hasNext() && queriedIterator.hasNext()) {
-            assertEquals(itemIterator.next(), queriedIterator.next());
+            assertEquals(itemIterator.next().toString(), queriedIterator.next().toString());
         }
     }
 
@@ -84,7 +85,7 @@ public class OrderDatabaseTests {
         assertEquals(order.getCost(), queriedOrder.getCost());
 
         while (itemIterator.hasNext() && queriedIterator.hasNext()) {
-            assertEquals(itemIterator.next(), queriedIterator.next());
+            assertEquals(itemIterator.next().toString(), queriedIterator.next().toString());
         }
     }
 }
