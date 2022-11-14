@@ -9,6 +9,7 @@ import com.sdpizza.groupproject.database.serializer.OrderDeserializer;
 import com.sdpizza.groupproject.database.serializer.OrderSerializer;
 import com.sdpizza.groupproject.entity.item.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonSerialize(using = OrderSerializer.class)
@@ -31,7 +32,7 @@ public class Order extends Model {
     private long id = -1;
 
     @JsonProperty
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
     @JsonIgnore
     private User user;

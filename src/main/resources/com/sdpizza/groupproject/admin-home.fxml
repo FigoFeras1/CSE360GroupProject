@@ -37,8 +37,8 @@
                   <HBox prefHeight="34.0" prefWidth="600.0" />
                   <HBox alignment="TOP_CENTER" prefHeight="31.0" prefWidth="600.0" spacing="15.0">
                      <children>
-                        <Button  mnemonicParsing="false"  text="Register View" />
-                        <Button mnemonicParsing="false" text="Kitchen View" />
+                        <Button fx:id="csrButton" mnemonicParsing="false" onAction="#csrView" text="Register View" />
+                        <Button fx:id="chefButton" mnemonicParsing="false" onAction="#kitchenView" text="Kitchen View" />
                      </children>
                   </HBox>
                   <HBox alignment="TOP_CENTER" prefHeight="73.0" prefWidth="600.0">
