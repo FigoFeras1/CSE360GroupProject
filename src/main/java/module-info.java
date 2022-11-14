@@ -1,7 +1,6 @@
 module com.sdpizza.groupproject {
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.graphics;
     requires javafx.base;
     requires java.sql;
     requires com.h2database;
@@ -27,4 +26,5 @@ module com.sdpizza.groupproject {
             to com.fasterxml.jackson.databind;
     exports com.sdpizza.groupproject.database.serializer
             to com.fasterxml.jackson.databind;
+    exports com.sdpizza.groupproject.database.util to com.fasterxml.jackson.databind;
 }

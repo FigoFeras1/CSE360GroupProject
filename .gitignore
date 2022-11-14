@@ -39,3 +39,12 @@ bin/
 .DS_Store
 /.idea/
 database/db/sdpizza.trace.db
+
+dependency-reduced-pom.xml
+target/classes/
+target/test-classes/
+target/generated-test-sources/
+target/generated-sources/
+target/maven-archiver/
+target/maven-status/
+target/original-SunDevilPizza-2.0-SNAPSHOT.jar

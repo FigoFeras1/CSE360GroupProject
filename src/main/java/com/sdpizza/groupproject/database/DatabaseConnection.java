@@ -1,5 +1,6 @@
 package com.sdpizza.groupproject.database;
 
+import com.sdpizza.groupproject.database.util.QueryResult;
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.h2.tools.Script;
 
@@ -113,13 +114,6 @@ public class DatabaseConnection {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-    }
-
-    public static void dumpSQL() {
-        try {
-            Script.process(connection, "./database/dump.sql",
-                   "", "");
-        } catch (SQLException ex) { ex.printStackTrace(); }
     }
 
     /**

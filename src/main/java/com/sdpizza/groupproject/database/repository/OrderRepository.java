@@ -1,7 +1,7 @@
 package com.sdpizza.groupproject.database.repository;
 
 import com.sdpizza.groupproject.database.DatabaseConnection;
-import com.sdpizza.groupproject.database.QueryResult;
+import com.sdpizza.groupproject.database.util.QueryResult;
 import com.sdpizza.groupproject.database.serializer.OrderDeserializer;
 import com.sdpizza.groupproject.database.serializer.OrderSerializer;
 import com.sdpizza.groupproject.entity.model.Order;

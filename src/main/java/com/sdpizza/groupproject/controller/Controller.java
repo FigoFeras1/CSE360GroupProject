@@ -27,8 +27,8 @@ import java.util.stream.Collectors;
 import com.sdpizza.groupproject.entity.model.User;
 
 
-
 public class Controller {
+    public static Stage stage;
 
     protected static User activeUser = null;
     protected static Order currentOrder = new Order();
@@ -212,7 +212,6 @@ public class Controller {
 
         confirmField.setStyle(borderColor);
 
-        // TODO: Add another if statement that checks the id and password
         if(!fieldsFilled) {
             ControllerUtils.error(loginText, "Please enter your ASUID");
             return;

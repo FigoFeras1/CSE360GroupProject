@@ -25,7 +25,7 @@ public class Main extends Application {
     public static Rectangle2D screenBounds;
     @Override
     public void start(Stage stage) throws IOException {
-
+        Controller.stage = stage;
         stage.setMaximized(true); //Opens Webapp in maximized window rather than full screen
 
         fxmlLoader =
