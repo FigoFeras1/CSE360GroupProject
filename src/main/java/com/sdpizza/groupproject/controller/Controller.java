@@ -15,10 +15,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -28,7 +26,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import com.sdpizza.groupproject.entity.model.User;
 
-import static javafx.scene.paint.Color.RED;
 
 
 public class Controller {
@@ -84,6 +81,8 @@ public class Controller {
     @FXML
     private ListView<String> notificationListView;
 
+    private final String borderCSS = "-fx-border-color: ?";
+
 
     /* May come in useful in the future */
     public Controller() {
@@ -132,10 +131,12 @@ public class Controller {
     protected void login() {
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
+        String borderColor =
+                borderCSS.replace("?", fieldsFilled ? "grey" : "red");
 
-        idField.setBorder(Border.stroke(borderColor));
-        passwordField.setBorder(Border.stroke(borderColor));
+
+        idField.setStyle(borderColor);
+        passwordField.setStyle(borderColor);
 
         if (!fieldsFilled) {
             ControllerUtils.error(loginText, "Please enter your ASUID and password");
@@ -164,12 +165,13 @@ public class Controller {
     protected void register() {
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
+        String borderColor =
+                borderCSS.replace("?", fieldsFilled ? "grey" : "red");
 
-        firstField.setBorder(Border.stroke(borderColor));
-        lastField.setBorder(Border.stroke(borderColor));
-        idField.setBorder(Border.stroke(borderColor));
-        passwordField.setBorder(Border.stroke(borderColor));
+        firstField.setStyle(borderColor);
+        lastField.setStyle(borderColor);
+        idField.setStyle(borderColor);
+        passwordField.setStyle(borderColor);
 
         if (!fieldsFilled) {
             ControllerUtils.error(registerText, "Enter Full name, ASUID, and password");
@@ -206,9 +208,9 @@ public class Controller {
     @FXML
     protected void orderStatus() {
         boolean fieldsFilled = (confirmField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
+        String borderColor = borderCSS.replace("?", fieldsFilled ? "grey" : "red");
 
-        confirmField.setBorder(Border.stroke(borderColor));
+        confirmField.setStyle(borderColor);
 
         // TODO: Add another if statement that checks the id and password
         if(!fieldsFilled) {
@@ -410,7 +412,7 @@ public class Controller {
                         if (newValue.compareTo(quantityMin) < 0
                             || newValue.compareTo(quantityMax) > 0)
                         {
-                            quantitySpinner.setBorder(Border.stroke(Color.RED));
+                            quantitySpinner.setStyle(borderCSS.replace("?", "red"));
                             quantitySpinnerLabel.setText("min: 1,\nmax: 100");
                             quantitySpinnerLabel.setTextFill(Color.RED);
                             quantitySpinner.getValueFactory().setValue(oldValue);
