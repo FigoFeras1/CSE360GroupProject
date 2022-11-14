@@ -60,16 +60,22 @@ public class Pizza extends Item {
 
     @Override
     public String toString() {
-        return "" + getQuantity() + " " + titleCase(size.toString())
-                + " " + titleCase(base.toString())
-                + (getQuantity() > 1 ? " Pizzas" : " Pizza") + " with "
-                + (toppings.stream()
-                           .map(Topping::toString)
-                           .map(Pizza::titleCase)
-                           .map(s -> s.replace("_", " "))
-                           .collect(Collectors.toList())
-                           .toString()
-                           .replaceAll("[\\[\\]]", ""));
+        if (toppings.isEmpty()) {
+            return "" + getQuantity() + " " + titleCase(size.toString())
+                    + " " + titleCase(base.toString())
+                    + (getQuantity() > 1 ? " Pizzas" : " Pizza") ;
+        } else {
+            return "" + getQuantity() + " " + titleCase(size.toString())
+                    + " " + titleCase(base.toString())
+                    + (getQuantity() > 1 ? " Pizzas" : " Pizza") + " with "
+                    + (toppings.stream()
+                        .map(Topping::toString)
+                        .map(Pizza::titleCase)
+                        .map(s -> s.replace("_", " "))
+                        .collect(Collectors.toList())
+                        .toString()
+                        .replaceAll("[\\[\\]]", ""));
+        }
     }
 
     private static String titleCase(String str) {

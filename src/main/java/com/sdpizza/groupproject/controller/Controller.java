@@ -69,7 +69,7 @@ public class Controller {
     private static final ArrayList<CheckBox> toppingChoices = new ArrayList<>();
 
     @FXML
-    private static String pizzaOptions = "Test";
+    private static String pizzaOptions = "";
 
 
     /* May come in useful in the future */
@@ -102,6 +102,7 @@ public class Controller {
             toppingChoices.add(olives);
             toppingChoices.add(onions);
         }
+        if (pizzaOptions != null ) pizzaOptions = "";
     }
 
     @SuppressWarnings("unused")
@@ -199,6 +200,9 @@ public class Controller {
         orderConfirmButton.setDisable(false);
         sizeToggleGroup.selectToggle(null);
         baseToggleGroup.selectToggle(null);
+        toppingChoices.forEach(c -> c.setSelected(false));
+        initQuantitySpinner();
+        addToCartButton.setDisable(true);
     }
 
     @FXML
@@ -243,7 +247,7 @@ public class Controller {
 
     /* TODO: This method will collect info and present it on order confirmation page */
     public void getPizzaInfo() {
-        pizzaOptions = "No pizzas :("; /* Display this if all else fails */
+        /*pizzaOptions = "No pizzas :("; /* Display this if all else fails */
         RadioButton size = (RadioButton) sizeToggleGroup.getSelectedToggle();
         RadioButton base = (RadioButton) baseToggleGroup.getSelectedToggle();
 
@@ -259,7 +263,7 @@ public class Controller {
                                        .replace(" ", "_"))
                             .map(Pizza.Topping::valueOf)
                             .collect(Collectors.toList()));
-        pizzaOptions = pizza.toString();
+        pizzaOptions += pizza.toString() + "\n";
     }
 
     @FXML
