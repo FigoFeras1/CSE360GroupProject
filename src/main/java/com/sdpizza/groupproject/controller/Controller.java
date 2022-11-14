@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import com.sdpizza.groupproject.entity.model.User;
 
@@ -323,20 +322,20 @@ public class Controller {
         Task<Void> task = new Task<>() {
             @Override
             public Void call() throws Exception {
-                List<Order> orders = orderController.getUserOrders();
-                ObservableList<String> notifications =
-                        FXCollections.observableList(orders.stream()
-                              .map(Controller::notificationPrettyPrinter)
-                              .collect(Collectors.toList()));
-
                 while (!isCancelled()) {
-                    Platform.runLater(
-                            () -> notificationListView.setItems(notifications)
-                    );
+                    List<Order> orders = orderController.getUserOrders();
+                    ObservableList<String> notifications =
+                            FXCollections.observableList(orders.stream()
+                                  .map(Controller::notificationPrettyPrinter)
+                                  .collect(Collectors.toList()));
 
-                    notificationListView.refresh();
-                    /* This controls how long it takes between increments (ms) */
-                    Thread.sleep(5000);
+                        Platform.runLater(
+                                () -> notificationListView.setItems(notifications)
+                        );
+
+                        notificationListView.refresh();
+                        /* This controls how long it takes between increments (ms) */
+                        Thread.sleep(5000);
                 }
 
                 return null;
