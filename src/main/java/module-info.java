@@ -1,17 +1,18 @@
 module com.sdpizza.groupproject {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
+    requires javafx.base;
     requires java.sql;
     requires com.h2database;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
+    exports com.sdpizza.groupproject;
 
 
     opens com.sdpizza.groupproject
             to javafx.fxml;
-    exports com.sdpizza.groupproject
-            to javafx.graphics;
 
     opens com.sdpizza.groupproject.controller
             to javafx.fxml;

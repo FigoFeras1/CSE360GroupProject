@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
@@ -131,7 +132,7 @@ public class Controller {
     protected void login() {
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : RED);
+        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
 
         idField.setBorder(Border.stroke(borderColor));
         passwordField.setBorder(Border.stroke(borderColor));
@@ -163,7 +164,7 @@ public class Controller {
     protected void register() {
         boolean fieldsFilled = (idField.getCharacters().length() > 0
                                 && passwordField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : RED);
+        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
 
         firstField.setBorder(Border.stroke(borderColor));
         lastField.setBorder(Border.stroke(borderColor));
@@ -205,7 +206,7 @@ public class Controller {
     @FXML
     protected void orderStatus() {
         boolean fieldsFilled = (confirmField.getCharacters().length() > 0);
-        Color borderColor = (fieldsFilled ? Color.GREY : RED);
+        Color borderColor = (fieldsFilled ? Color.GREY : Color.RED);
 
         confirmField.setBorder(Border.stroke(borderColor));
 
@@ -411,7 +412,7 @@ public class Controller {
                         {
                             quantitySpinner.setBorder(Border.stroke(Color.RED));
                             quantitySpinnerLabel.setText("min: 1,\nmax: 100");
-                            quantitySpinnerLabel.setTextFill(RED);
+                            quantitySpinnerLabel.setTextFill(Color.RED);
                             quantitySpinner.getValueFactory().setValue(oldValue);
                         } else {
                             quantitySpinner.commitValue();

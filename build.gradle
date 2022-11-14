@@ -16,8 +16,8 @@ ext {
     junitVersion = '5.8.2'
 }
 
-//sourceCompatibility = '11'
-//targetCompatibility = '11'
+sourceCompatibility = '11'
+targetCompatibility = '11'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -51,6 +51,18 @@ jlink {
         name = 'app'
     }
 }
+
+jar {
+   manifest {
+       attributes('Main-Class': 'com.sdpizza.groupproject.Main')
+   }
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+
+   from {
+    configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+   }
+}
+
 
 jlinkZip {
     group = 'distribution'
