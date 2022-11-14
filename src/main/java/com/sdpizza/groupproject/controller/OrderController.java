@@ -3,6 +3,7 @@ package com.sdpizza.groupproject.controller;
 import com.sdpizza.groupproject.database.repository.OrderRepository;
 import com.sdpizza.groupproject.entity.model.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,6 +24,16 @@ public class OrderController {
 
     public List<Order> getPastUserOrders() {
         return orderRepository.get(Controller.activeUser.getID(), Order.Status.READY);
+    }
+
+    public List<Order> getUserOrders() {
+        List<Order> orders = new ArrayList<>();
+
+        for (Order.Status status : Order.Status.values()) {
+            orders.addAll(orderRepository.get(Controller.activeUser.getID(), status));
+        }
+
+        return orders;
     }
 
     public void nextStage(Order order) {

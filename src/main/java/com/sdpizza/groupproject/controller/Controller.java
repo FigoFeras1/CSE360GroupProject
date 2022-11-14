@@ -78,7 +78,11 @@ public class Controller {
     private static String pizzaOptions = "";
 
     @FXML
-    private ListView<Order> pastOrderListView, readyToCookList, cookingList, acceptedListView;
+    private ListView<Order> pastOrderListView, readyToCookList, cookingList,
+             acceptedListView;
+
+    @FXML
+    private ListView<String> notificationListView;
 
 
     /* May come in useful in the future */
@@ -115,6 +119,7 @@ public class Controller {
         if (pastOrderListView != null) initPastOrders();
         if (cookingList != null) initChefLists();
         if (acceptedListView != null) initAccepted();
+        if (notificationListView != null) initNotifications();
     }
 
     @SuppressWarnings("unused")
@@ -272,7 +277,7 @@ public class Controller {
             public Void call() throws Exception {
                 List<Order.Status> statuses = List.of(Order.Status.values());
                 final int max = statuses.size() - 1;
-                Order.Status currentStatus = Order.Status.ACCEPTED;
+                Order.Status currentStatus = currentOrder.getStatus();
 
                 while (!isCancelled()) {
                     Platform.runLater(
@@ -289,6 +294,55 @@ public class Controller {
         };
 
         statusProgressBar.progressProperty().bind(task.progressProperty());
+        new Thread(task).start();
+    }
+
+    protected static String notificationPrettyPrinter(Order order) {
+        String str = "Order #" + order.getID() + ": ";
+
+        switch (order.getStatus()) {
+            case ACCEPTED:
+                str += " Your order is processing!";
+                break;
+            case READY_TO_COOK:
+            case COOKING:
+                str += " Your order is being cooked by our chef!";
+                break;
+            case READY:
+                str += " Your order is ready!!";
+                break;
+            default:
+                break;
+        }
+
+        return str;
+    }
+
+
+    protected void notification() {
+        Task<Void> task = new Task<>() {
+            @Override
+            public Void call() throws Exception {
+                List<Order> orders = orderController.getUserOrders();
+                ObservableList<String> notifications =
+                        FXCollections.observableList(orders.stream()
+                              .map(Controller::notificationPrettyPrinter)
+                              .collect(Collectors.toList()));
+
+                while (!isCancelled()) {
+                    Platform.runLater(
+                            () -> notificationListView.setItems(notifications)
+                    );
+
+                    notificationListView.refresh();
+                    /* This controls how long it takes between increments (ms) */
+                    Thread.sleep(5000);
+                }
+
+                return null;
+            }
+        };
+
         new Thread(task).start();
     }
 
@@ -369,7 +423,7 @@ public class Controller {
 
     protected void initPastOrders() {
         ObservableList<Order> orders =
-                FXCollections.observableList(orderController.getOrders(Order.Status.ACCEPTED));
+                FXCollections.observableList(orderController.getPastUserOrders());
         pastOrderListView.setItems(orders);
         float totalCost = orders.stream()
                                 .map(Order::getCost)
@@ -392,6 +446,18 @@ public class Controller {
         ObservableList<Order> accepted =
                 FXCollections.observableList(orderController.getOrders(Order.Status.ACCEPTED));
         acceptedListView.setItems(accepted);
+    }
+
+    protected void initNotifications() {
+        List<Order> orders = orderController.getUserOrders();
+
+        ObservableList<String> obsList =
+                FXCollections.observableList(orders
+                                                .stream()
+                                                .map(Controller::notificationPrettyPrinter)
+                                                .collect(Collectors.toList()));
+        notificationListView.setItems(obsList);
+        notification();
     }
 
     @FXML
