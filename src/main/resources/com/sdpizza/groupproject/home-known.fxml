@@ -29,6 +29,7 @@
                 <Button fx:id="orderHistoryButton" mnemonicParsing="false" onAction="#orderHistory" prefHeight="50.0" prefWidth="1956.0" text="Order History" />
                 <Button fx:id="orderButton" mnemonicParsing="false" onAction="#placeOrder" prefHeight="50.0" prefWidth="1956.0" text="Order" />
                 <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" prefHeight="50.0" prefWidth="1956.0" text="Logout" />
+            <ListView prefHeight="77.0" prefWidth="1956.0" />
             </children></VBox>
         <VBox alignment="BOTTOM_CENTER" prefHeight="1203.0" prefWidth="1956.0" style="-fx-background-color: #8C1D40;">
             <children>
