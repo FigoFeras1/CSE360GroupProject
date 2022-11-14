@@ -44,10 +44,10 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ListView fx:id="pastOrderListView" prefHeight="627.0" prefWidth="664.0" />
+                  <ListView fx:id="pastOrderListView" prefHeight="403.0" prefWidth="664.0" />
                </children>
                 </HBox>
             </children></VBox>
-      <VBox prefHeight="282.0" prefWidth="1080.0" style="-fx-background-color: #8C1D40;" />
+      <VBox prefHeight="99.0" prefWidth="1080.0" style="-fx-background-color: #8C1D40;" />
     </children>
 </VBox>

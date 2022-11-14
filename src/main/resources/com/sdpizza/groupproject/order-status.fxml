@@ -22,7 +22,7 @@
                         </Label>
                   <Label fx:id="statusLabel" text="Processing Your Order..." />
                   <ProgressBar fx:id="statusProgressBar" prefWidth="200.0" progress="0.34" />
-                        <Label text="Large Pepperoni with Extra Cheese" />
+                        <Label fx:id="orderNumberLabel" text="Large Pepperoni with Extra Cheese" />
                         <AnchorPane />
                         <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
                   <VBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="349.0" spacing="5.0">

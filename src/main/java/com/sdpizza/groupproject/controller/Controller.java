@@ -34,20 +34,22 @@ import static javafx.scene.paint.Color.RED;
 public class Controller {
 
     protected static User activeUser = null;
+    protected static Order currentOrder = new Order();
 
     private final UserController userController = new UserController();
     private final OrderController orderController = new OrderController();
 
     @FXML
     private Label loginText, pizzasInOrder, registerText, statusLabel,
-                  quantitySpinnerLabel, costLabel;
+                  quantitySpinnerLabel, costLabel, orderNumberLabel;
 
     @SuppressWarnings("unused")
     @FXML
     private Button loginButton, adminLoginButton, registerButton, homeLoginButton,
                    homeLogoutButton, homeRegisterButton, orderCancelButton,
-                   logoutButton, orderHistoryButton, orderButton,
-                   addToCartButton, orderConfirmButton, homeOrderButton, orderStatusButton;
+                   logoutButton, orderHistoryButton, orderButton, sendToKitchenButton,
+                   addToCartButton, orderConfirmButton, homeOrderButton, orderStatusButton,
+                   csrButton, chefButton, finishButton;
 
     @FXML
     private TextField idField, firstField, lastField, confirmField;
@@ -76,7 +78,7 @@ public class Controller {
     private static String pizzaOptions = "";
 
     @FXML
-    private ListView<Order> pastOrderListView, readyToCookList, cookingList;
+    private ListView<Order> pastOrderListView, readyToCookList, cookingList, acceptedListView;
 
 
     /* May come in useful in the future */
@@ -112,6 +114,7 @@ public class Controller {
         if (pizzaOptions != null ) pizzaOptions = "";
         if (pastOrderListView != null) initPastOrders();
         if (cookingList != null) initChefLists();
+        if (acceptedListView != null) initAccepted();
     }
 
     @SuppressWarnings("unused")
@@ -186,7 +189,7 @@ public class Controller {
 
     @FXML
     protected void addToCart() {
-        getPizzaInfo();
+        currentOrder.add(getPizzaInfo());
         orderConfirmButton.setDisable(false);
         sizeToggleGroup.selectToggle(null);
         baseToggleGroup.selectToggle(null);
@@ -210,6 +213,10 @@ public class Controller {
 
         long id = ControllerUtils.validateASUID(confirmField, loginText);
         if (userController.checkID(id, activeUser)) {
+            currentOrder.setStatus(Order.Status.ACCEPTED);
+            currentOrder.setUser(activeUser);
+            orderController.processOrder(currentOrder);
+            System.out.println(orderController.getOrder(currentOrder));
             loadView(orderStatusButton, "order-status.fxml");
         }
     }
@@ -236,7 +243,7 @@ public class Controller {
     }
 
     /* TODO: This method will collect info and present it on order confirmation page */
-    public void getPizzaInfo() {
+    public Pizza getPizzaInfo() {
         RadioButton size = (RadioButton) sizeToggleGroup.getSelectedToggle();
         RadioButton base = (RadioButton) baseToggleGroup.getSelectedToggle();
 
@@ -253,10 +260,13 @@ public class Controller {
                             .map(Pizza.Topping::valueOf)
                             .collect(Collectors.toList()));
         pizzaOptions += pizza + "\n";
+
+        return pizza;
     }
 
     @FXML
     protected void status() {
+        orderNumberLabel.setText("Order #" + currentOrder.getID());
         Task<Void> task = new Task<>() {
             @Override
             public Void call() throws Exception {
@@ -280,6 +290,39 @@ public class Controller {
 
         statusProgressBar.progressProperty().bind(task.progressProperty());
         new Thread(task).start();
+    }
+
+    @FXML
+    protected void sendToKitchen() {
+        Order order = acceptedListView.getSelectionModel().getSelectedItem();
+        orderController.nextStage(order);
+        acceptedListView.getItems().remove(order);
+        acceptedListView.refresh();
+    }
+
+    @FXML
+    protected void startCooking() {
+        Order order = readyToCookList.getSelectionModel().getSelectedItem();
+        readyToCookList.getItems().remove(order);
+        cookingList.getItems().add(order);
+        orderController.nextStage(order);
+
+        readyToCookList.refresh();
+        cookingList.refresh();
+    }
+
+    @FXML
+    protected void finishOrder() {
+        Order order = cookingList.getSelectionModel().getSelectedItem();
+        orderController.nextStage(order);
+        cookingList.getItems().remove(order);
+
+        cookingList.refresh();
+    }
+
+    @FXML
+    protected void kitchenView() {
+        loadView(chefButton, "chef.fxml");
     }
 
     @FXML
@@ -345,6 +388,12 @@ public class Controller {
         cookingList.setItems(cooking);
     }
 
+    protected void initAccepted() {
+        ObservableList<Order> accepted =
+                FXCollections.observableList(orderController.getOrders(Order.Status.ACCEPTED));
+        acceptedListView.setItems(accepted);
+    }
+
     @FXML
     protected void homeLogin() {
         loadView(homeLoginButton, "login-form.fxml");
@@ -373,6 +422,11 @@ public class Controller {
 
     @FXML
     protected void orderHistory() {loadView(orderHistoryButton, "order-history.fxml");}
+
+    @FXML
+    protected void csrView() {
+        loadView(csrButton, "customer-service.fxml");
+    }
 
     @FXML
     public void keyPressed(KeyEvent event) {
