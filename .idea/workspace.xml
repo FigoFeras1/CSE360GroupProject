@@ -9,10 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4141a79-c7f6-4aad-816b-57b162a4bf41" name="Changes" comment="removal of gradle successful">
+    <list default="true" id="a4141a79-c7f6-4aad-816b-57b162a4bf41" name="Changes" comment="removed application.jar (final commit i promise)">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/db/sdpizza.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/database/db/sdpizza.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/CSE360GroupProject-2.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/CSE360GroupProject-2.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sdpizza/groupproject/controller/OrderCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdpizza/groupproject/controller/util/OrderCell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,11 +102,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/sdpizza/groupproject/controller/util" />
       <recent name="$PROJECT_DIR$/src/main/java" />
       <recent name="$PROJECT_DIR$/src/main/java/com" />
       <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/main/com/sdpizza/groupproject" />
-      <recent name="$PROJECT_DIR$/src/main/com/sdpizza" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.sdpizza.groupproject" />
@@ -183,7 +184,8 @@
       <workItem from="1668295804170" duration="1253000" />
       <workItem from="1668364774859" duration="53412000" />
       <workItem from="1668421318138" duration="1182000" />
-      <workItem from="1668422513158" duration="469000" />
+      <workItem from="1668422513158" duration="2369000" />
+      <workItem from="1668471295892" duration="328000" />
     </task>
     <task id="LOCAL-00001" summary="Fix: Fixed checkout button">
       <created>1667710288553</created>
@@ -430,7 +432,28 @@
       <option name="project" value="LOCAL" />
       <updated>1668422740132</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="fixing .idea folder">
+      <created>1668423060001</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1668423060001</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fixing .idea folder">
+      <created>1668423123740</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1668423123740</updated>
+    </task>
+    <task id="LOCAL-00038" summary="removed application.jar (final commit i promise)">
+      <created>1668423196178</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1668423196178</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -460,8 +483,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="trivial commit; just pushed because moved repositories around" />
-    <MESSAGE value="removed IRepository.java; renamed PizzaSerializer; Will deprecate and remove some more serialization/resolution methods and classes soon. &#10;&#10;User functionality should be fully working, orders are half working and still in progress." />
     <MESSAGE value="fix: module-info updated to work. Moved Controllers to their own package" />
     <MESSAGE value="feature: order database functions fully implemented, not tested" />
     <MESSAGE value="fix: order functionality fixed and tested for the most part; ready to use" />
@@ -485,7 +506,9 @@
     <MESSAGE value="renamed jar for clarity; removed css" />
     <MESSAGE value="jar packaging and running with maven is fully functional" />
     <MESSAGE value="removal of gradle successful" />
-    <option name="LAST_COMMIT_MESSAGE" value="removal of gradle successful" />
+    <MESSAGE value="fixing .idea folder" />
+    <MESSAGE value="removed application.jar (final commit i promise)" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed application.jar (final commit i promise)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
