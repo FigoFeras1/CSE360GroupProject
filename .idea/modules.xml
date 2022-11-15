@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CSE360GroupProject.iml" filepath="$PROJECT_DIR$/CSE360GroupProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CSE360GroupProject.iml" filepath="$PROJECT_DIR$/.idea/modules/CSE360GroupProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CSE360GroupProject.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CSE360GroupProject.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CSE360GroupProject.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CSE360GroupProject.test.iml" />
     </modules>
   </component>
 </project>

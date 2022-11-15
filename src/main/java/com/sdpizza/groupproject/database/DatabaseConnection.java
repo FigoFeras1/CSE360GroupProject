@@ -11,7 +11,7 @@ public class DatabaseConnection {
     private final static String USER = "admin";
     private final static String PASSWORD = "password";
     private final static String URL =
-            "jdbc:h2:./database/db/sdpizza;AUTO_SERVER=TRUE";
+            "jdbc:h2:./database/db/sdpizza;AUTO_SERVER=TRUE;INIT=runscript from './database/schema.sql'";
     private static Connection connection;
 
     public static void init() {
