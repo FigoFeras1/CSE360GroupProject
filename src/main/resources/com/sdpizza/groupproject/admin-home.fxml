@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
+<VBox alignment="TOP_CENTER" prefHeight="987.0" prefWidth="1890.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
     <children>
         <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;">
             <opaqueInsets>
@@ -22,6 +22,7 @@
             <Text fill="#eaa221" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello, admin" />
          </children>
         </VBox>
+      <VBox prefHeight="259.0" prefWidth="1890.0" />
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="352.0" prefWidth="600.0">
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
@@ -50,6 +51,7 @@
             </VBox>
          </children>
         </AnchorPane>
+      <VBox prefHeight="332.0" prefWidth="1890.0" />
       <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;">
          <opaqueInsets>
             <Insets />

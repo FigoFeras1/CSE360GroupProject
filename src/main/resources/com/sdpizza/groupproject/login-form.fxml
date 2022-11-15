@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
+<VBox prefHeight="987.0" prefWidth="1890.0" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
    <children>
       <VBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;">
          <opaqueInsets>

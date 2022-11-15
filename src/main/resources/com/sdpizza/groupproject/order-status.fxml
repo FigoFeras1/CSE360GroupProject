@@ -8,9 +8,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
+<VBox alignment="CENTER" prefHeight="987.0" prefWidth="1890.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
     <children>
           <VBox prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;" />
+      <VBox prefHeight="304.0" prefWidth="1890.0" />
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="600.0">
             <children>
                 <VBox alignment="CENTER" layoutX="126.0" layoutY="54.0" prefHeight="258.0" prefWidth="349.0">
@@ -38,6 +39,7 @@
                 <Cursor fx:constant="DEFAULT" />
             </cursor>
         </AnchorPane>
+      <VBox prefHeight="268.0" prefWidth="1890.0" />
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;" />
     </children>
 </VBox>
