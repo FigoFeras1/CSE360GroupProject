@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="987.0" prefWidth="1890.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
+    <children>
+      <VBox alignment="CENTER" prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #8C1D40;">
+         <children>
+                  <Label alignment="CENTER" text="Confirm Order" textFill="#ffc627">
+                      <font>
+                          <Font size="40.0" />
+                      </font>
+                  </Label>
+         </children>
+      </VBox>
+      <VBox prefHeight="314.0" prefWidth="1890.0" />
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="600.0">
+            <children>
+                <VBox alignment="CENTER" layoutX="126.0" prefHeight="258.0" prefWidth="349.0" spacing="6.0">
+                    <children>
+                  <Label fx:id="pizzasInOrder" text="Label" wrapText="true" />
+                        <AnchorPane />
+                        <Label fx:id="loginText" alignment="BOTTOM_CENTER" prefHeight="18.0" prefWidth="247.0" text="label" visible="false" />
+                  <Label text="Please Enter Your ASU ID" />
+                  <TextField fx:id="confirmField" prefHeight="25.0" prefWidth="316.0" promptText="ASU ID" />
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="349.0" spacing="5.0">
+                     <children>
+                        <Button fx:id="orderCancelButton" mnemonicParsing="false" onAction="#orderCancel" text="Cancel" />
+                        <Button fx:id="orderStatusButton" mnemonicParsing="false" onAction="#orderStatus" text="Confirm" />
+                     </children>
+                  </HBox>
+                    </children>
+                </VBox>
+                <VBox layoutX="154.0" layoutY="-234.0" prefHeight="200.0" prefWidth="100.0" />
+            </children>
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+        </AnchorPane>
+      <VBox prefHeight="291.0" prefWidth="1890.0" />
+    </children>
+</VBox>

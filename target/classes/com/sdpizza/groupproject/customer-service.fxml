@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1186.0" prefWidth="1890.0" style="-fx-background-color: #8C1D40;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sdpizza.groupproject.controller.Controller">
+   <children>
+      <HBox layoutX="59.0" layoutY="14.0" prefHeight="1186.0" prefWidth="1890.0">
+         <children>
+            <VBox prefHeight="1186.0" prefWidth="513.0">
+               <children>
+                  <ListView fx:id="acceptedListView" prefHeight="869.0" prefWidth="569.0" style="-fx-border-color: #8C1D40; -fx-border-width: 10;" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="1186.0" prefWidth="398.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="339.0">
+                     <children>
+                        <HBox prefHeight="137.0" prefWidth="307.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="63.0" prefWidth="93.0">
+                                             <children>
+                                                <Label prefHeight="64.0" prefWidth="76.0" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0" />
+                                       </children>
+                                    </VBox>
+                                 </children></HBox>
+                              <HBox prefHeight="137.0" prefWidth="307.0">
+                                 <children>
+                                    <VBox prefHeight="137.0" prefWidth="184.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="39.0" prefWidth="146.0">
+                                             <children>
+                                                <Label prefHeight="26.0" prefWidth="150.0" text="Customer Service Kiosk" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children></VBox>
+                                          <VBox prefHeight="20.0" prefWidth="100.0" />
+                                          <VBox alignment="CENTER" prefHeight="117.0" prefWidth="160.0" spacing="7.0">
+                                             <children>
+                                                <Button fx:id="sendToKitchenButton" mnemonicParsing="false" onAction="#sendToKitchen" prefHeight="26.0" prefWidth="102.0" text="Send..." />
+                                                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" text="Logout" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="186.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="59.0" prefWidth="94.0">
+                                             <children>
+                                                <Label contentDisplay="CENTER" prefHeight="46.0" prefWidth="81.0" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0" />
+                                       </children>
+                                    </VBox>
+                                 </children></HBox>
+                           </children>
+                        </HBox>
+                     </children></VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox prefHeight="140.0" prefWidth="307.0">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                           </children>
+                        </HBox>
+                     </children></VBox>
+               </children>
+               <padding>
+                  <Insets top="25.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</Pane>
