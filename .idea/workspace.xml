@@ -9,20 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d345966-c388-4f5e-8716-86748fcda408" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_win_17_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_linux_17_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_win_17_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_linux_17_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_win_17_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_linux_17_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="3d345966-c388-4f5e-8716-86748fcda408" name="Changes" comment="fixed jdbc url">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/db/sdpizza.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/database/db/sdpizza.mv.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sdpizza/groupproject/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sdpizza/groupproject/database/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/CSE360GroupProject-2.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/CSE360GroupProject-2.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -489,7 +479,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668474600811</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="fixed jdbc url">
+      <created>1668477606187</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1668477606187</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -519,7 +516,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feature: order database functions fully implemented, not tested" />
     <MESSAGE value="fix: order functionality fixed and tested for the most part; ready to use" />
     <MESSAGE value="added documentation and cleaned up some code" />
     <MESSAGE value="fix: fixed label issues with order-confirmation&#10;&#10;renamed fxml files, removed ItemSerializer" />
@@ -544,7 +540,8 @@
     <MESSAGE value="fixing .idea folder" />
     <MESSAGE value="removed application.jar (final commit i promise)" />
     <MESSAGE value="fix?" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix?" />
+    <MESSAGE value="fixed jdbc url" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed jdbc url" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
